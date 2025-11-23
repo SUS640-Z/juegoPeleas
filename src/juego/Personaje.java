@@ -82,6 +82,24 @@ public class Menu {
 	}
 	
 	public static void jugar() {
+		System.out.print("Ingresa nombre de jugador 1 --> ");
+		jugador1.nombre = in.nextLine(); 
+		System.out.print("Ingresa nombre de jugador 2 --> ");
+		jugador2.nombre = in.nextLine();
+		
+		System.out.println("Se escogera un jugador alazar para ser el primero ");
+		presionarEnter();
+		
+		int primero = (int) (Math.random() * 2)+1;
+		
+		while(jugador1.personajes == 3 && jugador1.personajes) {
+			if(primero == 1) {
+				primero=2;
+			}else {
+				primero=1;
+			}
+		}
+
 		
 	}
 }
