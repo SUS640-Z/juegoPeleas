@@ -1,4 +1,4 @@
-package juegoPeleas;
+package juego;
 
 /**
  * La clase personaje modela a un personaje elegible con caracteristicas detalladas que serviran durante el combate.
