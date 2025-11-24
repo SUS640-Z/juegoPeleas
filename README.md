@@ -1,5 +1,5 @@
 Equipo:
 Jesus Ivan
 Guillermo
-Etneilav
+Etneilav Andreé Soto Valdéz
 Favio
