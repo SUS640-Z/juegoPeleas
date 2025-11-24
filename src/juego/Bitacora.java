@@ -10,7 +10,7 @@ package juego;
  */
 
 public class Bitacora {
-	/* nigga */
+	/* nigga estupido*/
 	String accion;
 	Personaje atacante;
 	Personaje objetivo;
