@@ -1,5 +1,14 @@
 package juego;
 
+/**
+ * La clase espadachin hijo de clse personaje
+ * Establece estadisticas y movimientos de espadachin
+ * @author Etneilav Soto
+ * @author Jesus Ivan
+ * @author Guillermo Green
+ * @author Favio Emiliano
+ * @version 0.2
+ */
 public class Espadachin extends Personaje{
 	
 	Espadachin(String nombre, Arma arma){

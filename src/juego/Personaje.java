@@ -3,6 +3,9 @@ package juego;
 /**
  * La clase personaje modela a un personaje elegible con caracteristicas detalladas que serviran durante el combate.
  * @author Etneilav Soto
+ * @author Jesus Ivan
+ * @author Guillermo Green
+ * @author Favio Emiliano
  * @version 1.0
  */
 public abstract class Personaje {
@@ -17,6 +20,9 @@ public abstract class Personaje {
 	protected boolean tieneEfecto;
 	protected String tipoEfecto;
 	protected int duracionEfecto;
+	//Variable puesta por Ivan
+	protected boolean disponible;
+	
 	
 	//Constructores---------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
@@ -44,6 +50,7 @@ public abstract class Personaje {
 		this.tieneEfecto = tieneEfecto;
 		this.tipoEfecto = tipoEfecto;
 		this.duracionEfecto = duracionEfecto;
+		this.disponible=true;
 	}
 
 	//Getters y setters---------------------------------------------------------------------------------------------------------------------------------------------------------------
