@@ -15,16 +15,13 @@ public abstract class Personaje {
 	protected int vidaActual;
 	protected int poderAtaque;
     protected double precision;
-	protected int poderAtaque;
 	protected int armadura;
-	protected int poderAtaque;
 	protected Arma arma;
 	protected int nivel;
 	protected int experiencia;
-	protected boolean tieneEfectoo;
+	protected boolean tieneEfecto;
+	protected String tipoEfecto;
 	protected int duracionEfecto;
-	//Variable puesta por Ivan
-	protected boolean disponible;
 	
 	
 	//Constructores---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -43,22 +40,21 @@ public abstract class Personaje {
 	 * @param tipoEfecto El tipo de efecto de estado
 	 * @param duracionEfecto Cuantos turnos tendrá el efecto actual
  double presicion, int armadura,	 */
-	public Personaje(String nombre, int vidaMaxima, int vidaActual, int poderAtaque, Arma arma, int nivel, int experiencia, boolean tieneEfecto, String tipoEfecto, int duracionEfecto) {
+	public Personaje(String nombre, int vidaMaxima, int vidaActual, int poderAtaque, double precision, int armadura, Arma arma, int nivel, int experiencia, boolean tieneEfecto, String tipoEfecto, int duracionEfecto) {
 		this.nombre = nombre;
 		this.vidaMaxima = vidaMaxima;
 		this.vidaActual = vidaActual;
-		this.presicion = presicion;
-		this.armadura = armadura;		
 		this.poderAtaque = poderAtaque;
+	    this.precision = precision;
+		this.armadura = armadura;
 		this.arma = arma;
 		this.nivel = nivel;
 		this.experiencia = experiencia;
 		this.tieneEfecto = tieneEfecto;
 		this.tipoEfecto = tipoEfecto;
 		this.duracionEfecto = duracionEfecto;
-		this.disponible = true;
 	}
-
+	
 	//Getters y setters---------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * @return El nombre
@@ -68,8 +64,7 @@ public abstract class Personaje {
 	}
 
 	/**
-	 * Setter q.
- recibe y actualiza el nuevo nombre para el personaje
+	 * Setter que recibe y actualiza el nuevo nombre para el personaje
 	 * @param nombre Nombre del personaje
 	 */
 	public void setNombre(String nombre) {
@@ -124,8 +119,8 @@ public abstract class Personaje {
 	/**
 	 * @return La probabilidad para acertar un ataque
 	 */
-	public int getPrecision() {
-		return presicion;
+	public double getPrecision() {
+		return precision;
 	}
 
 	/**
@@ -133,7 +128,7 @@ public abstract class Personaje {
 	 * @param presicion La probabilidad para acertar un ataque
 	 */	
 	public void setPresicion(double presicion) {
-		this.presicion = presicion;
+		this.precision = presicion;
 	}
 
 	/**
@@ -252,7 +247,7 @@ public abstract class Personaje {
 				"\nVida Maxima: " + vidaMaxima + 
 				"\nVida Actual: " + vidaActual + 
 				"\nPoder de Ataque: " + poderAtaque + 
-				"\nPresicion: " + presicion + "%" +
+				"\nPrecision: " + precision + "%" +
 				"\nArmadura: " + armadura + 
 				"\nArma: " + arma.getNombre() + 
 				"\nCritico: " + arma.getProbabilidadCritico() + 

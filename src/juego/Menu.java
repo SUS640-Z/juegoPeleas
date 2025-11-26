@@ -18,14 +18,15 @@ public class Menu {
 		Jugador jugador2 = new Jugador();
 		Personaje[] personajes = new Personaje[8];
 
-		// Espadachines
-		personajes[0] = new Espadachin("Memo", new Arma("Escalibur",1,,70,100));
-		personajes[1] = new Espadachin("Geremias",  new Arma("Escalibur",1,,70,100));
+		// Espadachineses
+		personajes[0] = new Espadachin("Memo", new Arma("Escalibur",1,70));
+		personajes[1] = new Espadachin("Geremias",  new Arma("Escalibur",1,70));
 		// Tanques
-		personajes[2] = new Tanque("Juan Carlos de la Mancha", new Arma("Escalibur",1,,70,100));
-		personajes[3] = new Tanque("Leto",  new Arma("Escalibur",1,,70,100)		// Pistoleros
-		personajes[4] = new Pistolero("Niño Tierra", new Arma("Escalibur",1,,70,100));
-		personajes[5] = new Pistolero("Mango Wizard", new Arma("Escalibur",1,,70,100));
+		personajes[2] = new Tanque("Juan Carlos de la Mancha", new Arma("Escalibur",1,70));
+		personajes[3] = new Tanque("Leto",  new Arma("Escalibur",1,70)		// Pistoleros
+		personajes[4] = new Pistolero("Niño Tierra", new Arma("Escalibur",1,70));
+		//Pistolero
+		personajes[5] = new Pistolero("Mango Wizard", new Arma("Escalibur",1,70));
 
 		while(opcionMenu != 4) {
 			System.out.println(titulo());
@@ -85,7 +86,7 @@ public class Menu {
 	public static void mostrarPersonajes(Personaje[] personajes) {
 		for(int i = 0; i < personajes.length; i++) {
 			if(personajes[i] != null && personajes[i].disponible) {
-				System.out.println((i+1) + "." + p)rsonajes[i].nombres;
+				System.out.println((i+1) + "." + personajes[i].nombre);
 			}
 		}
 	}	

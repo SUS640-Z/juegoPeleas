@@ -18,16 +18,15 @@ public class Arma {
     private double probabilidadCritico;
     private Random random;
 
-    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_RED = "\u001B[33m";
     /**
      * Crea un arma con los atributos especif     * @param nombre Nombre del arma.
      * @param danoExtra Daño adiciod de acertar el ataque (0.0 a 1.0).
      * @param probabilidadCritico Probabilidad de golpe crítico (0.0 a 1.0).
      */
-    public Arma(String nombre, int danoExtra, double precision, double probabilidadCritico) {
+    public Arma(String nombre, int danoExtra, double probabilidadCritico) {
         this.nombre = nombre;
         this.danoExtra = danoExtra;
-        this.precision = precision;
         this.probabilidadCritico = probabilidadCritico;
         this.random = new Random();
     }
@@ -37,13 +36,6 @@ public class Arma {
      */
     public String getNombre() {
         return nombre;
-    }
-    /**
-     * Obtiene la precisión del arma.
-     * @return precisión del arma.
-     */
-    public double getPrecision() {
-        return precision;
     }
     /**
      * Obtiene la probabilidad de golpe crítico del arma.
@@ -62,10 +54,6 @@ public class Arma {
      * @return El daño final que se inflige (0 si falla).
      */
     public int calcularDano(int danoBase) {
-        if (random.nextDouble() > precision) {
-            System.out.println(ANSI_YELLOW + " [ ⚠️ El ataque de " + nombre + " ha fallado... ]");
-            return 0;
-        }
         int danoFinal = danoBase + danoExtra;
         if (random.nextDouble() < probabilidadCritico) {
             danoFinal *= 2;

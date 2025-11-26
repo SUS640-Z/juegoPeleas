@@ -12,7 +12,7 @@ package juego;
 public class Espadachin extends Personaje{
 	
 	Espadachin(String nombre, Arma arma){
-		super(nombre, 70, 70, 80, new Arma(), 1, 0, false, "Sangrado", 2);
+		super(nombre, 70, 70, 80, 95, 15, new Arma("Espada", 15, 95), 1, 0, false, "", 0);
 	}
 
 	@Override
