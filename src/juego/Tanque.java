@@ -3,15 +3,15 @@ package juego;
 /**
  * La clase tanque hijo de clse personaje
  * Establece estadisticas y movimientos de tanque
- * @author Etneilav Soto
- * @author Jesus Ivan
- * @author Guillermo Green
- * @author Favio Emiliano
+ * @author Etneilav Andree Soto Valdez
+ * @author Jesus Ivan Jimenez Aguilar
+ * @author Guillermo Green Aviles
+ * @author Favio Emiliano Sanchez Lopez
  * @version 0.2
  */
 public class Tanque extends Personaje {
 	Tanque(String nombre, Arma arma){
-		super(nombre,100,100,50,new Arma(),1,0,false,"Escudo",2);
+		super(nombre, 100, 100, 50, 35, new Arma(), 1, 0, false, "Escudo", 2);
 	}
 
 	@Override

@@ -3,15 +3,15 @@ package juego;
 /**
  * La clase pistolero hijo de clse personaje
  * Establece estadisticas y movimientos de pistolero
- * @author Etneilav Soto
- * @author Jesus Ivan
- * @author Guillermo Green
- * @author Favio Emiliano
+ * @author Etneilav Andree Soto Valdez
+ * @author Jesus Ivan Jimenez Aguilar
+ * @author Guillermo Green Aviles
+ * @author Favio Emiliano Sanchez Lopez
  * @version 0.2
  */
 public class Pistolero extends Personaje{
 	Pistolero(String nombre, Arma arma){
-		super(nombre,60,60,90,new Arma(),1,0,false,"Aturdimiento",2);
+		super(nombre, 60, 60, 90, new Arma(), 1, 0, false, "Aturdimiento", 2);
 	}
 
 	@Override

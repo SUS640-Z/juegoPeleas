@@ -2,10 +2,10 @@ package juego;
 
 /**
  * La clase personaje modela a un personaje elegible con caracteristicas detalladas que serviran durante el combate.
- * @author Etneilav Soto
- * @author Jesus Ivan
- * @author Guillermo Green
- * @author Favio Emiliano
+ * @author Etneilav Andree Soto Valdez
+ * @author Jesus Ivan Jimenez Aguilar
+ * @author Guillermo Green Aviles
+ * @author Favio Emiliano Sanchez Lopez
  * @version 1.0
  */
 public abstract class Personaje {
@@ -14,11 +14,14 @@ public abstract class Personaje {
 	protected int vidaMaxima;
 	protected int vidaActual;
 	protected int poderAtaque;
+    protected double precision;
+	protected int poderAtaque;
+	protected int armadura;
+	protected int poderAtaque;
 	protected Arma arma;
 	protected int nivel;
 	protected int experiencia;
-	protected boolean tieneEfecto;
-	protected String tipoEfecto;
+	protected boolean tieneEfectoo;
 	protected int duracionEfecto;
 	//Variable puesta por Ivan
 	protected boolean disponible;
@@ -27,9 +30,10 @@ public abstract class Personaje {
 	//Constructores---------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Constructor que recibe todas las caracteristicas necesarias para que el personaje pueda ser jugable.
-	 * 
 	 * @param nombre Nombre del personaje
-	 * @param vidaMaxima La cantidad de vida máxima que puede tener
+	 * @param vidaMaxima La cantidad de vid
+	 * @param presicion La probabilidad para acertar un ataque
+	 * @param armadura La resistencia al daño del personajea máxima que puede tener
 	 * @param vidaActual La cantidad de vida que posee actualmente
 	 * @param poderAtaque El daño que posee
 	 * @param arma El arma que tiene equipada el personaje
@@ -38,11 +42,13 @@ public abstract class Personaje {
 	 * @param tieneEfecto Saber si el personaje posee algun efecto de estado en el momento
 	 * @param tipoEfecto El tipo de efecto de estado
 	 * @param duracionEfecto Cuantos turnos tendrá el efecto actual
-	 */
+ double presicion, int armadura,	 */
 	public Personaje(String nombre, int vidaMaxima, int vidaActual, int poderAtaque, Arma arma, int nivel, int experiencia, boolean tieneEfecto, String tipoEfecto, int duracionEfecto) {
 		this.nombre = nombre;
 		this.vidaMaxima = vidaMaxima;
 		this.vidaActual = vidaActual;
+		this.presicion = presicion;
+		this.armadura = armadura;		
 		this.poderAtaque = poderAtaque;
 		this.arma = arma;
 		this.nivel = nivel;
@@ -50,7 +56,7 @@ public abstract class Personaje {
 		this.tieneEfecto = tieneEfecto;
 		this.tipoEfecto = tipoEfecto;
 		this.duracionEfecto = duracionEfecto;
-		this.disponible=true;
+		this.disponible = true;
 	}
 
 	//Getters y setters---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -61,6 +67,11 @@ public abstract class Personaje {
 		return nombre;
 	}
 
+	/**
+	 * Setter q.
+ recibe y actualiza el nuevo nombre para el personaje
+	 * @param nombre Nombre del personaje
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -72,6 +83,10 @@ public abstract class Personaje {
 		return vidaMaxima;
 	}
 
+	/**
+	 * Setter que recibe y actualiza la cantidad de vida maxima nueva.
+	 * @param vidaMaxima La cantidad de vida máxima que puede tener
+	 */	
 	public void setVidaMaxima(int vidaMaxima) {
 		this.vidaMaxima = vidaMaxima;
 	}
@@ -83,6 +98,10 @@ public abstract class Personaje {
 		return vidaActual;
 	}
 
+	/**
+	 * Setter que recibe y actualiza la cantidad de vida actual del personaje.
+	 * @param vidaActual La cantidad de vida que posee actualmente
+	 */	
 	public void setVidaActual(int vidaActual) {
 		this.vidaActual = vidaActual;
 	}
@@ -94,8 +113,42 @@ public abstract class Personaje {
 		return poderAtaque;
 	}
 
+	/**
+	 * Setter que recibe y actualiza el daño del personaje.
+	 * @param poderAtaque El daño que posee
+	 */	
 	public void setPoderAtaque(int poderAtaque) {
 		this.poderAtaque = poderAtaque;
+	}
+
+	/**
+	 * @return La probabilidad para acertar un ataque
+	 */
+	public int getPrecision() {
+		return presicion;
+	}
+
+	/**
+	 * Setter que recibe y actualiza el daño del personaje.
+	 * @param presicion La probabilidad para acertar un ataque
+	 */	
+	public void setPresicion(double presicion) {
+		this.presicion = presicion;
+	}
+
+	/**
+	 * @return La armadura
+	 */
+	public int getArmadura() {
+		return armadura;
+	}
+
+	/**
+	 * Setter que recibe y actualiza la armadura del personaje.
+	 * @param armadura La armadura que posee el personaje
+	 */	
+	public void setArmadura(int armadura) {
+		this.armadura = armadura;
 	}
 
 	/**
@@ -105,6 +158,10 @@ public abstract class Personaje {
 		return arma;
 	}
 
+	/**
+	 * Setter que recibe y actualiza el arma del personaje.
+	 * @param arma El arma que tiene equipada el personaje
+	 */	
 	public void setArma(Arma arma) {
 		this.arma = arma;
 	}
@@ -116,6 +173,10 @@ public abstract class Personaje {
 		return nivel;
 	}
 
+	/**
+	 * Setter que recibe y actualiza el nivel actual del personaje.
+	 * @param nivel Nivel actual del personaje (no del jugador)
+	 */	
 	public void setNivel(int nivel) {
 		this.nivel = nivel;
 	}
@@ -127,6 +188,10 @@ public abstract class Personaje {
 		return experiencia;
 	}
 
+	/**
+	 * Setter que recibe y actualiza la cantidad de experiencia del personaje.
+	 * @param experiencia La progresion de experiencia para alcanzar el siguiente nivel
+	 */	
 	public void setExperiencia(int experiencia) {
 		this.experiencia = experiencia;
 	}
@@ -138,6 +203,10 @@ public abstract class Personaje {
 		return tieneEfecto;
 	}
 
+	/**
+	 * Setter que recibe y actualiza el estado (true o false) de tieneEfecto.
+	 * @param tieneEfecto Saber si el personaje posee algun efecto de estado en el momento
+	 */	
 	public void setTieneEfecto(boolean tieneEfecto) {
 		this.tieneEfecto = tieneEfecto;
 	}
@@ -149,6 +218,10 @@ public abstract class Personaje {
 		return tipoEfecto;
 	}
 
+	/**
+	 * Setter que recibe y actualiza el tipo de efecto de estado que posee el personaje (si es que tiene).
+	 * @param tipoEfecto El tipo de efecto de estado
+	 */	
 	public void setTipoEfecto(String tipoEfecto) {
 		this.tipoEfecto = tipoEfecto;
 	}
@@ -160,6 +233,10 @@ public abstract class Personaje {
 		return duracionEfecto;
 	}
 
+	/**
+	 * Setter que recibe la duracion del efecto de estado del personaje si es que posee uno.
+	 * @param duracionEfecto Cuantos turnos tendrá el efecto actual
+	 */	
 	public void setDuracionEfecto(int duracionEfecto) {
 		this.duracionEfecto = duracionEfecto;
 	}
@@ -172,10 +249,13 @@ public abstract class Personaje {
 	public String mostrarEstadisticas() {
 		return "\nPERSONAJE " +
 				"\n\nNombre: " + nombre + 
-				"\nVidaMaxima: " + vidaMaxima + 
-				"\nVidaActual: " + vidaActual + 
-				"\nPoderAtaque: " + poderAtaque + 
-				"\nArma: " + arma + 
+				"\nVida Maxima: " + vidaMaxima + 
+				"\nVida Actual: " + vidaActual + 
+				"\nPoder de Ataque: " + poderAtaque + 
+				"\nPresicion: " + presicion + "%" +
+				"\nArmadura: " + armadura + 
+				"\nArma: " + arma.getNombre() + 
+				"\nCritico: " + arma.getProbabilidadCritico() + 
 				"\nNivel: " + nivel + 
 				"\nExperiencia: " + experiencia + 
 				"\nTieneEfecto: " + tieneEfecto + 
@@ -212,13 +292,13 @@ public abstract class Personaje {
 	
 	/**
 	 * Se verifica si se pudo atacar o no, y si es que si se calcula el daño y efectos de estado que se aplicaran al enemigo.
-	 * @return boolean true si logro acertar el ataque, false si no logro acertar el ataque.
+	 * @return boolean true si logrdouble presicion, int vidaActual, int armadura) acertar el ataque, false si no logro acertar el ataque.
 	 */
 	public abstract boolean atacar();
 	
 	/**
 	 * Se verifica si se pudo usar la habilidad o no, y si es que si se calcula el daño y efectos de estado que se aplicaran al enemigo.
-	 * @return boolean true si acerto la habilidad, false si no la acerto.
+	 * @return boolean true si acerto double presicion, int vidaActual, int armadurala habilidad, false si no la acerto.
 	 */
 	public abstract boolean habilidad();
 }

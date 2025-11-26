@@ -3,16 +3,16 @@ package juego;
 /**
  * La clase espadachin hijo de clse personaje
  * Establece estadisticas y movimientos de espadachin
- * @author Etneilav Soto
- * @author Jesus Ivan
- * @author Guillermo Green
- * @author Favio Emiliano
+ * @author Etneilav Andree Soto Valdez
+ * @author Jesus Ivan Jimenez Aguilar
+ * @author Guillermo Green Aviles
+ * @author Favio Emiliano Sanchez Lopez
  * @version 0.2
  */
 public class Espadachin extends Personaje{
 	
 	Espadachin(String nombre, Arma arma){
-		super(nombre,70,70,80,new Arma(),1,0,false,"Sangrado",2);
+		super(nombre, 70, 70, 80, new Arma(), 1, 0, false, "Sangrado", 2);
 	}
 
 	@Override
