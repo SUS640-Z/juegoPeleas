@@ -23,7 +23,6 @@ public abstract class Personaje {
 	protected String tipoEfecto;
 	protected int duracionEfecto;
 	
-	
 	//Constructores---------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Constructor que recibe todas las caracteristicas necesarias para que el personaje pueda ser jugable.
