@@ -11,7 +11,7 @@ package juego;
  */
 public class Mago extends Personaje{
 	Mago(String nombre, Arma arma){
-		super(nombre, 50, 50, 100, 85, 5, new Arma("Vara", 20, 100), 1, 0, false, "", 0);
+		super(nombre, 50, 50, 100, 85, 5, new Arma("Vara", 20, 100), 1, 0, false, "", 0, 100, 100);
 	}
 
 	@Override
@@ -28,7 +28,13 @@ public class Mago extends Personaje{
 
 	@Override
 	public boolean habilidad(Jugador objetivo, int indice) {
-		// TODO Auto-generated method stub
+		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
+
+		if(probabilidadAtaque > super.precision) {
+			objetivo.personajesSelecionados[indice].vidaActual -= arma.calcularDano(super.poderAtaque);
+			return true;
+		}
+		
 		return false;
 	}
 

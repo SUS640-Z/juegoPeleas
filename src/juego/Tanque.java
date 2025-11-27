@@ -11,17 +11,17 @@ package juego;
  */
 public class Tanque extends Personaje {
 	Tanque(String nombre, Arma arma){
-		super(nombre, 100, 100, 50, 35, 50, new Arma("Escudo", 20, 100), 1, 0, false, "", 0);
+		super(nombre, 100, 100, 50, 35, 50, new Arma("Escudo", 20, 100), 1, 0, false, "", 0, 0, 0);
 	}
 
 	@Override
-	public boolean atacar() {
+	public boolean atacar(Jugador objetivo, int indice) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean habilidad() {
+	public boolean habilidad(Jugador objetivo, int indice) {
 		// TODO Auto-generated method stub
 		return false;
 	}

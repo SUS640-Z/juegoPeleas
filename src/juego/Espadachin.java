@@ -12,17 +12,17 @@ package juego;
 public class Espadachin extends Personaje{
 	
 	Espadachin(String nombre, Arma arma){
-		super(nombre, 70, 70, 80, 95, 15, new Arma("Espada", 15, 95), 1, 0, false, "", 0);
+		super(nombre, 70, 70, 80, 95, 15, new Arma("Espada", 15, 95), 1, 0, false, "", 0, 0, 0);
 	}
 
 	@Override
-	public boolean atacar() {
+	public boolean atacar(Jugador objetivo, int indice) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean habilidad() {
+	public boolean habilidad(Jugador objetivo, int indice) {
 		// TODO Auto-generated method stub
 		return false;
 	}
