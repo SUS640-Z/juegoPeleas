@@ -22,6 +22,8 @@ public abstract class Personaje {
 	protected boolean tieneEfecto;
 	protected String tipoEfecto;
 	protected int duracionEfecto;
+	protected int manaActual;
+	protected int manaMaximo;
 	
 	//Constructores---------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
@@ -38,8 +40,11 @@ public abstract class Personaje {
 	 * @param tieneEfecto Saber si el personaje posee algun efecto de estado en el momento
 	 * @param tipoEfecto El tipo de efecto de estado
 	 * @param duracionEfecto Cuantos turnos tendrá el efecto actual
+	 * @param manaActual mana actual del personaje
+	 * @param manaMaximo mana maximo del personaje
+
  double presicion, int armadura,	 */
-	public Personaje(String nombre, int vidaMaxima, int vidaActual, int poderAtaque, double precision, int armadura, Arma arma, int nivel, int experiencia, boolean tieneEfecto, String tipoEfecto, int duracionEfecto) {
+	public Personaje(String nombre, int vidaMaxima, int vidaActual, int poderAtaque, double precision, int armadura, Arma arma, int nivel, int experiencia, boolean tieneEfecto, String tipoEfecto, int duracionEfecto, int manaActual, int manaMaximo) {
 		this.nombre = nombre;
 		this.vidaMaxima = vidaMaxima;
 		this.vidaActual = vidaActual;
@@ -52,6 +57,8 @@ public abstract class Personaje {
 		this.tieneEfecto = tieneEfecto;
 		this.tipoEfecto = tipoEfecto;
 		this.duracionEfecto = duracionEfecto;
+		this.manaActual = manaActual;
+		this.manaMaximo = manaMaximo;
 	}
 	
 	//Getters y setters---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -234,6 +241,36 @@ public abstract class Personaje {
 	public void setDuracionEfecto(int duracionEfecto) {
 		this.duracionEfecto = duracionEfecto;
 	}
+
+	/**
+	 * @return El mana actual
+	 */
+	public int getManaActual() {
+		return manaActual;
+	}
+
+	/**
+	 * Setter que recibe el mana del personaje.
+	 * @param manaActual mana actual del personaje
+	 */	
+	public void setManaActual(int manaActual) {
+		this.manaActual = manaActual;
+	}
+
+	/**
+	 * @return El mana maximo
+	 */
+	public int getManaMaximo() {
+		return manaMaximo;
+	}
+
+	/**
+	 * Setter que recibe el mana maximo del personaje.
+	 * @param manaMaximo mana maximo del personaje
+	 */	
+	public void setManaMaximo(int manaMaximo) {
+		this.manaMaximo = manaMaximo;
+	}
 	
 	//Metodos
 	/**
@@ -252,9 +289,11 @@ public abstract class Personaje {
 				"\nCritico: " + arma.getProbabilidadCritico() + 
 				"\nNivel: " + nivel + 
 				"\nExperiencia: " + experiencia + 
-				"\nTieneEfecto: " + tieneEfecto + 
-				"\nTipoEfecto: " + tipoEfecto + 
-				"\nDuracionEfecto: " + duracionEfecto;
+				"\nTiene Efecto: " + tieneEfecto + 
+				"\nTipo de Efecto: " + tipoEfecto + 
+				"\nDuracion de Efecto: " + duracionEfecto +
+				"\nMana Actual: " + manaActual +
+				"\nMana Maximo: " + manaMaximo;
 	}
 
 	/**
@@ -264,24 +303,27 @@ public abstract class Personaje {
 	public boolean subeNivel() {
 		if (this.nivel >= 1 && this.nivel <= 4) {
 			if (this.nivel == 1 && this.experiencia >= 30) {
-				this.nivel = 2;
-				this.experiencia -= 30;
+				actualizarDatosDeNivel(2, 30);
 				return true;
 			} else if(this.nivel == 2 && this.experiencia >= 60) {
-				this.nivel = 3;
-				this.experiencia -= 60;
+				actualizarDatosDeNivel(3, 60);
 				return true;
 			} else if(this.nivel == 3 && this.experiencia >= 100) {
-				this.nivel = 4;
-				this.experiencia -= 100;
+				actualizarDatosDeNivel(4, 100);
 				return true;
 			} else if(this.nivel == 4 && this.experiencia >= 150) {
-				this.nivel = 5;
-				this.experiencia -= 150;
+				actualizarDatosDeNivel(5, 150);
 				return true;
 			}
 		} 
 		return false;
+	}
+
+	public void actualizarDatosDeNivel(int nivel, int experiencia){
+		this.nivel = nivel;
+		this.experiencia -= experiencia;
+		this.vidaActual = this.vidaMaxima;
+		this.manaActual = this.manaMaximo;
 	}
 	
 	/**
