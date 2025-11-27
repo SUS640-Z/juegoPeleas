@@ -22,6 +22,8 @@ public abstract class Personaje {
 	protected boolean tieneEfecto;
 	protected String tipoEfecto;
 	protected int duracionEfecto;
+	//Variable Ivan
+	protected boolean disponible;
 	
 	
 	//Constructores---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -53,6 +55,7 @@ public abstract class Personaje {
 		this.tieneEfecto = tieneEfecto;
 		this.tipoEfecto = tipoEfecto;
 		this.duracionEfecto = duracionEfecto;
+		disponible=true;
 	}
 	
 	//Getters y setters---------------------------------------------------------------------------------------------------------------------------------------------------------------

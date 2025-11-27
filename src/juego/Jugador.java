@@ -11,17 +11,13 @@ package juego;
 public class Jugador {
 	String nombre;
 	Personaje[] personajesSelecionados;
+	int contPersonajes;
 	
 	Jugador(){
 		personajesSelecionados = new Personaje[3];
+		contPersonajes=0;
 	}
 
-
-	public int personajesSeleccionados(){
-		for(int i=0; ){
-
-		}
-	}
 	
 	
 }
