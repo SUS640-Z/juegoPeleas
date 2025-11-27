@@ -31,19 +31,22 @@ public class Menu {
 
 		while(opcionMenu != 4) {
 			System.out.println(titulo());
-			System.out.println("| 1. Jugar.");
-			System.out.println("| 2. Personajes Disponibles.");
-			System.out.println("| 3. Ver Reglas.");
-			System.out.println("| 4. (Salir).");
-			System.out.println("[ Ingresa una opcion ]: ");
+			System.out.println("| 1. Jugar");
+			System.out.println("| 2. Personajes Disponibles");
+			System.out.println("| 3. Ver Reglas");
+			System.out.println("| 4. Salir");
+			System.out.print("[ Ingresa una opcion ]: ");
 			opcionMenu = in.nextInt();
 
 			switch(opcionMenu) {
 				case 1:
-					//jugar(jugador1, jugador2, personajes);
+					jugar(jugador1, jugador2, personajes);
+					in.nextLine();
 					presionarEnter();
 					break;
 				case 2:
+					mostrarPersonajes(personajes);
+					in.nextLine();
 					presionarEnter();
 					break;
 				case 3:
@@ -66,7 +69,7 @@ public class Menu {
     }
 
 	public static void reglas() {
-		System.out.println("[ \nReglas del juego ]");
+		System.out.println("\n[ Reglas del juego ]");
 		System.out.println("| 1. Los jugadores deberan ingresar un nombre por el cual se identifiquen.");
         System.out.println("| 2. El turno de los jugadores será decidido al azar.");
         System.out.println("| 3. El jugador podra decidir si atacar o usar su habilidad cuando sea turno.");
@@ -77,17 +80,73 @@ public class Menu {
 	}
 
 	public static void presionarEnter() {
-		System.out.println("[ \nPresione ENTER para continuar... ]");
+		System.out.println("\n[ Presione ENTER para continuar... ]");
 		in.nextLine();
+		for(int i=0; i<1500; i++) {
+			System.out.println("\n");
+		}
 	}
+
 
 	public static void mostrarPersonajes(Personaje[] personajes) {
 		for(int i = 0; i < personajes.length; i++) {
-			/*
-			if(personajes[i] != null && personajes[i].disponible) {
-				System.out.println((i+1) + "." + personajes[i].nombre);
+			if(personajes[i] != null) {
+				System.out.println((i+1) + "." + personajes[i].nombre +" - "+ personajes[i].mostrarClase());
 			}
-			*/
 		}
 	}	
+	
+	
+	public static void jugar(Jugador jugador1,Jugador jugador2,Personaje[] personajes) {
+		asignarNombreJugadores(jugador1,jugador2);
+		int turno = (int) (Math.random() * 2)+1;
+		while(true) {
+			if(turno == 1) {
+				escoguerPersonajes(jugador1,personajes);
+				turno=2;
+			}else{
+				escoguerPersonajes(jugador2,personajes);
+				turno=1;
+				//System.out.println((i+1) + "." + p)rsonajes[i].nombres;
+			}
+		}
+	}
+	
+	
+	public static void asignarNombreJugadores(Jugador jugador1,Jugador jugador2) {
+		in.nextLine();
+		System.out.print("Ingresa nombre de jugador 1 --> ");
+		String nombre1 = in.nextLine(); 
+		System.out.print("Ingresa nombre de jugador 2 --> ");
+		String nombre2 = in.nextLine();
+		jugador1.nombre= nombre1;
+		jugador2.nombre= nombre2;
+	}
+	
+	public static void escoguerPersonajes(Jugador jugador,Personaje[] personajes) {
+		int iPersonaje;
+		do {
+			System.out.println("\n"+jugador.nombre+" es turno de escoguer un personaje");
+			mostrarPersonajes(personajes);
+			System.out.print("Escribe el indice del personaje --> ");
+			iPersonaje = in.nextInt();
+			if(iPersonaje < 0 || iPersonaje > personajes.length) {
+				System.out.println("No hay personaje en este indice\n");
+			}
+		}while(iPersonaje < 0 || iPersonaje > personajes.length);
+		System.out.println("Se ha unido a tu equipo\n");
+		
+	}
+	
+	public static void interfaz(Jugador jugador) {
+		System.out.println("===== TURNO DEL JUGADOR "+jugador.nombre+" =====");
+		System.out.println("Personaje activo: Morgana (Mago)");
+		System.out.println("Vida: 90 / 120");
+		System.out.println("Ataque: 18");
+		System.out.println("Nivel: 2");
+		System.out.println("");
+		System.out.println("1) Atacar");
+		System.out.println("2) Usar habilidad");
+		System.out.println("3) Ver registro de combate");
+	}
 }

@@ -296,5 +296,7 @@ public abstract class Personaje {
 	 * @return boolean true si acerto double presicion, int vidaActual, int armadurala habilidad, false si no la acerto.
 	 */
 	public abstract boolean habilidad();
+	
+	public abstract String mostrarClase();
 }
 

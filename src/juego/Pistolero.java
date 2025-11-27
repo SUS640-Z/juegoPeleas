@@ -25,4 +25,9 @@ public class Pistolero extends Personaje{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public String mostrarClase() {
+		return "Pistolero";
+	}
 }

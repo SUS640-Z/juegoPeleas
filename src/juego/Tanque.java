@@ -25,6 +25,11 @@ public class Tanque extends Personaje {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public String mostrarClase() {
+		return "Tanque";
+	}
 	
 	
 	
