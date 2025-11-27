@@ -18,9 +18,7 @@ public class Jugador {
 
 
 	public int personajesSeleccionados(){
-		for(int i=0; ){
-
-		}
+		return 0;
 	}
 	
 	

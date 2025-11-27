@@ -288,13 +288,13 @@ public abstract class Personaje {
 	 * Se verifica si se pudo atacar o no, y si es que si se calcula el daño y efectos de estado que se aplicaran al enemigo.
 	 * @return boolean true si logrdouble presicion, int vidaActual, int armadura) acertar el ataque, false si no logro acertar el ataque.
 	 */
-	public abstract boolean atacar();
+	public abstract boolean atacar(Jugador objetivo, int indice);
 	
 	/**
 	 * Se verifica si se pudo usar la habilidad o no, y si es que si se calcula el daño y efectos de estado que se aplicaran al enemigo.
 	 * @return boolean true si acerto double presicion, int vidaActual, int armadurala habilidad, false si no la acerto.
 	 */
-	public abstract boolean habilidad();
+	public abstract boolean habilidad(Jugador objetivo, int indice);
 	
 	public abstract String mostrarClase();
 }
