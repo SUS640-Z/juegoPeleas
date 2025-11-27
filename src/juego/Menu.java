@@ -23,9 +23,10 @@ public class Menu {
 		personajes[1] = new Espadachin("Geremias",  new Arma("Escalibur",1,70));
 		// Tanques
 		personajes[2] = new Tanque("Juan Carlos de la Mancha", new Arma("Escalibur",1,70));
-		personajes[3] = new Tanque("Leto",  new Arma("Escalibur",1,70)		// Pistoleros
+		personajes[3] = new Tanque("Leto",  new Arma("Escalibur",1,70));
+		
+		// Pistoleros
 		personajes[4] = new Pistolero("Niño Tierra", new Arma("Escalibur",1,70));
-		//Pistolero
 		personajes[5] = new Pistolero("Mango Wizard", new Arma("Escalibur",1,70));
 
 		while(opcionMenu != 4) {
@@ -39,7 +40,7 @@ public class Menu {
 
 			switch(opcionMenu) {
 				case 1:
-					jugar(jugador1, jugador2, personajes);
+					//jugar(jugador1, jugador2, personajes);
 					presionarEnter();
 					break;
 				case 2:
@@ -57,14 +58,11 @@ public class Menu {
 	}
 
 	public static String titulo() {
-    return """
-          _____                  _                 _____  _____   _____    _____ _                 _       _               ___   ___ ___  _____           __  __  
-          |  __ \                | |               |  __ \|  __ \ / ____|  / ____(_)               | |     | |             |__ \ / _ \__ \| ____|         / / /_ | 
-          | |__) |   _ _ __   ___| |__   ___  ___  | |__) | |__) | |  __  | (___  _ _ __ ___  _   _| | __ _| |_ ___  _ __     ) | | | | ) | |__   __   __/ /_  | | 
-          |  ___/ | | | '_ \ / __| '_ \ / _ \/ __| |  _  /|  ___/| | |_ |  \___ \| | '_ ` _ \| | | | |/ _` | __/ _ \| '__|   / /| | | |/ /|___ \  \ \ / / '_ \ | | 
-          | |   | |_| | | | | (__| | | |  __/\__ \ | | \ \| |    | |__| |  ____) | | | | | | | |_| | | (_| | || (_) | |     / /_| |_| / /_ ___) |  \ V /| (_) || | 
-          |_|    \__,_|_| |_|\___|_| |_|\___||___/ |_|  \_\_|     \_____| |_____/|_|_| |_| |_|\__,_|_|\__,_|\__\___/|_|    |____|\___/____|____/    \_/  \___(_)_| 
-          """;
+    return "  ___              _             ___ ___  ___   ___ _           _      _             ___ __ ___ ___               __ _   __    ___      _        \r\n"
+    		+ " | _ \\_  _ _ _  __| |_  ___ ___ | _ \\ _ \\/ __| / __(_)_ __ _  _| |__ _| |_ ___ _ _  |_  )  \\_  ) __|  ___   __ __/ // | /  \\  | _ ) ___| |_ __ _ \r\n"
+    		+ " |  _/ || | ' \\(_-< ' \\/ -_|_-< |   /  _/ (_ | \\__ \\ | '  \\ || | / _` |  _/ _ \\ '_|  / / () / /|__ \\ |___|  \\ V / _ \\ || () | | _ \\/ -_)  _/ _` |\r\n"
+    		+ " |_|  \\_,_|_||_/__/_||_\\___/__/ |_|_\\_|  \\___| |___/_|_|_|_\\_,_|_\\__,_|\\__\\___/_|   /___\\__/___|___/         \\_/\\___/_(_)__/  |___/\\___|\\__\\__,_|\r\n"
+    		+ "                                                                                                                                                 ";
     }
 
 	public static void reglas() {
@@ -79,15 +77,17 @@ public class Menu {
 	}
 
 	public static void presionarEnter() {
-		System.out.println("[ \nPresione ENTER para continuar... ]")
+		System.out.println("[ \nPresione ENTER para continuar... ]");
 		in.nextLine();
 	}
 
 	public static void mostrarPersonajes(Personaje[] personajes) {
 		for(int i = 0; i < personajes.length; i++) {
+			/*
 			if(personajes[i] != null && personajes[i].disponible) {
 				System.out.println((i+1) + "." + personajes[i].nombre);
 			}
+			*/
 		}
 	}	
 }
