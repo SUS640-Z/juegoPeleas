@@ -20,7 +20,8 @@ public class Arma {
 
     public static final String ANSI_RED = "\u001B[33m";
     /**
-     * Crea un arma con los atributos especif     * @param nombre Nombre del arma.
+     * Crea un arma con los atributos especif     
+     * @param nombre Nombre del arma.
      * @param danoExtra Daño adiciod de acertar el ataque (0.0 a 1.0).
      * @param probabilidadCritico Probabilidad de golpe crítico (0.0 a 1.0).
      */

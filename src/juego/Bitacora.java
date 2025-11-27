@@ -8,12 +8,14 @@ package juego;
  * @author Favio Emiliano Sanchez Lopez
  * @version 0.2
  */
-
 public class Bitacora {
+<<<<<<< HEAD
+=======
 	/* nigga estupido assholes*/
 	//Novato Sensacion
 	//holaaaa
 	// awdsadwqfqwf
+>>>>>>> 02fc6c559a4fa9750bbd9d89ac5399b6d208574a
 	String accion;
 	Personaje atacante;
 	Personaje objetivo;

@@ -25,7 +25,6 @@ public abstract class Personaje {
 	//Variable Ivan
 	protected boolean disponible;
 	
-	
 	//Constructores---------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
 	 * Constructor que recibe todas las caracteristicas necesarias para que el personaje pueda ser jugable.
