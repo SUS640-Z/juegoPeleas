@@ -164,4 +164,8 @@ public class Menu {
 		System.out.println("2) Usar habilidad");
 		System.out.println("3) Ver registro de combate");
 	}
+
+	/*
+	NOVATO
+	*/
 }
