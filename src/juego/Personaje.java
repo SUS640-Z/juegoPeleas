@@ -22,13 +22,10 @@ public abstract class Personaje {
 	protected boolean tieneEfecto;
 	protected String tipoEfecto;
 	protected int duracionEfecto;
-<<<<<<< HEAD
 	protected int manaActual;
 	protected int manaMaximo;
-=======
 	//Variable Ivan
 	protected boolean disponible;
->>>>>>> 559f42d578c50eb0ff6104ffd692d152a2b93a61
 	
 	//Constructores---------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
@@ -62,12 +59,9 @@ public abstract class Personaje {
 		this.tieneEfecto = tieneEfecto;
 		this.tipoEfecto = tipoEfecto;
 		this.duracionEfecto = duracionEfecto;
-<<<<<<< HEAD
 		this.manaActual = manaActual;
 		this.manaMaximo = manaMaximo;
-=======
 		disponible=true;
->>>>>>> 559f42d578c50eb0ff6104ffd692d152a2b93a61
 	}
 	
 	//Getters y setters---------------------------------------------------------------------------------------------------------------------------------------------------------------
