@@ -15,13 +15,19 @@ public class Mago extends Personaje{
 	}
 
 	@Override
-	public boolean atacar() {
-		// TODO Auto-generated method stub
+	public boolean atacar(Jugador objetivo, int indice) {
+		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
+
+		if(probabilidadAtaque > super.precision) {
+			objetivo.personajesSelecionados[indice].vidaActual -= arma.calcularDano(super.poderAtaque);
+			return true;
+		}
+		
 		return false;
 	}
 
 	@Override
-	public boolean habilidad() {
+	public boolean habilidad(Jugador objetivo, int indice) {
 		// TODO Auto-generated method stub
 		return false;
 	}

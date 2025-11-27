@@ -12,6 +12,8 @@ package juego;
 public class Bitacora {
 	/* nigga estupido assholes*/
 	//Novato Sensacion
+	//holaaaa
+	// awdsadwqfqwf
 	String accion;
 	Personaje atacante;
 	Personaje objetivo;

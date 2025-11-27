@@ -135,6 +135,7 @@ public class Menu {
 			mostrarPersonajes(personajes);
 			System.out.print("Escribe el indice del personaje --> ");
 			iPersonaje = in.nextInt();
+			iPersonaje--;
 			if(iPersonaje < 0 || iPersonaje > personajes.length) {
 				System.out.println("No hay personaje en este indice\n");
 		
