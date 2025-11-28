@@ -16,15 +16,25 @@ public class Bitacora {
 	boolean critico;
 	boolean fallo;
 
-	String registros[] = new String[10000];
+	String registros[] = new String[100];
 	
-	public void mostrarBitcora(){
-		System.out.println("---------- BITACORA ----------");
-
-		for(int i = 0; i < registros.length; i++){
-			if(registros[i] != null){
+	
+	public void vaciarBitacora() {
+		for(int i=0; i<registros.length; i++) {
+			registros[i] = null;
+		}
+	}
+	
+	public void mostrarBitacora() {
+		for(int i=0; i<registros.length; i++) {
+			if(registros[i] != null) {
 				System.out.println(registros[i]);
 			}
 		}
 	}
+	
+	public void registrarTurnos() {
+		
+	}
+	
 }

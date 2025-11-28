@@ -11,9 +11,9 @@ import java.util.Scanner;
  */
 public class Menu {
 	static Scanner in = new Scanner(System.in);
+	static Bitacora registroCombate = new Bitacora();
 	public static void main(String[] args) {
 		int opcionMenu = 0;
-		Bitacora registroCombate = new Bitacora();
 		Jugador jugador1 = new Jugador();
 		Jugador jugador2 = new Jugador();
 		Personaje[] personajes = new Personaje[8];
@@ -32,6 +32,7 @@ public class Menu {
 		// Mago
 		personajes[6] = new Mago("Mango Amarrillo", new Arma("Escalibur",1,70));
 		personajes[7] = new Mago("Mango Verde", new Arma("Escalibur",1,70));
+		
 
 		while(opcionMenu != 4) {
 			System.out.println(titulo());
@@ -113,8 +114,9 @@ public class Menu {
 				turno=1;
 			}
 		}
-		mostrarPersonajes(jugador1.personajesSelecionados);
-		mostrarPersonajes(jugador2.personajesSelecionados);
+		
+		batalla(jugador1,jugador2);
+		
 		
 	}
 		
@@ -153,17 +155,68 @@ public class Menu {
 		
 	}
 	
-	public static void interfaz(Jugador jugador) {
+	public static int interfaz(Jugador jugador) {
 		System.out.println("===== TURNO DEL JUGADOR "+jugador.nombre+" =====");
-		System.out.println("Personaje activo: Morgana (Mago)");
-		System.out.println("Vida: 90 / 120");
-		System.out.println("Ataque: 18");
-		System.out.println("Nivel: 2");
+		System.out.println("Personaje activo: "+jugador.personajesSelecionados[jugador.contPersonajes].nombre +"("+jugador.personajesSelecionados[jugador.contPersonajes].mostrarClase()+")");
+		System.out.println("Vida: "+jugador.personajesSelecionados[jugador.contPersonajes].vidaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].vidaMaxima);
+		System.out.println("Nivel: "+jugador.personajesSelecionados[jugador.contPersonajes].nivel);
 		System.out.println("");
 		System.out.println("1) Atacar");
 		System.out.println("2) Usar habilidad");
 		System.out.println("3) Ver registro de combate");
+		int opcion=0;
+		do {
+			System.out.print("Introduce el indice --> ");
+			opcion = in.nextInt();
+			if(opcion < 1 || opcion > 3) {
+				System.out.println("No disponible");
+			}
+		}while(opcion < 1 || opcion > 3);
+		return opcion;
+		
 	}
+	
+	public static void batalla(Jugador jugador1,Jugador jugador2) {
+		jugador1.contPersonajes=0;
+		jugador2.contPersonajes=0;
+		int turno = (int) (Math.random() * 2)+1;
+		while(jugador1.contPersonajes !=3 && jugador2.contPersonajes != 3) {
+			if(turno == 1) {
+				int movimiento=interfaz(jugador1);
+				switch(movimiento) {
+					case 1:
+						jugador1.personajesSelecionados[jugador1.contPersonajes].atacar(jugador2, jugador2.contPersonajes);
+						break;
+						
+					case 2:
+						jugador1.personajesSelecionados[jugador1.contPersonajes].habilidad(jugador2, jugador2.contPersonajes);
+						break;
+						
+					case 3:
+						registroCombate.mostrarBitacora();
+						break;
+				}
+				turno=2;
+			}else{
+				int movimiento=interfaz(jugador2);
+				switch(movimiento) {
+					case 1:
+						jugador2.personajesSelecionados[jugador2.contPersonajes].atacar(jugador1, jugador1.contPersonajes);
+						break;
+						
+					case 2:
+						jugador2.personajesSelecionados[jugador2.contPersonajes].habilidad(jugador1, jugador1.contPersonajes);
+						break;
+						
+					case 3:
+						registroCombate.mostrarBitacora();
+						break;
+				}
+				turno=1;
+			}
+		}
+	}
+	
 
 	/*
 	NOVATO
