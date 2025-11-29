@@ -9,8 +9,8 @@ package juego;
  * @author Favio Emiliano Sanchez Lopez
  * @version 0.2
  */
-public class Mago extends Personaje{
-	Mago(String nombre, Arma arma){
+public class Chango extends Personaje{
+	Chango(String nombre, Arma arma){
 		super(nombre, 50, 50, 100, 85, 5, new Arma("Vara", 20, 100), 1, 0, false, "", 0, 100, 100);
 	}
 
@@ -28,14 +28,14 @@ public class Mago extends Personaje{
 
 	@Override
 	public String habilidad(Jugador objetivo, int indice) {
-		int probCongelar = (int)(Math.random() * 100) + 1;
+		int probRabia = (int)(Math.random() * 100) + 1;
 		double poderAtaque;
 		String mensaje = "";
 		
 		if(super.manaActual >= 60) {
 			super.manaActual -= 60;
 			
-			if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Vampiro")) {
+			if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Mago")) {
 				poderAtaque = 15 * 1.2;
 				objetivo.personajesSelecionados[indice].vidaActual -= poderAtaque;
 				mensaje += "habilidad con ventaja\n";
@@ -45,11 +45,11 @@ public class Mago extends Personaje{
 				objetivo.personajesSelecionados[indice].vidaActual -= poderAtaque;
 			}
 			
-			if(probCongelar <= 20) {
-				objetivo.personajesSelecionados[indice].tieneEfecto = true;
-				objetivo.personajesSelecionados[indice].tipoEfecto = "Congelado";
-				objetivo.personajesSelecionados[indice].duracionEfecto = 3;
-				mensaje += "Se aplico Congelar\n";
+			if(probRabia <= 20) {
+				this.tieneEfecto = true;
+				this.tipoEfecto = "Rabioso";
+				this.duracionEfecto = 3;
+				mensaje += (this.nombre + " ha enfurecido\n");
 			}
 			
 			mensaje += "Le has restado " + poderAtaque + " a " + objetivo.personajesSelecionados[indice].getNombre();
@@ -63,6 +63,6 @@ public class Mago extends Personaje{
 
 	@Override
 	public String mostrarClase() {
-		return "Mago";
+		return "Chango loco desquisiado";
 	}
 }

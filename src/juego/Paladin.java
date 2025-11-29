@@ -1,34 +1,29 @@
 package juego;
 
 /**
- * La clase mago hijo de clse personaje
- * Establece estadisticas y movimientos de mago
+ * La clase espadachin hijo de clse personaje
+ * Establece estadisticas y movimientos de espadachin
  * @author Etneilav Andree Soto Valdez
  * @author Jesus Ivan Jimenez Aguilar
  * @author Guillermo Green Aviles
  * @author Favio Emiliano Sanchez Lopez
  * @version 0.2
  */
-public class Mago extends Personaje{
-	Mago(String nombre, Arma arma){
-		super(nombre, 50, 50, 100, 85, 5, new Arma("Vara", 20, 100), 1, 0, false, "", 0, 100, 100);
+public class Paladin extends Personaje{
+	
+	Paladin(String nombre, Arma arma){
+		super(nombre, 70, 70, 80, 95, 15, new Arma("Espada", 15, 95), 1, 0, false, "", 0, 100, 100);
 	}
 
 	@Override
 	public boolean atacar(Jugador objetivo, int indice) {
-		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
-
-		if(probabilidadAtaque > super.precision) {
-			objetivo.personajesSelecionados[indice].vidaActual -= arma.calcularDano(super.poderAtaque);
-			return true;
-		}
-		
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public String habilidad(Jugador objetivo, int indice) {
-		int probCongelar = (int)(Math.random() * 100) + 1;
+		/*int probCongelar = (int)(Math.random() * 100) + 1;
 		double poderAtaque;
 		String mensaje = "";
 		
@@ -58,11 +53,12 @@ public class Mago extends Personaje{
 			mensaje = "Mana insuficiente...";
 		}
 		
-		return mensaje;
+		return mensaje;*/
+		return "";
 	}
 
 	@Override
 	public String mostrarClase() {
-		return "Mago";
+		return "Paladin";
 	}
 }

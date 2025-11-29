@@ -21,9 +21,9 @@ public class Pistolero extends Personaje{
 	}
 
 	@Override
-	public boolean habilidad(Jugador objetivo, int indice) {
+	public String habilidad(Jugador objetivo, int indice) {
 		// TODO Auto-generated method stub
-		return false;
+		return "";
 	}
 
 	@Override

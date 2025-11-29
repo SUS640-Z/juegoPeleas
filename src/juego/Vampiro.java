@@ -63,6 +63,6 @@ public class Vampiro extends Personaje{
 
 	@Override
 	public String mostrarClase() {
-		return "Pistolero";
+		return "Vampiro";
 	}
 }

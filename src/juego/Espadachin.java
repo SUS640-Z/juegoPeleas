@@ -22,9 +22,8 @@ public class Espadachin extends Personaje{
 	}
 
 	@Override
-	public boolean habilidad(Jugador objetivo, int indice) {
-		// TODO Auto-generated method stub
-		return false;
+	public String habilidad(Jugador objetivo, int indice) {
+		return "";
 	}
 
 	@Override
