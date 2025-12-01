@@ -18,16 +18,17 @@ public class Menu {
 		Jugador jugador2 = new Jugador();
 		Personaje[] personajes = new Personaje[8];
 
-		// Espadachineses
-		personajes[0] = new Espadachin("Cremo", new Arma("Escalibur",1,70));
-		personajes[1] = new Espadachin("Geremias",  new Arma("Escalibur",1,70));
+		
+		// Paladines
+		personajes[0] = new Paladin("Cremo", new Arma("Escalibur",1,70));
+		personajes[1] = new Paladin("Geremias",  new Arma("Escalibur",1,70));
 		// Tanques
 		personajes[2] = new Tanque("Juan Carlos de la Mancha", new Arma("Escalibur",1,70));
 		personajes[3] = new Tanque("Leto",  new Arma("Escalibur",1,70));
 		
-		// Pistoleros
-		personajes[4] = new Pistolero("Señor Atomico", new Arma("Escalibur",1,70));
-		personajes[5] = new Pistolero("Señor Lagarto", new Arma("Escalibur",1,70));
+		// Vampiros
+		personajes[4] = new Vampiro("Señor Atomico", new Arma("Escalibur",1,70));
+		personajes[5] = new Vampiro("Señor Lagarto", new Arma("Escalibur",1,70));
 
 		// Mago
 		personajes[6] = new Mago("Mango Amarrillo", new Arma("Escalibur",1,70));
@@ -64,15 +65,22 @@ public class Menu {
 			}
 		}
 	}
-
+	
+	/**
+	 * Devuelve el titulo del juego
+	 * @retur titulo del juego
+	 */	
 	public static String titulo() {
-    return "  ___              _             ___ ___  ___   ___ _           _      _             ___ __ ___ ___               __ _   __    ___      _        \r\n"
-    		+ " | _ \\_  _ _ _  __| |_  ___ ___ | _ \\ _ \\/ __| / __(_)_ __ _  _| |__ _| |_ ___ _ _  |_  )  \\_  ) __|  ___   __ __/ // | /  \\  | _ ) ___| |_ __ _ \r\n"
-    		+ " |  _/ || | ' \\(_-< ' \\/ -_|_-< |   /  _/ (_ | \\__ \\ | '  \\ || | / _` |  _/ _ \\ '_|  / / () / /|__ \\ |___|  \\ V / _ \\ || () | | _ \\/ -_)  _/ _` |\r\n"
-    		+ " |_|  \\_,_|_||_/__/_||_\\___/__/ |_|_\\_|  \\___| |___/_|_|_|_\\_,_|_\\__,_|\\__\\___/_|   /___\\__/___|___/         \\_/\\___/_(_)__/  |___/\\___|\\__\\__,_|\r\n"
-    		+ "                                                                                                                                                 ";
+		return "  ___              _             ___ ___  ___   ___ _           _      _             ___ __ ___ ___               __ _   __    ___      _        \r\n"
+	    		+ " | _ \\_  _ _ _  __| |_  ___ ___ | _ \\ _ \\/ __| / __(_)_ __ _  _| |__ _| |_ ___ _ _  |_  )  \\_  ) __|  ___   __ __/ // | /  \\  | _ ) ___| |_ __ _ \r\n"
+	    		+ " |  _/ || | ' \\(_-< ' \\/ -_|_-< |   /  _/ (_ | \\__ \\ | '  \\ || | / _` |  _/ _ \\ '_|  / / () / /|__ \\ |___|  \\ V / _ \\ || () | | _ \\/ -_)  _/ _` |\r\n"
+	    		+ " |_|  \\_,_|_||_/__/_||_\\___/__/ |_|_\\_|  \\___| |___/_|_|_|_\\_,_|_\\__,_|\\__\\___/_|   /___\\__/___|___/         \\_/\\___/_(_)__/  |___/\\___|\\__\\__,_|\r\n"
+	    		+ "                                                                                                                                                 ";
     }
-
+	
+	/**
+	 * Imprime las reglas del juego
+	 */	
 	public static void reglas() {
 		System.out.println("\n[ Reglas del juego ]");
 		System.out.println("| 1. Los jugadores deberan ingresar un nombre por el cual se identifiquen.");
@@ -83,16 +91,22 @@ public class Menu {
         System.out.println("| 6. El combate termina cuando uno de los jugadores tenga todos personaje con vida actual 0.");
         in.nextLine();
 	}
-
+	
+	
+	/**
+	 * Manejar mejor la informacion presentada en pantalla
+	 */	
 	public static void presionarEnter() {
 		System.out.println("\n[ Presione ENTER para continuar... ]");
 		in.nextLine();
-		for(int i=0; i<1500; i++) {
+		for(int i=0; i<1000; i++) {
 			System.out.println("\n");
 		}
 	}
 
-
+	/**
+	 * Imprime los personajes del juego
+	 */	
 	public static void mostrarPersonajes(Personaje[] personajes) {
 		for(int i = 0; i < personajes.length; i++) {
 			if(personajes[i] != null) {
@@ -101,25 +115,30 @@ public class Menu {
 		}
 	}	
 	
-	
+	/**
+	 * Logica y funcionamiento del juego
+	 */	
 	public static void jugar(Jugador jugador1,Jugador jugador2,Personaje[] personajes) {
 		asignarNombreJugadores(jugador1,jugador2);
 		int turno = (int) (Math.random() * 2)+1;
-		while(jugador1.contPersonajes !=3 || jugador2.contPersonajes != 3) {
-			if(turno == 1) {
-				escoguerPersonajes(jugador1,personajes);
-				turno=2;
-			}else{
-				escoguerPersonajes(jugador2,personajes);
-				turno=1;
-			}
-		}
+		escogerPersonajes(jugador1,personajes);
+		escogerPersonajes(jugador2,personajes);
+
+		System.out.println(jugador1.nombre);
+		mostrarPersonajes(jugador1.personajesSelecionados);
+		System.out.println(jugador2.nombre);
+		mostrarPersonajes(jugador2.personajesSelecionados);
 		
 		batalla(jugador1,jugador2);
 		
 		
 	}
-		
+	
+	/**
+	 * Asignar nombre a los jugadores
+	 * @param jugador1
+	 * @param jugador2
+	 */		
 	public static void asignarNombreJugadores(Jugador jugador1,Jugador jugador2) {
 		in.nextLine();
 		System.out.print("Ingresa nombre de jugador 1 --> ");
@@ -130,31 +149,46 @@ public class Menu {
 		jugador2.nombre= nombre2;
 	}
 	
-	public static void escoguerPersonajes(Jugador jugador,Personaje[] personajes) {
+	/**
+	 * El jugador seleccionan 3 personajes a su eleccion(sin repeticiones)
+	 * @param jugador usuario que escogue sus personajes
+	 * @param personajes personajes disponible
+	 */	
+	public static void escogerPersonajes(Jugador jugador, Personaje[] personajes) {
 		int iPersonaje;
-		do {
-			System.out.println("\n"+jugador.nombre+" es turno de escoguer un personaje");
-			mostrarPersonajes(personajes);
+		
+		while(jugador.contPersonajes < 3) {
+			System.out.println("\n"+jugador.nombre+" es turno de escoger un personaje");
+			for(int i = 0; i < personajes.length; i++) {
+				if(personajes[i] != null && personajes[i].disponible) {
+					System.out.println((i+1) + ". " + personajes[i].nombre +" - "+ personajes[i].mostrarClase());
+				}
+			}
+			
 			System.out.print("Escribe el indice del personaje --> ");
 			iPersonaje = in.nextInt();
 			iPersonaje--;
-			if(iPersonaje < 0 || iPersonaje > personajes.length) {
-				System.out.println("No hay personaje en este indice\n");
-		
+			
+			if(iPersonaje >= 0 && iPersonaje < personajes.length && personajes[iPersonaje] != null && personajes[iPersonaje].disponible) {
+				for(int i = 0; i < jugador.personajesSelecionados.length; i++) {
+					if(jugador.personajesSelecionados[i] == null) {
+						jugador.personajesSelecionados[jugador.contPersonajes] = personajes[iPersonaje];
+						personajes[iPersonaje].disponible = false;
+						jugador.contPersonajes++;
+						break;
+					}
+				}
 			}
-			/*
-			if(personajes[iPersonaje] != null && !personajes[iPersonaje].disponible){
-				System.out.println("Este personaje no esta disponible\n");
-			}*/
-		}while(iPersonaje < 0 || iPersonaje > personajes.length || !personajes[iPersonaje].disponible);
-		System.out.println( personajes[iPersonaje].nombre+" se ha unido a tu equipo\n");
-		jugador.personajesSelecionados[jugador.contPersonajes] = personajes[iPersonaje];
-		personajes[iPersonaje].disponible=false;
-		jugador.contPersonajes++;
-		
-		
+			else {
+				System.out.println("Ese inidce no existe, intenta con otro");
+			}
+		}
 	}
-	
+	/**
+	 * Muestra las opciones disponibles por el jugador
+	 * @param jugador el que debera realizar la accion
+	 * @return devuelve la accion realizada por el jugador
+	 */	
 	public static int interfaz(Jugador jugador) {
 		System.out.println("===== TURNO DEL JUGADOR "+jugador.nombre+" =====");
 		System.out.println("Personaje activo: "+jugador.personajesSelecionados[jugador.contPersonajes].nombre +"("+jugador.personajesSelecionados[jugador.contPersonajes].mostrarClase()+")");
@@ -176,49 +210,45 @@ public class Menu {
 		
 	}
 	
+	/**
+	 * Sistema de batalla
+	 * @param jugador1 usuario que se enfrentara a jugador 2
+	 * @param jugador2 usuario que se enfrentara a jugador 1
+	 */	
 	public static void batalla(Jugador jugador1,Jugador jugador2) {
 		jugador1.contPersonajes=0;
 		jugador2.contPersonajes=0;
 		int turno = (int) (Math.random() * 2)+1;
 		while(jugador1.contPersonajes !=3 && jugador2.contPersonajes != 3) {
 			if(turno == 1) {
-				int movimiento=interfaz(jugador1);
-				switch(movimiento) {
-					case 1:
-						jugador1.personajesSelecionados[jugador1.contPersonajes].atacar(jugador2, jugador2.contPersonajes);
-						break;
-						
-					case 2:
-						jugador1.personajesSelecionados[jugador1.contPersonajes].habilidad(jugador2, jugador2.contPersonajes);
-						break;
-						
-					case 3:
-						registroCombate.mostrarBitacora();
-						break;
-				}
+				accionesBatalla(jugador1,jugador2);
 				turno=2;
 			}else{
-				int movimiento=interfaz(jugador2);
-				switch(movimiento) {
-					case 1:
-						jugador2.personajesSelecionados[jugador2.contPersonajes].atacar(jugador1, jugador1.contPersonajes);
-						break;
-						
-					case 2:
-						jugador2.personajesSelecionados[jugador2.contPersonajes].habilidad(jugador1, jugador1.contPersonajes);
-						break;
-						
-					case 3:
-						registroCombate.mostrarBitacora();
-						break;
-				}
+				accionesBatalla(jugador2,jugador1);
 				turno=1;
 			}
 		}
 	}
+	/**
+	 * Acciones que puede hacer el jugador principal contra el jugador secundario
+	 * @param principal jugador que realiza las acciones
+	 * @param secundario jugador que sufre las acciones
+	 */	
+	public static void accionesBatalla(Jugador principal,Jugador secundario) {
+		int movimiento=interfaz(principal);
+		switch(movimiento) {
+			case 1:
+				principal.personajesSelecionados[principal.contPersonajes].atacar(secundario, secundario.contPersonajes);
+				break;
+				
+			case 2:
+				principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes);
+				break;
+				
+			case 3:
+				registroCombate.mostrarBitacora();
+				break;
+		}
+	}
 	
-
-	/*
-	NOVATO
-	*/
 }
