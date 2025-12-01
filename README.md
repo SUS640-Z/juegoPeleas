@@ -1,6 +1,1 @@
-Equipo:
-Jesus Ivan
-Guillermo
-Etneilav Andreé Soto Valdéz
-Favio
-nigga
+Rama Personal de Novato Sensacion
