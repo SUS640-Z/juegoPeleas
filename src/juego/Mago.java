@@ -17,7 +17,7 @@ public class Mago extends Personaje{
 	@Override
 	public boolean atacar(Jugador objetivo, int indice) {
 		 int probabilidadAtaque = (int)(Math.random() * 100) + 1;
-		 if (probabilidadAtaque > super.precision) {
+		 if (probabilidadAtaque < super.precision) {
 	            int dano = arma.calcularDano(super.poderAtaque);
 	            objetivo.personajesSelecionados[indice].vidaActual -= dano;
 	            // Si el ataque es exitoso, aplica la habilidad de congelación
