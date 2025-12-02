@@ -14,6 +14,40 @@ public class Chango extends Personaje{
         super(nombre, 100, 100, 10, 80, 10, arma, 1, 0, false, "", 0, 33, 100);
     }
 
+    @Override
+    public String atacar(Jugador objetivo, int indice) {
+		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
+        String mensaje = "";
+
+		this.manaActual += 10;
+		if(this.manaActual > this.manaMaximo){
+			this.manaActual = this.manaMaximo;
+		}
+
+        if (probabilidadAtaque < precision) {
+            int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+            objetivo.personajesSelecionados[indice].vidaActual -= dano;
+
+            if (Math.random() < 0.05) { 
+                if(super.arma.getProbabilidadCritico() > 100){
+                    super.arma.setProbabilidadCritico(100);
+                } else {
+                    super.arma.setProbabilidadCritico(super.arma.getProbabilidadCritico() + 5);
+                    mensaje += "[ La probabilidad de critico de tu arma ha aumentado en 5%! ]\n";
+                }
+            }
+
+			this.experiencia += 5;
+			if (this.subeNivel()) {
+				mensaje += "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ] \n";
+			}
+            mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
+        }
+
+        mensaje += "[ Ataque fallido! ]";
+        return mensaje;
+	}
+
 	@Override
 	 public String habilidad(Jugador objetivo, int indice) {
         String mensaje = "";
@@ -23,12 +57,12 @@ public class Chango extends Personaje{
         }
 
         super.manaActual -= 33;
-        super.arma.setProbabilidadCritico(super.arma.getProbabilidadCritico() + 5);
 
-        if(super.arma.getProbabilidadCritico() > 100){
+        if(super.arma.getProbabilidadCritico() >= 100){
             super.arma.setProbabilidadCritico(100);
             mensaje += "[ La probabilidad de critico de tu arma ha llegado al maximo! ]\n";
         } else {
+            super.arma.setProbabilidadCritico(super.arma.getProbabilidadCritico() + 5);
             mensaje += "[ La probabilidad de critico de tu arma ha aumentado en 5%! ]\n";
         }
 

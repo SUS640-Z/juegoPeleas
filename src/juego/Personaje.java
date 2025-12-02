@@ -332,26 +332,7 @@ public abstract class Personaje {
 	/**
 	 * Se verifica si se pudo atacar o no, y si es que si se calcula el daño y efectos de estado que se aplicaran al enemigo.
 	 */
-	public String atacar(Jugador objetivo, int indice){
-		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
-
-		this.manaActual += 10;
-		if(this.manaActual > this.manaMaximo){
-			this.manaActual = this.manaMaximo;
-		}
-
-        if (probabilidadAtaque < precision) {
-            int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
-            objetivo.personajesSelecionados[indice].vidaActual -= dano;
-			this.experiencia += 5;
-			if (this.subeNivel()) {
-				System.out.println("[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]");
-			}
-            return "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
-        }
-
-        return "[ Ataque fallido! ]";
-	}
+	public abstract String atacar(Jugador objetivo, int indice);
 	
 	/**
 	 * Se verifica si se pudo usar la habilidad o no, y si es que si se calcula el daño y efectos de estado que se aplicaran al enemigo.

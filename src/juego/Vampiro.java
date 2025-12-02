@@ -13,6 +13,38 @@ public class Vampiro extends Personaje{
 	Vampiro(String nombre, Arma arma) {
         super(nombre, 75, 75, 7, 85, 25, arma, 1, 0, false, "", 0, 50, 100);
     }
+
+    @Override
+    public String atacar(Jugador objetivo, int indice) {
+		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
+        String mensaje = "";
+
+		this.manaActual += 10;
+		if(this.manaActual > this.manaMaximo){
+			this.manaActual = this.manaMaximo;
+		}
+
+        if (probabilidadAtaque < precision) {
+            int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+            objetivo.personajesSelecionados[indice].vidaActual -= dano;
+
+            if (Math.random() < 0.05) { 
+                objetivo.personajesSelecionados[indice].tieneEfecto = true;
+                objetivo.personajesSelecionados[indice].tipoEfecto = "Sangrado";
+                objetivo.personajesSelecionados[indice].duracionEfecto = 2;
+                mensaje += "[ ¡Sangrado aplicado! ]\n";
+            }
+
+			this.experiencia += 5;
+			if (this.subeNivel()) {
+				mensaje += "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ] \n";
+			}
+            mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
+        }
+
+        mensaje += "[ Ataque fallido! ]";
+        return mensaje;
+	}
 	
 	@Override
     public String habilidad(Jugador objetivo, int indice) {
