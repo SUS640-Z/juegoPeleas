@@ -20,19 +20,19 @@ public class Menu {
 
 		
 		// Paladines
-		personajes[0] = new Paladin("Cremo", new Arma("Escudote",1,35));
-		personajes[1] = new Paladin("Geremias",  new Arma("Garrote",5,15));
+		personajes[0] = new Chango("Cremo", new Arma("Latigo mutilante",1,35));
+		personajes[1] = new Chango("Geremias",  new Arma("Piedra dolorosa",5,15));
 		// Tanques
-		personajes[2] = new Tanque("Juan Carlos de la Mancha", new Arma("Mazo",3,40));
-		personajes[3] = new Tanque("Leto",  new Arma("Martillo",5,30));
+		personajes[2] = new Tanque("Juan Carlos de la Mancha", new Arma("Mazo estruendoso",3,40));
+		personajes[3] = new Tanque("Leto",  new Arma("Martillo antihigienico",5,25));
 		
 		// Vampiros
-		personajes[4] = new Vampiro("Señor Atomico", new Arma("Colmillos",3,25));
-		personajes[5] = new Vampiro("Señor Lagarto", new Arma("Colmillos",3,25));
+		personajes[4] = new Vampiro("Señor Atomico", new Arma("Colmillos filudos",3,25));
+		personajes[5] = new Vampiro("Señor Lagarto", new Arma("Colmillos mordisqueantes",4,20));
 
 		// Mago
-		personajes[6] = new Mago("Mango Amarrillo", new Arma("Vara de la verdad",4,10));
-		personajes[7] = new Mago("Mango Verde", new Arma("Baston de la sabiduria",3,5));
+		personajes[6] = new Mago("Mango Amarrillo", new Arma("Vara de la verdad",4,5));
+		personajes[7] = new Mago("Mango Verde", new Arma("Baston de la falacia",3,10));
 		
 
 		while(opcionMenu != 4) {
@@ -201,8 +201,14 @@ public class Menu {
 	public static int interfaz(Jugador jugador) {
 		System.out.println("===== TURNO DEL JUGADOR "+jugador.nombre+" =====");
 		System.out.println("Personaje activo: "+jugador.personajesSelecionados[jugador.contPersonajes].nombre +"("+jugador.personajesSelecionados[jugador.contPersonajes].mostrarClase()+")");
-		System.out.println("Vida: "+jugador.personajesSelecionados[jugador.contPersonajes].vidaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].vidaMaxima);
-		System.out.println("Nivel: "+jugador.personajesSelecionados[jugador.contPersonajes].nivel);
+		System.out.print("Vida: "+jugador.personajesSelecionados[jugador.contPersonajes].vidaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].vidaMaxima);
+		System.out.print("\t\t | Mana: "+jugador.personajesSelecionados[jugador.contPersonajes].manaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].manaMaximo +"\n");
+		System.out.print("Nivel: "+jugador.personajesSelecionados[jugador.contPersonajes].nivel);
+		if(jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto) {
+			System.out.print("\t\t | Efecto de estado: "+jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto+" ("+jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto+" turnos restantes)\n");
+		}else {
+			System.out.print("\t\t | Efecto de estado: Ninguno\n");
+		}
 		System.out.println("");
 		System.out.println("1) Atacar");
 		System.out.println("2) Usar habilidad");
@@ -279,15 +285,15 @@ public class Menu {
 	 * @param secundario jugador que sufre las acciones
 	 */	
 	public static void accionesBatalla(Jugador principal, Jugador secundario) {
-		int movimiento = interfaz(principal);
-		
 		if(efectoActuando(principal) == 2) {
 			return;
 		}
+		int movimiento = interfaz(principal);
 
 		switch(movimiento) {
 			case 1:
-				principal.personajesSelecionados[principal.contPersonajes].atacar(secundario, secundario.contPersonajes);
+				System.out.println("--- Atacar ---");
+				System.out.println(principal.personajesSelecionados[principal.contPersonajes].atacar(secundario, secundario.contPersonajes));
 				if(secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
 					secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
 					secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
@@ -298,7 +304,8 @@ public class Menu {
 				break;
 				
 			case 2:
-				principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes);
+				System.out.println("--- Usar Habilidad ---");
+				System.out.println(principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes));
 				if(secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
 					secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
 					secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;

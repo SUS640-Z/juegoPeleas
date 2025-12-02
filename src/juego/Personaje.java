@@ -331,13 +331,26 @@ public abstract class Personaje {
 	
 	/**
 	 * Se verifica si se pudo atacar o no, y si es que si se calcula el daño y efectos de estado que se aplicaran al enemigo.
-	 * @return boolean true si logrdouble presicion, int vidaActual, int armadura) acertar el ataque, false si no logro acertar el ataque.
 	 */
-	public abstract boolean atacar(Jugador objetivo, int indice);
+	public String atacar(Jugador objetivo, int indice){
+		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
+
+		this.manaActual += 10;
+		if(this.manaActual > this.manaMaximo){
+			this.manaActual = this.manaMaximo;
+		}
+
+        if (probabilidadAtaque < precision) {
+            int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+            objetivo.personajesSelecionados[indice].vidaActual -= dano;
+            return "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
+        }
+
+        return "[ Ataque fallido! ]";
+	}
 	
 	/**
 	 * Se verifica si se pudo usar la habilidad o no, y si es que si se calcula el daño y efectos de estado que se aplicaran al enemigo.
-	 * @return boolean true si acerto double presicion, int vidaActual, int armadurala habilidad, false si no la acerto.
 	 */
 	public abstract String habilidad(Jugador objetivo, int indice);
 	

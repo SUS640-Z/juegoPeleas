@@ -11,38 +11,39 @@ package juego;
  */
 public class Chango extends Personaje{
     Chango(String nombre, Arma arma) {
-        super(nombre, 50, 50, 100, 85, 5, arma, 1, 0, false, "", 0, 100, 100);
+        super(nombre, 100, 100, 20, 80, 5, arma, 1, 0, false, "", 0, 100, 100);
     }
 
 	@Override
-	public boolean atacar(Jugador objetivo, int indice) {
-		 int probabilidadAtaque = (int)(Math.random() * 100) + 1;
-
-		// -3% de precisión para el chango
-	        if (probabilidadAtaque > (super.precision - 3)) {
-	            objetivo.personajesSelecionados[indice].vidaActual -= arma.calcularDano(super.poderAtaque);
-	            return true;
-	        }
-	        return false;
-	}
-
-	@Override
 	 public String habilidad(Jugador objetivo, int indice) {
-        int probCritico = (int)(Math.random() * 100) + 1;
-        double poderAtaque;
         String mensaje = "";
 
-        // Habilidad de Chango: Aumento en el golpe crítico +5% de probabilidad
-        if (probCritico <= 5) {  // Chango tiene +5% de critico
-            poderAtaque = super.poderAtaque * 2;
-            objetivo.personajesSelecionados[indice].vidaActual -= poderAtaque;
-            mensaje += "[ ¡Golpe Crítico de Chango! ]\n";
-        } else {
-            poderAtaque = super.poderAtaque;
-            objetivo.personajesSelecionados[indice].vidaActual -= poderAtaque;
+        if(super.manaActual < 33){
+            return "[ Mana insuficiente... ]";
         }
 
-        mensaje += "[ Le has restado " + poderAtaque + " a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
+        super.manaActual -= 33;
+        super.arma.setProbabilidadCritico(super.arma.getProbabilidadCritico() + 5);
+
+        if(super.arma.getProbabilidadCritico() > 100){
+            super.arma.setProbabilidadCritico(100);
+            mensaje += "[ La probabilidad de critico de tu arma ha llegado al maximo! ]\n";
+        } else {
+            mensaje += "[ La probabilidad de critico de tu arma ha aumentado en 5%! ]\n";
+        }
+
+        if(super.precision < 33){
+            super.precision -= 3;
+            if(super.precision < 33){
+                super.precision = 33;
+            }
+        }
+        
+        int dano = arma.calcularDano(super.poderAtaque);
+        dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+        objetivo.personajesSelecionados[indice].vidaActual -= dano;
+
+        mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
         return mensaje;
     }
 

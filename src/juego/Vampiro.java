@@ -11,34 +11,39 @@ package juego;
  */
 public class Vampiro extends Personaje{
 	Vampiro(String nombre, Arma arma) {
-        super(nombre, 60, 60, 15, 85, 25, arma, 1, 0, false, "", 0, 100, 100);
-    }
-
-	@Override
-	public boolean atacar(Jugador objetivo, int indice) {
-        int probabilidadAtaque = (int)(Math.random() * 100) + 1;
-
-        if (probabilidadAtaque < super.precision) {
-            int dano = arma.calcularDano(super.poderAtaque);
-            objetivo.personajesSelecionados[indice].vidaActual -= dano;
-
-            if (Math.random() < 0.2) { // 20% probabilidad de sangrado
-                objetivo.personajesSelecionados[indice].vidaActual -= 5;  // Daño de sangrado
-            }
-
-            if (Math.random() < 0.3) {  // 30% probabilidad
-                super.vidaActual += dano * 0.5;  // Regenera 50% del daño infligido
-                if (super.vidaActual > super.vidaMaxima) super.vidaActual = super.vidaMaxima;  // Asegurar que no supera la vida maxima.
-            }
-            return true;
-        }
-
-        return false;
+        super(nombre, 75, 75, 15, 85, 25, arma, 1, 0, false, "", 0, 100, 100);
     }
 	
 	@Override
     public String habilidad(Jugador objetivo, int indice) {
-        return "";  // La habilidad ya se encuentra integrada en el ataque.
+        String mensaje = "";
+
+        if(super.manaActual < 50){
+            return "[ Mana insuficiente... ]";
+        }
+
+        super.manaActual -= 50;
+        int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.3);
+        dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+        objetivo.personajesSelecionados[indice].vidaActual -= dano;
+
+        if (Math.random() < 0.2) { // 20% probabilidad de sangrado
+            objetivo.personajesSelecionados[indice].tieneEfecto = true;
+            objetivo.personajesSelecionados[indice].tipoEfecto = "Sangrado";
+            objetivo.personajesSelecionados[indice].duracionEfecto = 2;
+            mensaje += "[ ¡Sangrado aplicado! ]\n";
+        }
+
+        if (Math.random() < 0.3) {  // 30% probabilidad
+            super.vidaActual += dano * 0.5;  // Regenera 50% del daño infligido
+            if (super.vidaActual > super.vidaMaxima) {
+                super.vidaActual = super.vidaMaxima;
+            }  // Asegurar que no supera la vida maxima.
+            mensaje += "[ Has regenerado " + (dano * 0.5) + " de vida! ]\n";
+        }
+
+        mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
+        return mensaje;
     }
 
 	@Override

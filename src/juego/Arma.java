@@ -41,6 +41,15 @@ public class Arma {
     public double getProbabilidadCritico() {
         return probabilidadCritico;
     }
+
+    /**
+	 * Setter que recibe el critico del arma.
+	 * @param probabilidadCritico critico del arma.
+	 */	
+	public void setProbabilidadCritico(double probabilidadCritico) {
+		this.probabilidadCritico = probabilidadCritico;
+	}
+
     /**
      * Calcula el daño infligido considerando:
      * <ul>
@@ -54,10 +63,9 @@ public class Arma {
         int critico = (int)(Math.random() * 100) + 1;
         if (critico < probabilidadCritico) {
             danoFinal *= 2;
-            System.out.println(ANSI_RED + "[ 🛑 Golpe crítico realizado por " + nombre + " ]");
+            System.out.println(ANSI_RED);
             return danoFinal;
         } 
-        System.out.println("[ Golpe realizado por " + nombre + " ]");
         return danoFinal;
     }
 }

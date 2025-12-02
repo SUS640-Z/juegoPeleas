@@ -11,37 +11,30 @@ package juego;
  */
 public class Tanque extends Personaje {
 	 Tanque(String nombre, Arma arma) {
-	        super(nombre, 100, 100, 10, 95, 50, arma, 1, 0, false, "", 0, 100, 100);
+	        super(nombre, 120, 120, 10, 95, 50, arma, 1, 0, false, "", 0, 100, 100);
 	 }
 
 	@Override
-	public boolean atacar(Jugador objetivo, int indice) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	 public String habilidad(Jugador objetivo, int indice) {
-        int probStuneo = (int)(Math.random() * 100) + 1;
-        double poderAtaque;
         String mensaje = "";
-        if (super.manaActual >= 60) {
-            super.manaActual -= 60;
 
-            poderAtaque = 20; // Daño fijo del ataque masivo
-            objetivo.personajesSelecionados[indice].vidaActual -= poderAtaque;
-
-            // Probabilidad de stuneo
-            if (probStuneo <= 5) {  // 5% de stuneo
-                objetivo.personajesSelecionados[indice].tieneEfecto = true;
-                objetivo.personajesSelecionados[indice].tipoEfecto = "Stuneado";
-                objetivo.personajesSelecionados[indice].duracionEfecto = 3;
-                mensaje += "Se aplico Stuneo\n";
-            }
-            mensaje += "[ Le has restado " + poderAtaque + " a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
-        } else {
-            mensaje = "[ Mana insuficiente... ]";
+        if(super.manaActual < 50){
+            return "[ Mana insuficiente... ]";
         }
+
+        super.manaActual -= 50;
+        int dano = arma.calcularDano(super.poderAtaque) * 2;
+        dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+        objetivo.personajesSelecionados[indice].vidaActual -= dano;
+
+        if (Math.random() < 0.15) {  
+            objetivo.personajesSelecionados[indice].tieneEfecto = true;
+            objetivo.personajesSelecionados[indice].tipoEfecto = "Stuneado";
+            objetivo.personajesSelecionados[indice].duracionEfecto = 3;
+            mensaje += "[ ¡Stuneado aplicado! ]\n";
+        }
+        mensaje += "[ Le has restado " + dano + " a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
+        
 
         return mensaje;
     }
