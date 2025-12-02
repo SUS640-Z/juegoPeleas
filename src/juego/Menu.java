@@ -20,19 +20,19 @@ public class Menu {
 
 		
 		// Paladines
-		personajes[0] = new Paladin("Cremo", new Arma("Escalibur",1,70));
-		personajes[1] = new Paladin("Geremias",  new Arma("Escalibur",1,70));
+		personajes[0] = new Paladin("Cremo", new Arma("Escudote",1,35));
+		personajes[1] = new Paladin("Geremias",  new Arma("Garrote",5,15));
 		// Tanques
-		personajes[2] = new Tanque("Juan Carlos de la Mancha", new Arma("Escalibur",1,70));
-		personajes[3] = new Tanque("Leto",  new Arma("Escalibur",1,70));
+		personajes[2] = new Tanque("Juan Carlos de la Mancha", new Arma("Mazo",3,40));
+		personajes[3] = new Tanque("Leto",  new Arma("Martillo",5,30));
 		
 		// Vampiros
-		personajes[4] = new Vampiro("Señor Atomico", new Arma("Escalibur",1,70));
-		personajes[5] = new Vampiro("Señor Lagarto", new Arma("Escalibur",1,70));
+		personajes[4] = new Vampiro("Señor Atomico", new Arma("Colmillos",3,25));
+		personajes[5] = new Vampiro("Señor Lagarto", new Arma("Colmillos",3,25));
 
 		// Mago
-		personajes[6] = new Mago("Mango Amarrillo", new Arma("Escalibur",1,70));
-		personajes[7] = new Mago("Mango Verde", new Arma("Escalibur",1,70));
+		personajes[6] = new Mago("Mango Amarrillo", new Arma("Vara de la verdad",4,10));
+		personajes[7] = new Mago("Mango Verde", new Arma("Baston de la sabiduria",3,5));
 		
 
 		while(opcionMenu != 4) {

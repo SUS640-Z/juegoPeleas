@@ -1,7 +1,5 @@
 package juego;
 
-import java.util.Random;
-
 /**
  * La clase arma
  * Representa un arma utilizada por un personaje en el juego.
@@ -16,20 +14,18 @@ public class Arma {
     private String nombre;
     private int danoExtra;
     private double probabilidadCritico;
-    private Random random;
 
     public static final String ANSI_RED = "\u001B[33m";
     /**
      * Crea un arma con los atributos especif     
      * @param nombre Nombre del arma.
-     * @param danoExtra Daño adiciod de acertar el ataque (0.0 a 1.0).
-     * @param probabilidadCritico Probabilidad de golpe crítico (0.0 a 1.0).
+     * @param danoExtra Daño adicional para el ataque.
+     * @param probabilidadCritico Probabilidad de golpe crítico.
      */
     public Arma(String nombre, int danoExtra, double probabilidadCritico) {
         this.nombre = nombre;
         this.danoExtra = danoExtra;
         this.probabilidadCritico = probabilidadCritico;
-        this.random = new Random();
     }
     /**
      * Obtiene el nombre del arma.
@@ -48,18 +44,20 @@ public class Arma {
     /**
      * Calcula el daño infligido considerando:
      * <ul>
-     *     <li>Posibilidad de fallar según la precisión.</li>
      *     <li>Posibilidad de golpe crítico según la probabilidadCritico.</li>
      *     <li>Daño extra del arma.</li>
      * </ul>
-     * @return El daño final que se inflige (0 si falla).
+     * @return El daño final que se inflige.
      */
     public int calcularDano(int danoBase) {
         int danoFinal = danoBase + danoExtra;
-        if (random.nextDouble() < probabilidadCritico) {
+        int critico = (int)(Math.random() * 100) + 1;
+        if (critico < probabilidadCritico) {
             danoFinal *= 2;
             System.out.println(ANSI_RED + "[ 🛑 Golpe crítico realizado por " + nombre + " ]");
-        }
+            return danoFinal;
+        } 
+        System.out.println("[ Golpe realizado por " + nombre + " ]");
         return danoFinal;
     }
 }
