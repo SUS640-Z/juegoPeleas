@@ -120,8 +120,9 @@ public class Menu {
 	public static void jugar(Jugador jugador1, Jugador jugador2, Personaje[] personajes) {
 		asignarNombreJugadores(jugador1,jugador2);
 		int turno = (int) (Math.random() * 2)+1;
-		escogerPersonajes(jugador1,personajes);
-		escogerPersonajes(jugador2,personajes);
+		
+		//escogerPersonajes(jugador1,personajes);
+		escogerPersonajes(jugador1, jugador2, personajes, turno);
 
 		System.out.println(jugador1.nombre);
 		mostrarPersonajes(jugador1.personajesSelecionados);
@@ -151,11 +152,12 @@ public class Menu {
 	 * @param jugador usuario que escogue sus personajes
 	 * @param personajes personajes disponible
 	 */	
-	public static void escogerPersonajes(Jugador jugador, Personaje[] personajes) {
+	public static void escogerPersonajes(Jugador jugador1, Jugador jugador2, Personaje[] personajes, int turno) {
 		int iPersonaje;
 		
-		while(jugador.contPersonajes < 3) {
-			System.out.println("\n"+jugador.nombre+" es turno de escoger un personaje");
+		while(jugador1.contPersonajes < 3 || jugador2.contPersonajes < 3) {
+			System.out.println((turno == 1) ? ("\n"+jugador1.nombre+" es turno de escoger un personaje") : ("\n"+jugador2.nombre+" es turno de escoger un personaje"));
+			
 			for(int i = 0; i < personajes.length; i++) {
 				if(personajes[i] != null && personajes[i].disponible) {
 					System.out.println((i+1) + ". " + personajes[i].nombre +" - "+ personajes[i].mostrarClase());
@@ -166,17 +168,25 @@ public class Menu {
 			iPersonaje = in.nextInt();
 			iPersonaje--;
 			
-			if(iPersonaje < 0 || iPersonaje >= personajes.length || personajes[iPersonaje] == null ){
-				System.out.println("Ese indice no existe, intenta con otro");
-			} else if(!personajes[iPersonaje].disponible){
-				System.out.println("Ese personaje ya no esta disponible, intenta con otro");
-			} else {
-				for(int i = 0; i < jugador.personajesSelecionados.length; i++) {
-					if(jugador.personajesSelecionados[i] == null) {
-						jugador.personajesSelecionados[jugador.contPersonajes] = personajes[iPersonaje];
-						personajes[iPersonaje].disponible = false;
-						jugador.contPersonajes++;
-						break;
+			if(iPersonaje >= 0 && iPersonaje < personajes.length && personajes[iPersonaje] != null && personajes[iPersonaje].disponible) {
+				for(int i = 0; i < jugador1.personajesSelecionados.length; i++) {
+					if(turno == 1) {
+						if(jugador1.personajesSelecionados[i] == null) {
+							jugador1.personajesSelecionados[jugador1.contPersonajes] = personajes[iPersonaje];
+							personajes[iPersonaje].disponible = false;
+							jugador1.contPersonajes++;
+							turno = 2;
+							break;
+						}
+					}
+					else {
+						if(jugador2.personajesSelecionados[i] == null) {
+							jugador2.personajesSelecionados[jugador2.contPersonajes] = personajes[iPersonaje];
+							personajes[iPersonaje].disponible = false;
+							jugador2.contPersonajes++;
+							turno = 1;
+							break;
+						}
 					}
 				}
 			}
