@@ -212,7 +212,7 @@ public class Menu {
 		System.out.print("Experiencia: " + jugador.personajesSelecionados[jugador.contPersonajes].experiencia);
 		System.out.print("\t\t | Precision: " + jugador.personajesSelecionados[jugador.contPersonajes].precision + "% \n");
 		System.out.print("Critico: " + jugador.personajesSelecionados[jugador.contPersonajes].arma.getProbabilidadCritico() + "%");
-		System.out.print("\t\t | Armadura: " + jugador.personajesSelecionados[jugador.contPersonajes].armadura + "% \n");
+		System.out.print("\t\t | Armadura: " + jugador.personajesSelecionados[jugador.contPersonajes].armadura + " \n");
 		System.out.println("");
 		System.out.println("1) Atacar");
 		System.out.println("2) Usar habilidad");
@@ -300,11 +300,12 @@ public class Menu {
 	 * @param secundario jugador que sufre las acciones
 	 */	
 	public static void accionesBatalla(Jugador principal, Jugador secundario) {
-		if(efectoActuando(principal) == 1) {
+		int efecto = efectoActuando(principal);
+		if(efecto == 1) {
 			return;
 		}
 
-		if(efectoActuando(principal) == 3) {
+		if(efecto == 3) {
 			principal.personajesSelecionados[principal.contPersonajes].vidaActual -= 5;
 			System.out.println("[ "+principal.personajesSelecionados[principal.contPersonajes].nombre+" perdio 5 de vida por el sangrado ]");
 			if(principal.personajesSelecionados[principal.contPersonajes].vidaActual <= 0) {
@@ -317,11 +318,11 @@ public class Menu {
 			}
 		}
 
-		int movimiento = interfaz(principal);
-		
-		if(efectoActuando(principal) == 2) {
+		if(efecto == 2) {
 			principal.personajesSelecionados[principal.contPersonajes].precision /= 2;
 		}
+
+		int movimiento = interfaz(principal);
 
 		switch(movimiento) {
 			case 1:
@@ -334,7 +335,7 @@ public class Menu {
 					secundario.contPersonajes++;
 					ganador(principal, secundario);
 				}
-				if(efectoActuando(principal) == 2) {
+				if(efecto == 2) {
 					principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
 		    	}		
 				break;
@@ -349,14 +350,14 @@ public class Menu {
 					secundario.contPersonajes++;
 					ganador(principal, secundario);
 				}
-				if(efectoActuando(principal) == 2) {
+				if(efecto == 2) {
 					principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
 		    	}	
 				break;
 				
 			case 3:
 				registroCombate.mostrarBitacora();
-				if(efectoActuando(principal) == 2) {
+				if(efecto == 2) {
 					principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
 		    	}	
 				break;
