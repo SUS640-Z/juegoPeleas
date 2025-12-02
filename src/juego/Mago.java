@@ -11,7 +11,7 @@ package juego;
  */
 public class Mago extends Personaje{
 	 Mago(String nombre, Arma arma) {
-	        super(nombre, 60, 60, 25, 80, 10, arma, 1, 0, false, "", 0, 100, 100);
+	        super(nombre, 60, 60, 12, 80, 15, arma, 1, 0, false, "", 0, 70, 100);
 	    }
 
 	@Override
@@ -23,17 +23,21 @@ public class Mago extends Personaje{
         }
 
         super.manaActual -= 70;
-	    int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.2);
+	    int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.7);
 		dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
 	    objetivo.personajesSelecionados[indice].vidaActual -= dano;
 	    
-	    if (Math.random() < 0.3) {  
+	    if (Math.random() < 0.5) {  
 	        objetivo.personajesSelecionados[indice].tieneEfecto = true;
 	        objetivo.personajesSelecionados[indice].tipoEfecto = "Congelado";
 	        objetivo.personajesSelecionados[indice].duracionEfecto = 2;
 	        mensaje += "[ ¡Congelación aplicada! ]\n";
 	    }
 
+		super.experiencia += 5;
+		if (super.subeNivel()) {
+			System.out.println("[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]");
+		}
 	    mensaje += "[ Le has restado " + dano + " a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
 		return mensaje;
     }

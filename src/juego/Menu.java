@@ -21,18 +21,18 @@ public class Menu {
 		
 		// Paladines
 		personajes[0] = new Chango("Cremo", new Arma("Latigo mutilante",1,35));
-		personajes[1] = new Chango("Geremias",  new Arma("Piedra dolorosa",5,15));
+		personajes[1] = new Chango("Geremias",  new Arma("Piedra dolorosa",3,15));
 		// Tanques
-		personajes[2] = new Tanque("Juan Carlos de la Mancha", new Arma("Mazo estruendoso",3,40));
-		personajes[3] = new Tanque("Leto",  new Arma("Martillo antihigienico",5,25));
+		personajes[2] = new Tanque("Juan Carlos de la Mancha", new Arma("Mazo estruendoso",1,40));
+		personajes[3] = new Tanque("Leto",  new Arma("Martillo antihigienico",3,25));
 		
 		// Vampiros
-		personajes[4] = new Vampiro("Señor Atomico", new Arma("Colmillos filudos",3,25));
-		personajes[5] = new Vampiro("Señor Lagarto", new Arma("Colmillos mordisqueantes",4,20));
+		personajes[4] = new Vampiro("Señor Atomico", new Arma("Colmillos filudos",2,25));
+		personajes[5] = new Vampiro("Señor Lagarto", new Arma("Colmillos mordisqueantes",3,20));
 
 		// Mago
-		personajes[6] = new Mago("Mango Amarrillo", new Arma("Vara de la verdad",4,5));
-		personajes[7] = new Mago("Mango Verde", new Arma("Baston de la falacia",3,10));
+		personajes[6] = new Mago("Mango Amarrillo", new Arma("Vara de la verdad",2,5));
+		personajes[7] = new Mago("Mango Verde", new Arma("Baston de la falacia",1,10));
 		
 
 		while(opcionMenu != 4) {
@@ -209,6 +209,10 @@ public class Menu {
 		}else {
 			System.out.print("\t\t | Efecto de estado: Ninguno\n");
 		}
+		System.out.print("Experiencia: " + jugador.personajesSelecionados[jugador.contPersonajes].experiencia);
+		System.out.print("\t\t | Precision: " + jugador.personajesSelecionados[jugador.contPersonajes].precision + "% \n");
+		System.out.print("Critico: " + jugador.personajesSelecionados[jugador.contPersonajes].arma.getProbabilidadCritico() + "%");
+		System.out.print("\t\t | Armadura: " + jugador.personajesSelecionados[jugador.contPersonajes].armadura + "% \n");
 		System.out.println("");
 		System.out.println("1) Atacar");
 		System.out.println("2) Usar habilidad");
@@ -262,7 +266,7 @@ public class Menu {
 				jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto = "";
 				System.out.println("[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta stuneado ]");
 			}
-			return 2;
+			return 1;
 		}
 
 		if(jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto.equals("Congelado")) {
@@ -273,7 +277,18 @@ public class Menu {
 				jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto = "";
 				System.out.println("[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta congelado ]");
 			}
-			return 0;
+			return 2;
+		}
+
+		if(jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto.equals("Sangrado")) {
+			System.out.println("[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" tiene sangrado y pierde 5 de vida cada turno con sangrado ]");
+			jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto--;
+			if(jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto == 0) {
+				jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto = false;
+				jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto = "";
+				System.out.println("[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta sangrando ]");
+			}
+			return 3;
 		}
 
 		return 0;
@@ -285,10 +300,28 @@ public class Menu {
 	 * @param secundario jugador que sufre las acciones
 	 */	
 	public static void accionesBatalla(Jugador principal, Jugador secundario) {
-		if(efectoActuando(principal) == 2) {
+		if(efectoActuando(principal) == 1) {
 			return;
 		}
+
+		if(efectoActuando(principal) == 3) {
+			principal.personajesSelecionados[principal.contPersonajes].vidaActual -= 5;
+			System.out.println("[ "+principal.personajesSelecionados[principal.contPersonajes].nombre+" perdio 5 de vida por el sangrado ]");
+			if(principal.personajesSelecionados[principal.contPersonajes].vidaActual <= 0) {
+				principal.personajesSelecionados[principal.contPersonajes].vidaActual = 0;
+				principal.personajesSelecionados[principal.contPersonajes].disponible = true;
+				System.out.println("[ ¡"+principal.personajesSelecionados[principal.contPersonajes].nombre+" ha sido derrotado! ]");
+				principal.contPersonajes++;
+				ganador(principal, secundario);
+				return;
+			}
+		}
+
 		int movimiento = interfaz(principal);
+		
+		if(efectoActuando(principal) == 2) {
+			principal.personajesSelecionados[principal.contPersonajes].precision /= 2;
+		}
 
 		switch(movimiento) {
 			case 1:
@@ -301,6 +334,9 @@ public class Menu {
 					secundario.contPersonajes++;
 					ganador(principal, secundario);
 				}
+				if(efectoActuando(principal) == 2) {
+					principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
+		    	}		
 				break;
 				
 			case 2:
@@ -313,10 +349,16 @@ public class Menu {
 					secundario.contPersonajes++;
 					ganador(principal, secundario);
 				}
+				if(efectoActuando(principal) == 2) {
+					principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
+		    	}	
 				break;
 				
 			case 3:
 				registroCombate.mostrarBitacora();
+				if(efectoActuando(principal) == 2) {
+					principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
+		    	}	
 				break;
 		}
 	}

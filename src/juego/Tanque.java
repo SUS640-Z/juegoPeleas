@@ -11,7 +11,7 @@ package juego;
  */
 public class Tanque extends Personaje {
 	 Tanque(String nombre, Arma arma) {
-	        super(nombre, 120, 120, 10, 95, 50, arma, 1, 0, false, "", 0, 100, 100);
+	        super(nombre, 120, 120, 5, 95, 40, arma, 1, 0, false, "", 0, 50, 100);
 	 }
 
 	@Override
@@ -23,7 +23,7 @@ public class Tanque extends Personaje {
         }
 
         super.manaActual -= 50;
-        int dano = arma.calcularDano(super.poderAtaque) * 2;
+        int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.5);
         dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
@@ -33,9 +33,12 @@ public class Tanque extends Personaje {
             objetivo.personajesSelecionados[indice].duracionEfecto = 3;
             mensaje += "[ ¡Stuneado aplicado! ]\n";
         }
-        mensaje += "[ Le has restado " + dano + " a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
-        
 
+        super.experiencia += 5;
+		if (super.subeNivel()) {
+			System.out.println("[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]");
+		}
+        mensaje += "[ Le has restado " + dano + " a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
         return mensaje;
     }
 

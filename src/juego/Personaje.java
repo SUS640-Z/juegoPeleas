@@ -343,6 +343,10 @@ public abstract class Personaje {
         if (probabilidadAtaque < precision) {
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
+			this.experiencia += 5;
+			if (this.subeNivel()) {
+				System.out.println("[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]");
+			}
             return "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
         }
 

@@ -11,7 +11,7 @@ package juego;
  */
 public class Chango extends Personaje{
     Chango(String nombre, Arma arma) {
-        super(nombre, 100, 100, 20, 80, 5, arma, 1, 0, false, "", 0, 100, 100);
+        super(nombre, 100, 100, 10, 80, 10, arma, 1, 0, false, "", 0, 33, 100);
     }
 
 	@Override
@@ -43,6 +43,10 @@ public class Chango extends Personaje{
         dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
+        super.experiencia += 5;
+		if (super.subeNivel()) {
+			System.out.println("[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]");
+		}
         mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
         return mensaje;
     }

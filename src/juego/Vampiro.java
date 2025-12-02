@@ -11,7 +11,7 @@ package juego;
  */
 public class Vampiro extends Personaje{
 	Vampiro(String nombre, Arma arma) {
-        super(nombre, 75, 75, 15, 85, 25, arma, 1, 0, false, "", 0, 100, 100);
+        super(nombre, 75, 75, 7, 85, 25, arma, 1, 0, false, "", 0, 50, 100);
     }
 	
 	@Override
@@ -42,6 +42,10 @@ public class Vampiro extends Personaje{
             mensaje += "[ Has regenerado " + (dano * 0.5) + " de vida! ]\n";
         }
 
+        super.experiencia += 5;
+		if (super.subeNivel()) {
+			System.out.println("[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]");
+		}
         mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
         return mensaje;
     }
