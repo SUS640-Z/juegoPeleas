@@ -11,7 +11,7 @@ package juego;
  */
 public class Vampiro extends Personaje{
 	Vampiro(String nombre, Arma arma) {
-        super(nombre, 60, 60, 50, 80, 40, arma, 1, 0, false, "", 0, 100, 100);
+        super(nombre, 60, 60, 15, 85, 25, arma, 1, 0, false, "", 0, 100, 100);
     }
 
 	@Override

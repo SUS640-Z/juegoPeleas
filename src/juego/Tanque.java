@@ -11,7 +11,7 @@ package juego;
  */
 public class Tanque extends Personaje {
 	 Tanque(String nombre, Arma arma) {
-	        super(nombre, 100, 100, 50, 35, 50, arma, 1, 0, false, "", 0, 100, 100);
+	        super(nombre, 100, 100, 10, 95, 50, arma, 1, 0, false, "", 0, 100, 100);
 	 }
 
 	@Override

@@ -92,7 +92,6 @@ public class Menu {
         in.nextLine();
 	}
 	
-	
 	/**
 	 * Manejar mejor la informacion presentada en pantalla
 	 */	
@@ -118,7 +117,7 @@ public class Menu {
 	/**
 	 * Logica y funcionamiento del juego
 	 */	
-	public static void jugar(Jugador jugador1,Jugador jugador2,Personaje[] personajes) {
+	public static void jugar(Jugador jugador1, Jugador jugador2, Personaje[] personajes) {
 		asignarNombreJugadores(jugador1,jugador2);
 		int turno = (int) (Math.random() * 2)+1;
 		escogerPersonajes(jugador1,personajes);
@@ -130,8 +129,6 @@ public class Menu {
 		mostrarPersonajes(jugador2.personajesSelecionados);
 		
 		batalla(jugador1,jugador2);
-		
-		
 	}
 	
 	/**
@@ -169,7 +166,11 @@ public class Menu {
 			iPersonaje = in.nextInt();
 			iPersonaje--;
 			
-			if(iPersonaje >= 0 && iPersonaje < personajes.length && personajes[iPersonaje] != null && personajes[iPersonaje].disponible) {
+			if(iPersonaje < 0 || iPersonaje >= personajes.length || personajes[iPersonaje] == null ){
+				System.out.println("Ese indice no existe, intenta con otro");
+			} else if(!personajes[iPersonaje].disponible){
+				System.out.println("Ese personaje ya no esta disponible, intenta con otro");
+			} else {
 				for(int i = 0; i < jugador.personajesSelecionados.length; i++) {
 					if(jugador.personajesSelecionados[i] == null) {
 						jugador.personajesSelecionados[jugador.contPersonajes] = personajes[iPersonaje];
@@ -178,9 +179,6 @@ public class Menu {
 						break;
 					}
 				}
-			}
-			else {
-				System.out.println("Ese inidce no existe, intenta con otro");
 			}
 		}
 	}
@@ -216,7 +214,7 @@ public class Menu {
 	 * @param jugador1 usuario que se enfrentara a jugador 2
 	 * @param jugador2 usuario que se enfrentara a jugador 1
 	 */	
-	public static void batalla(Jugador jugador1,Jugador jugador2) {
+	public static void batalla(Jugador jugador1, Jugador jugador2) {
 		jugador1.contPersonajes=0;
 		jugador2.contPersonajes=0;
 		int turno = (int) (Math.random() * 2)+1;
@@ -230,20 +228,74 @@ public class Menu {
 			}
 		}
 	}
+
+	/**
+	 * Esta funcion verifica si el personaje tiene algun efecto, y en caso de tenerlo aplica las restricciones correspondientes
+	 * @param jugador jugador que sera verificado
+	 */	
+	public static int efectoActuando(Jugador jugador) {
+		if(!jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto){
+			return 0;
+		}
+		
+		if(jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto.equals("Stuneado")) {
+			System.out.println("[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" esta stuneado y no puede actuar este turno ]");
+			jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto--;
+			if(jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto == 0) {
+				jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto = false;
+				jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto = "";
+				System.out.println("[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta stuneado ]");
+			}
+			return 2;
+		}
+
+		if(jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto.equals("Congelado")) {
+			System.out.println("[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" esta congelado y su precision esta reducida a la mitad ]");
+			jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto--;
+			if(jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto == 0) {
+				jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto = false;
+				jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto = "";
+				System.out.println("[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta congelado ]");
+			}
+			return 0;
+		}
+
+		return 0;
+	}
+
 	/**
 	 * Acciones que puede hacer el jugador principal contra el jugador secundario
 	 * @param principal jugador que realiza las acciones
 	 * @param secundario jugador que sufre las acciones
 	 */	
-	public static void accionesBatalla(Jugador principal,Jugador secundario) {
-		int movimiento=interfaz(principal);
+	public static void accionesBatalla(Jugador principal, Jugador secundario) {
+		int movimiento = interfaz(principal);
+		
+		if(efectoActuando(principal) == 2) {
+			return;
+		}
+
 		switch(movimiento) {
 			case 1:
 				principal.personajesSelecionados[principal.contPersonajes].atacar(secundario, secundario.contPersonajes);
+				if(secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
+					secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
+					secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
+					System.out.println("[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]");
+					secundario.contPersonajes++;
+					ganador(principal, secundario);
+				}
 				break;
 				
 			case 2:
 				principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes);
+				if(secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
+					secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
+					secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
+					System.out.println("[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]");
+					secundario.contPersonajes++;
+					ganador(principal, secundario);
+				}
 				break;
 				
 			case 3:
@@ -252,4 +304,23 @@ public class Menu {
 		}
 	}
 	
+	/**
+	 * Verifica si existe un ganador en el combate y termina el juego
+	 * @param jugador1 Jugador de la ronda actual
+	 * @param jugador2 Jugador de la siguiente ronda
+	 */	
+	public static boolean ganador(Jugador jugador1, Jugador jugador2) {
+		if(jugador1.contPersonajes == 4){
+			System.out.println("¡Felicidades " + jugador2.nombre + " has ganado el combate!");
+			return true;
+		} else if(jugador2.contPersonajes == 4) {
+			System.out.println("¡Felicidades " + jugador1.nombre + " has ganado el combate!");
+			return true;
+		} else if(jugador1.contPersonajes == 4 && jugador2.contPersonajes == 4) {
+			System.out.println("¡El combate acabo en empate!");
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

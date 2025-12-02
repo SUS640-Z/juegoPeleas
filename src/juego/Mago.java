@@ -11,7 +11,7 @@ package juego;
  */
 public class Mago extends Personaje{
 	 Mago(String nombre, Arma arma) {
-	        super(nombre, 50, 50, 100, 85, 5, arma, 1, 0, false, "", 0, 100, 100);
+	        super(nombre, 50, 50, 25, 80, 10, arma, 1, 0, false, "", 0, 100, 100);
 	    }
 
 	@Override

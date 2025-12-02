@@ -12,7 +12,7 @@ package juego;
 public class Paladin extends Personaje{
 	
 	Paladin(String nombre, Arma arma){
-		super(nombre, 70, 70, 80, 95, 15, new Arma("Espada", 15, 95), 1, 0, false, "", 0, 100, 100);
+		super(nombre, 70, 70, 12, 95, 35, new Arma("Espada", 15, 95), 1, 0, false, "", 0, 100, 100);
 	}
 
 	@Override
