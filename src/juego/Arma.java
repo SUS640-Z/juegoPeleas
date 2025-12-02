@@ -15,7 +15,8 @@ public class Arma {
     private int danoExtra;
     private double probabilidadCritico;
 
-    public static final String ANSI_RED = "\u001B[33m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_GREEN = "\u001B[32m";
     /**
      * Crea un arma con los atributos especif     
      * @param nombre Nombre del arma.
@@ -63,9 +64,10 @@ public class Arma {
         int critico = (int)(Math.random() * 100) + 1;
         if (critico < probabilidadCritico) {
             danoFinal *= 2;
-            System.out.println(ANSI_RED);
+            System.out.println(ANSI_YELLOW);
             return danoFinal;
         } 
+        System.out.println(ANSI_GREEN);
         return danoFinal;
     }
 }

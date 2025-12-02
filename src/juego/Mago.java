@@ -10,6 +10,11 @@ package juego;
  * @version 0.2
  */
 public class Mago extends Personaje{
+	public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+
 	 Mago(String nombre, Arma arma) {
 	        super(nombre, 60, 60, 12, 80, 15, arma, 1, 0, false, "", 0, 70, 100);
 	    }
@@ -28,22 +33,24 @@ public class Mago extends Personaje{
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
+			mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+
             if (Math.random() < 0.05) { 
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;
                 objetivo.personajesSelecionados[indice].tipoEfecto = "Congelado";
                 objetivo.personajesSelecionados[indice].duracionEfecto = 2;
-                mensaje += "[ ¡Congelación aplicada! ]\n";
+                mensaje += ANSI_GREEN + "[ ¡Congelación aplicada! ]\n";
             }
 
 			this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ] \n";
+				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n";
 			}
-            mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
+        } else{
+            mensaje += ANSI_RED + "[ Ataque fallido! ]\n";
         }
 
-        mensaje += "[ Ataque fallido! ]";
-        return mensaje;
+        return mensaje + ANSI_RESET;
 	}
 
 	@Override
@@ -51,27 +58,28 @@ public class Mago extends Personaje{
 		String mensaje = "";
 
         if(super.manaActual < 70){
-            return "[ Mana insuficiente... ]";
+            return ANSI_RED + "[ Mana insuficiente... ]\n" + ANSI_RESET;
         }
 
         super.manaActual -= 70;
 	    int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.7);
 		dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
 	    objetivo.personajesSelecionados[indice].vidaActual -= dano;
-	    
+
+	    mensaje += "[ Le has restado " + dano + " a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"; 
+
 	    if (Math.random() < 0.5) {  
 	        objetivo.personajesSelecionados[indice].tieneEfecto = true;
 	        objetivo.personajesSelecionados[indice].tipoEfecto = "Congelado";
 	        objetivo.personajesSelecionados[indice].duracionEfecto = 2;
-	        mensaje += "[ ¡Congelación aplicada! ]\n";
+	        mensaje += ANSI_GREEN + "[ ¡Congelación aplicada! ]\n";
 	    }
 
 		super.experiencia += 5;
 		if (super.subeNivel()) {
-			System.out.println("[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]");
+			mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n";
 		}
-	    mensaje += "[ Le has restado " + dano + " a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
-		return mensaje;
+		return mensaje + ANSI_RESET;
     }
 
 	@Override

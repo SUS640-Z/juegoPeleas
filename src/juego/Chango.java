@@ -10,6 +10,11 @@ package juego;
  * @version 0.2
  */
 public class Chango extends Personaje{
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+
     Chango(String nombre, Arma arma) {
         super(nombre, 100, 100, 10, 80, 10, arma, 1, 0, false, "", 0, 33, 100);
     }
@@ -27,25 +32,27 @@ public class Chango extends Personaje{
         if (probabilidadAtaque < precision) {
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
+			
+            mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
             if (Math.random() < 0.05) { 
                 if(super.arma.getProbabilidadCritico() > 100){
                     super.arma.setProbabilidadCritico(100);
                 } else {
                     super.arma.setProbabilidadCritico(super.arma.getProbabilidadCritico() + 5);
-                    mensaje += "[ La probabilidad de critico de tu arma ha aumentado en 5%! ]\n";
+                    mensaje += ANSI_GREEN + "[ La probabilidad de critico de tu arma ha aumentado en 5%! ]\n";
                 }
             }
 
-			this.experiencia += 5;
+            this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ] \n";
+				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n";
 			}
-            mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
+        } else{
+            mensaje += ANSI_RED + "[ Ataque fallido! ]\n";
         }
 
-        mensaje += "[ Ataque fallido! ]";
-        return mensaje;
+        return mensaje + ANSI_RESET;
 	}
 
 	@Override
@@ -53,17 +60,17 @@ public class Chango extends Personaje{
         String mensaje = "";
 
         if(super.manaActual < 33){
-            return "[ Mana insuficiente... ]";
+            return ANSI_RED + "[ Mana insuficiente... ]\n" + ANSI_RESET;
         }
 
         super.manaActual -= 33;
 
         if(super.arma.getProbabilidadCritico() >= 100){
             super.arma.setProbabilidadCritico(100);
-            mensaje += "[ La probabilidad de critico de tu arma ha llegado al maximo! ]\n";
+            mensaje += ANSI_YELLOW + "[ La probabilidad de critico de tu arma ha llegado al maximo! ]\n";
         } else {
             super.arma.setProbabilidadCritico(super.arma.getProbabilidadCritico() + 5);
-            mensaje += "[ La probabilidad de critico de tu arma ha aumentado en 5%! ]\n";
+            mensaje += ANSI_GREEN + "[ La probabilidad de critico de tu arma ha aumentado en 5%! ]\n";
         }
 
         if(super.precision < 33){
@@ -75,14 +82,15 @@ public class Chango extends Personaje{
         
         int dano = arma.calcularDano(super.poderAtaque);
         dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
-        objetivo.personajesSelecionados[indice].vidaActual -= dano;
+        objetivo.personajesSelecionados[indice].vidaActual -= dano;        
+        
+        mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
         super.experiencia += 5;
 		if (super.subeNivel()) {
-			System.out.println("[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]");
+			mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n";
 		}
-        mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]";
-        return mensaje;
+        return mensaje + ANSI_RESET;
     }
 
 	@Override
