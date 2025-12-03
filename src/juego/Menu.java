@@ -125,7 +125,14 @@ public class Menu {
 	 */	
 	public static void jugar(Jugador jugador1, Jugador jugador2, Personaje[] personajes) {
 		registroCombate.vaciarBitacora();
-		asignarNombreJugadores(jugador1,jugador2);
+		in.nextLine();
+		do {
+			asignarNombreJugador(jugador1,1);
+			asignarNombreJugador(jugador2,2);
+			if(jugador1.nombre.equalsIgnoreCase(jugador2.nombre)){
+				System.out.println(ANSI_YELLOW+"Los jugadores no se pueden llamar igual"+ANSI_RESET);
+			}
+		}while(jugador1.nombre.equalsIgnoreCase(jugador2.nombre));
 		int confirmar=0;
 		do {
 			int turno = (int) (Math.random() * 2)+1;
@@ -149,19 +156,18 @@ public class Menu {
 		batalla(jugador1,jugador2);
 	}
 	
-	/**
-	 * Asignar nombre a los jugadores
-	 * @param jugador1
-	 * @param jugador2
-	 */		
-	public static void asignarNombreJugadores(Jugador jugador1,Jugador jugador2) {
-		in.nextLine();
-		System.out.print("Ingresa nombre de jugador 1 --> ");
-		String nombre1 = in.nextLine(); 
-		System.out.print("Ingresa nombre de jugador 2 --> ");
-		String nombre2 = in.nextLine();
-		jugador1.nombre= nombre1;
-		jugador2.nombre= nombre2;
+	
+	public static void asignarNombreJugador(Jugador jugador,int num) {
+		String nombre;
+		do {
+		System.out.print("Ingresa nombre de jugador "+num+" --> ");
+		nombre = in.nextLine(); 
+		if(nombre.trim().isEmpty()) {
+			System.out.println(ANSI_YELLOW+"No puede estar vacio tu nombre"+ANSI_RESET);
+		}
+		}while(nombre.trim().isEmpty());
+
+		jugador.nombre= nombre;
 	}
 	
 	/**
