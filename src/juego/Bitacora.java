@@ -9,15 +9,36 @@ package juego;
  * @version 0.2
  */
 public class Bitacora {
+	public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_RESET = "\u001B[0m";
 	String accion;
-	Personaje atacante;
-	Personaje objetivo;
 	int danio;
 	boolean critico;
 	boolean fallo;
+	int turno=0;
 
 	String registros[] = new String[100];
 	
+	
+	public void registrarAtaque(Personaje atacante, Personaje objetivo,String contexto) {
+		String sucedido=(atacante.nombre+" ha atacado a "+objetivo.nombre);
+		sucedido+="\n";
+		sucedido+=contexto;
+		registros[turno]=sucedido;
+		turno++;
+	}
+	
+	public void registrarHabilidad(Personaje atacante, Personaje objetivo,String contexto) {
+		String sucedido=(atacante.nombre+" ha usado su habilidad contra "+objetivo.nombre);
+		sucedido+="\n";
+		sucedido+=contexto;
+		registros[turno]=sucedido;
+		turno++;
+	}
+	
+	public void registrarEfecto(String efecto) {
+		registros[turno]+=efecto;
+	}
 	
 	public void vaciarBitacora() {
 		for(int i=0; i<registros.length; i++) {
@@ -26,15 +47,17 @@ public class Bitacora {
 	}
 	
 	public void mostrarBitacora() {
+		if(registros[0] == null) {
+			System.out.println("No se han realizado acciones");
+			return;
+		}
 		for(int i=0; i<registros.length; i++) {
 			if(registros[i] != null) {
+				System.out.println(ANSI_CYAN+"\nTurno "+(i+1)+ANSI_RESET);
 				System.out.println(registros[i]);
-			}
+			}	
 		}
 	}
-	
-	public void registrarTurnos() {
-		
-	}
+
 	
 }

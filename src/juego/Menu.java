@@ -53,8 +53,7 @@ public class Menu {
 			switch(opcionMenu) {
 				case 1:
 					jugar(jugador1, jugador2, personajes);
-					in.nextLine();
-					presionarEnter();
+					presionarContinuar2();
 					break;
 				case 2:
 					mostrarPersonajes(personajes);
@@ -127,16 +126,16 @@ public class Menu {
 		restauracionPersonajes(personajes);
 		reseteoEquipo(jugador1);
 		reseteoEquipo(jugador2);
+		registroCombate.vaciarBitacora();
+		
 		asignarNombreJugadores(jugador1,jugador2);
 		int turno = (int) (Math.random() * 2)+1;
 		
 		//escogerPersonajes(jugador1,personajes);
 		escogerPersonajes(jugador1, jugador2, personajes, turno);
 
-		System.out.println(ANSI_CYAN+"Equipo de "+jugador1.nombre+ANSI_RESET);
-		mostrarPersonajes(jugador1.personajesSelecionados);
-		System.out.println(ANSI_CYAN+"Equipo de "+jugador2.nombre+ANSI_RESET);
-		mostrarPersonajes(jugador2.personajesSelecionados);
+		mostrarEquipo(jugador1);
+		mostrarEquipo(jugador2);
 		presionarContinuar2();
 		
 		batalla(jugador1,jugador2);
@@ -321,15 +320,19 @@ public class Menu {
 		}
 
 		if(efecto == 3) {
+			String consecuenciasEfecto;
 			principal.personajesSelecionados[principal.contPersonajes].vidaActual -= 5;
 			System.out.println(ANSI_RED + "[ "+principal.personajesSelecionados[principal.contPersonajes].nombre+" perdio 5 de vida por el sangrado ]" + ANSI_RESET);
+			consecuenciasEfecto="[ "+principal.personajesSelecionados[principal.contPersonajes].nombre+" perdio 5 de vida por el sangrado ]";
 			if(principal.personajesSelecionados[principal.contPersonajes].vidaActual <= 0) {
 				principal.personajesSelecionados[principal.contPersonajes].vidaActual = 0;
 				principal.personajesSelecionados[principal.contPersonajes].disponible = true;
 				System.out.println(ANSI_YELLOW + "[ ¡"+principal.personajesSelecionados[principal.contPersonajes].nombre+" ha sido derrotado! ]" + ANSI_RESET);
+				consecuenciasEfecto+="[ ¡"+principal.personajesSelecionados[principal.contPersonajes].nombre+" ha sido derrotado! ]";
 				principal.contPersonajes++;
 				return;
 			}
+			registroCombate.registrarEfecto(consecuenciasEfecto);
 		}
 
 		if(efecto == 2) {
@@ -342,36 +345,62 @@ public class Menu {
 			switch(movimiento) {
 				case 1:
 					System.out.println("--- Atacar ---");
-					System.out.println(principal.personajesSelecionados[principal.contPersonajes].atacar(secundario, secundario.contPersonajes));
+					
+					String accion=principal.personajesSelecionados[principal.contPersonajes].atacar(secundario, secundario.contPersonajes);
+					System.out.println(accion);
+					boolean turnoGuardado=false;
+					
 					if(secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
 						secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
 						secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
 						System.out.println(ANSI_YELLOW + "[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]" + ANSI_RESET);
+						
+						accion+=("\n[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]");
+						registroCombate.registrarAtaque(principal.personajesSelecionados[principal.contPersonajes],secundario.personajesSelecionados[secundario.contPersonajes],accion);
+						turnoGuardado=true;
+						
 						secundario.contPersonajes++;
 						//ganador(principal, secundario);
 					}
 					if(efecto == 2) {
 						principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
-			    	}		
+			    	}
+					if(!turnoGuardado) {
+						registroCombate.registrarAtaque(principal.personajesSelecionados[principal.contPersonajes],secundario.personajesSelecionados[secundario.contPersonajes],accion);
+					}
 					break;
 					
 				case 2:
 					System.out.println("--- Usar Habilidad ---");
-					System.out.println(principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes));
+					
+					String accionH=principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes);
+					System.out.println(accionH);
+					boolean turnoGuardadoH=false;
+					
 					if(secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
 						secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
 						secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
 						System.out.println(ANSI_YELLOW + "[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]" + ANSI_RESET);
+						
+						accionH+=("\n[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]");
+						registroCombate.registrarHabilidad(principal.personajesSelecionados[principal.contPersonajes],secundario.personajesSelecionados[secundario.contPersonajes],accionH);
+						turnoGuardadoH=true;
+						
 						secundario.contPersonajes++;
 						//ganador(principal, secundario);
 					}
 					if(efecto == 2) {
 						principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
 			    	}	
+					
+					if(!turnoGuardadoH) {
+						registroCombate.registrarHabilidad(principal.personajesSelecionados[principal.contPersonajes],secundario.personajesSelecionados[secundario.contPersonajes],accionH);
+					}
 					break;
 					
 				case 3:
 					registroCombate.mostrarBitacora();
+					presionarContinuar();
 					if(efecto == 2) {
 						principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
 			    	}	
@@ -417,6 +446,7 @@ public class Menu {
 				personajes[i].disponible=true;
 				personajes[i].vidaActual=personajes[i].vidaMaxima;
 				personajes[i].manaActual=personajes[i].manaMaximo;
+				personajes[i].tieneEfecto=false;
 			}
 		}
 	}
@@ -426,5 +456,10 @@ public class Menu {
 			jugador.personajesSelecionados[i] = null;
 		}
 		jugador.contPersonajes=0;
+	}
+	
+	public static void mostrarEquipo(Jugador jugador) {
+		System.out.println(ANSI_CYAN+"Equipo de "+jugador.nombre+ANSI_RESET);
+		mostrarPersonajes(jugador.personajesSelecionados);
 	}
 }

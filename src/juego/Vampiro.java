@@ -39,15 +39,15 @@ public class Vampiro extends Personaje{
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;
                 objetivo.personajesSelecionados[indice].tipoEfecto = "Sangrado";
                 objetivo.personajesSelecionados[indice].duracionEfecto = 2;
-                mensaje += ANSI_GREEN + "[ ¡Sangrado aplicado! ]\n";
+                mensaje += ANSI_GREEN + "[ ¡Sangrado aplicado! ]";
             }
 
 			this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n";
+				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]";
 			}
         } else{
-            mensaje += ANSI_RED + "[ Ataque fallido! ]\n";
+            mensaje += ANSI_RED + "[ Ataque fallido! ]";
         }
 
         return mensaje + ANSI_RESET;

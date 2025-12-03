@@ -39,15 +39,15 @@ public class Mago extends Personaje{
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;
                 objetivo.personajesSelecionados[indice].tipoEfecto = "Congelado";
                 objetivo.personajesSelecionados[indice].duracionEfecto = 2;
-                mensaje += ANSI_GREEN + "[ ¡Congelación aplicada! ]\n";
+                mensaje += ANSI_GREEN + "[ ¡Congelación aplicada! ]";
             }
 
 			this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n";
+				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]";
 			}
         } else{
-            mensaje += ANSI_RED + "[ Ataque fallido! ]\n";
+            mensaje += ANSI_RED + "[ Ataque fallido! ]";
         }
 
         return mensaje + ANSI_RESET;
@@ -58,7 +58,7 @@ public class Mago extends Personaje{
 		String mensaje = "";
 
         if(super.manaActual < 70){
-            return ANSI_RED + "[ Mana insuficiente... ]\n" + ANSI_RESET;
+            return ANSI_RED + "[ Mana insuficiente... ]" + ANSI_RESET;
         }
 
         super.manaActual -= 70;

@@ -40,16 +40,16 @@ public class Chango extends Personaje{
                     super.arma.setProbabilidadCritico(100);
                 } else {
                     super.arma.setProbabilidadCritico(super.arma.getProbabilidadCritico() + 5);
-                    mensaje += ANSI_GREEN + "[ La probabilidad de critico de tu arma ha aumentado en 5%! ]\n";
+                    mensaje += ANSI_GREEN + "[ La probabilidad de critico de tu arma ha aumentado en 5%! ]";
                 }
             }
 
             this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n";
+				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]";
 			}
         } else{
-            mensaje += ANSI_RED + "[ Ataque fallido! ]\n";
+            mensaje += ANSI_RED + "[ Ataque fallido! ]";
         }
 
         return mensaje + ANSI_RESET;

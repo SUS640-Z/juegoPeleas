@@ -37,16 +37,16 @@ public class Tanque extends Personaje {
 
             if (Math.random() < 0.05) { 
                 super.armadura += 5;
-                mensaje += ANSI_GREEN + "[ ¡Te has fortalecido! ]\n";
+                mensaje += ANSI_GREEN + "[ ¡Te has fortalecido! ]";
             }
 
 			this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n";
+				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]";
 			}
             
         } else{
-            mensaje += ANSI_RED + "[ Ataque fallido! ]\n";
+            mensaje += ANSI_RED + "[ Ataque fallido! ]";
         }
 
         return mensaje + ANSI_RESET;

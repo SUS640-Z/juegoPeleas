@@ -325,6 +325,8 @@ public abstract class Personaje {
 	public void actualizarDatosDeNivel(int nivel, int experiencia){
 		this.nivel = nivel;
 		this.experiencia -= experiencia;
+		vidaMaxima=(int)(vidaMaxima+vidaMaxima*0.1);
+		poderAtaque=(int)(poderAtaque+poderAtaque*0.1);
 		this.vidaActual = this.vidaMaxima;
 		this.manaActual = this.manaMaximo;
 	}
