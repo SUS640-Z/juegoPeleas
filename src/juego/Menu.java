@@ -16,12 +16,13 @@ public class Menu {
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_CYAN = "\u001B[36m";
 
 	public static void main(String[] args) {
 		int opcionMenu = 0;
 		Jugador jugador1 = new Jugador();
 		Jugador jugador2 = new Jugador();
-		Personaje[] personajes = new Personaje[8];
+		Personaje[] personajes = new Personaje[10];
 
 		
 		// Paladines
@@ -38,7 +39,7 @@ public class Menu {
 		// Mago
 		personajes[6] = new Mago("Mango Amarrillo", new Arma("Vara de la verdad",2,5));
 		personajes[7] = new Mago("Mango Verde", new Arma("Baston de la falacia",1,10));
-		
+		personajes[8] = new Mago("Mago Sensacion", new Arma("Baston de la falacia",9999,9999));
 
 		while(opcionMenu != 4) {
 			System.out.println(titulo());
@@ -65,7 +66,7 @@ public class Menu {
 					presionarEnter();
 					break;
 				case 4:
-					System.out.println("[ ¡Gracias por jugar! ]");
+					System.out.println(ANSI_YELLOW+"[ ¡Gracias por jugar! ]");
 					break;
 			}
 		}
@@ -76,11 +77,11 @@ public class Menu {
 	 * @retur titulo del juego
 	 */	
 	public static String titulo() {
-		return "  ___              _             ___ ___  ___   ___ _           _      _             ___ __ ___ ___               __ _   __    ___      _        \r\n"
+		return ANSI_CYAN+"  ___              _             ___ ___  ___   ___ _           _      _             ___ __ ___ ___               __ _   __    ___      _        \r\n"
 	    		+ " | _ \\_  _ _ _  __| |_  ___ ___ | _ \\ _ \\/ __| / __(_)_ __ _  _| |__ _| |_ ___ _ _  |_  )  \\_  ) __|  ___   __ __/ // | /  \\  | _ ) ___| |_ __ _ \r\n"
 	    		+ " |  _/ || | ' \\(_-< ' \\/ -_|_-< |   /  _/ (_ | \\__ \\ | '  \\ || | / _` |  _/ _ \\ '_|  / / () / /|__ \\ |___|  \\ V / _ \\ || () | | _ \\/ -_)  _/ _` |\r\n"
 	    		+ " |_|  \\_,_|_||_/__/_||_\\___/__/ |_|_\\_|  \\___| |___/_|_|_|_\\_,_|_\\__,_|\\__\\___/_|   /___\\__/___|___/         \\_/\\___/_(_)__/  |___/\\___|\\__\\__,_|\r\n"
-	    		+ "                                                                                                                                                 ";
+	    		+ "                                                                                                                                                 "+ANSI_RESET;
     }
 	
 	/**
@@ -123,16 +124,20 @@ public class Menu {
 	 * Logica y funcionamiento del juego
 	 */	
 	public static void jugar(Jugador jugador1, Jugador jugador2, Personaje[] personajes) {
+		restauracionPersonajes(personajes);
+		reseteoEquipo(jugador1);
+		reseteoEquipo(jugador2);
 		asignarNombreJugadores(jugador1,jugador2);
 		int turno = (int) (Math.random() * 2)+1;
 		
 		//escogerPersonajes(jugador1,personajes);
 		escogerPersonajes(jugador1, jugador2, personajes, turno);
 
-		System.out.println(jugador1.nombre);
+		System.out.println(ANSI_CYAN+"Equipo de "+jugador1.nombre+ANSI_RESET);
 		mostrarPersonajes(jugador1.personajesSelecionados);
-		System.out.println(jugador2.nombre);
+		System.out.println(ANSI_CYAN+"Equipo de "+jugador2.nombre+ANSI_RESET);
 		mostrarPersonajes(jugador2.personajesSelecionados);
+		presionarContinuar2();
 		
 		batalla(jugador1,jugador2);
 	}
@@ -161,7 +166,9 @@ public class Menu {
 		int iPersonaje;
 		
 		while(jugador1.contPersonajes < 3 || jugador2.contPersonajes < 3) {
+			System.out.print(ANSI_CYAN);
 			System.out.println((turno == 1) ? ("\n"+jugador1.nombre+" es turno de escoger un personaje") : ("\n"+jugador2.nombre+" es turno de escoger un personaje"));
+			System.out.print(ANSI_RESET);
 			
 			for(int i = 0; i < personajes.length; i++) {
 				if(personajes[i] != null && personajes[i].disponible) {
@@ -195,6 +202,7 @@ public class Menu {
 					}
 				}
 			}
+			presionarContinuar();
 		}
 	}
 
@@ -204,7 +212,7 @@ public class Menu {
 	 * @return devuelve la accion realizada por el jugador
 	 */	
 	public static int interfaz(Jugador jugador) {
-		System.out.println("===== TURNO DEL JUGADOR "+jugador.nombre+" =====");
+		System.out.println(ANSI_CYAN+"===== Turno de "+jugador.nombre+" ====="+ANSI_RESET);
 		System.out.println("Personaje activo: "+jugador.personajesSelecionados[jugador.contPersonajes].nombre +"("+jugador.personajesSelecionados[jugador.contPersonajes].mostrarClase()+")");
 		System.out.print("Vida: "+jugador.personajesSelecionados[jugador.contPersonajes].vidaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].vidaMaxima);
 		System.out.print("\t\t | Mana: "+jugador.personajesSelecionados[jugador.contPersonajes].manaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].manaMaximo +"\n");
@@ -251,6 +259,7 @@ public class Menu {
 				accionesBatalla(jugador2,jugador1);
 				turno=1;
 			}
+			presionarContinuar();
 		} 
 		ganador(jugador1, jugador2);
 	}
@@ -326,47 +335,49 @@ public class Menu {
 		if(efecto == 2) {
 			principal.personajesSelecionados[principal.contPersonajes].precision /= 2;
 		}
-
-		int movimiento = interfaz(principal);
-
-		switch(movimiento) {
-			case 1:
-				System.out.println("--- Atacar ---");
-				System.out.println(principal.personajesSelecionados[principal.contPersonajes].atacar(secundario, secundario.contPersonajes));
-				if(secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
-					secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
-					secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
-					System.out.println(ANSI_YELLOW + "[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]" + ANSI_RESET);
-					secundario.contPersonajes++;
-					ganador(principal, secundario);
-				}
-				if(efecto == 2) {
-					principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
-		    	}		
-				break;
-				
-			case 2:
-				System.out.println("--- Usar Habilidad ---");
-				System.out.println(principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes));
-				if(secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
-					secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
-					secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
-					System.out.println(ANSI_YELLOW + "[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]" + ANSI_RESET);
-					secundario.contPersonajes++;
-					ganador(principal, secundario);
-				}
-				if(efecto == 2) {
-					principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
-		    	}	
-				break;
-				
-			case 3:
-				registroCombate.mostrarBitacora();
-				if(efecto == 2) {
-					principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
-		    	}	
-				break;
-		}
+		int movimiento=0;
+		do {
+			movimiento = interfaz(principal);
+	
+			switch(movimiento) {
+				case 1:
+					System.out.println("--- Atacar ---");
+					System.out.println(principal.personajesSelecionados[principal.contPersonajes].atacar(secundario, secundario.contPersonajes));
+					if(secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
+						secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
+						secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
+						System.out.println(ANSI_YELLOW + "[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]" + ANSI_RESET);
+						secundario.contPersonajes++;
+						//ganador(principal, secundario);
+					}
+					if(efecto == 2) {
+						principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
+			    	}		
+					break;
+					
+				case 2:
+					System.out.println("--- Usar Habilidad ---");
+					System.out.println(principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes));
+					if(secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
+						secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
+						secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
+						System.out.println(ANSI_YELLOW + "[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]" + ANSI_RESET);
+						secundario.contPersonajes++;
+						//ganador(principal, secundario);
+					}
+					if(efecto == 2) {
+						principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
+			    	}	
+					break;
+					
+				case 3:
+					registroCombate.mostrarBitacora();
+					if(efecto == 2) {
+						principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
+			    	}	
+					break;
+			}
+		}while(movimiento == 3);
 	}
 	
 	/**
@@ -388,5 +399,32 @@ public class Menu {
 			return true;
 		} 
 		return false;
+	}
+	
+	public static void presionarContinuar() {
+		in.nextLine();
+		System.out.println(ANSI_YELLOW+"[ Presione ENTER para continuar... ]"+ANSI_RESET);
+		in.nextLine();
+	}
+	
+	public static void presionarContinuar2() {
+		System.out.println(ANSI_YELLOW+"[ Presione ENTER para continuar... ]"+ANSI_RESET);
+		in.nextLine();
+	}
+	public static void restauracionPersonajes(Personaje[] personajes) {
+		for(int i=0; i<personajes.length; i++) {
+			if(personajes[i] != null) {
+				personajes[i].disponible=true;
+				personajes[i].vidaActual=personajes[i].vidaMaxima;
+				personajes[i].manaActual=personajes[i].manaMaximo;
+			}
+		}
+	}
+	
+	public static void reseteoEquipo(Jugador jugador) {
+		for(int i=0; i<jugador.personajesSelecionados.length; i++) {
+			jugador.personajesSelecionados[i] = null;
+		}
+		jugador.contPersonajes=0;
 	}
 }
