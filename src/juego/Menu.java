@@ -17,6 +17,7 @@ public class Menu {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_BLUE = "\u001B[34m";
 
 	public static void main(String[] args) {
 		int opcionMenu = 0;
@@ -76,7 +77,7 @@ public class Menu {
 	 * @retur titulo del juego
 	 */	
 	public static String titulo() {
-		return ANSI_CYAN+"  ___              _             ___ ___  ___   ___ _           _      _             ___ __ ___ ___               __ _   __    ___      _        \r\n"
+		return ANSI_BLUE+"  ___              _             ___ ___  ___   ___ _           _      _             ___ __ ___ ___               __ _   __    ___      _        \r\n"
 	    		+ " | _ \\_  _ _ _  __| |_  ___ ___ | _ \\ _ \\/ __| / __(_)_ __ _  _| |__ _| |_ ___ _ _  |_  )  \\_  ) __|  ___   __ __/ // | /  \\  | _ ) ___| |_ __ _ \r\n"
 	    		+ " |  _/ || | ' \\(_-< ' \\/ -_|_-< |   /  _/ (_ | \\__ \\ | '  \\ || | / _` |  _/ _ \\ '_|  / / () / /|__ \\ |___|  \\ V / _ \\ || () | | _ \\/ -_)  _/ _` |\r\n"
 	    		+ " |_|  \\_,_|_||_/__/_||_\\___/__/ |_|_\\_|  \\___| |___/_|_|_|_\\_,_|_\\__,_|\\__\\___/_|   /___\\__/___|___/         \\_/\\___/_(_)__/  |___/\\___|\\__\\__,_|\r\n"
@@ -123,20 +124,27 @@ public class Menu {
 	 * Logica y funcionamiento del juego
 	 */	
 	public static void jugar(Jugador jugador1, Jugador jugador2, Personaje[] personajes) {
-		restauracionPersonajes(personajes);
-		reseteoEquipo(jugador1);
-		reseteoEquipo(jugador2);
 		registroCombate.vaciarBitacora();
-		
 		asignarNombreJugadores(jugador1,jugador2);
-		int turno = (int) (Math.random() * 2)+1;
-		
-		//escogerPersonajes(jugador1,personajes);
-		escogerPersonajes(jugador1, jugador2, personajes, turno);
+		int confirmar=0;
+		do {
+			int turno = (int) (Math.random() * 2)+1;
+			restauracionPersonajes(personajes);
+			reseteoEquipo(jugador1);
+			reseteoEquipo(jugador2);
+			escogerPersonajes(jugador1, jugador2, personajes, turno);
+			mostrarEquipo(jugador1);
+			mostrarEquipo(jugador2);
+			do {
+			System.out.print("¿Confirmar equipos? "+ANSI_GREEN+"[1.Si]"+ANSI_RED +"[2.No]"+ANSI_RESET +"--> ");
+			confirmar=in.nextInt();
+			if(confirmar < 1 || confirmar > 2) {
+				System.out.println(ANSI_YELLOW+"Esta opcion no coincide con ninguna de las disponibles"+ANSI_RESET);
+			}
+			}while(confirmar < 1 || confirmar > 2);
+		}while(confirmar != 1);
 
-		mostrarEquipo(jugador1);
-		mostrarEquipo(jugador2);
-		presionarContinuar2();
+		presionarContinuar();
 		
 		batalla(jugador1,jugador2);
 	}
