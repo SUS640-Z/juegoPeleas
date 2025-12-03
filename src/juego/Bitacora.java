@@ -15,11 +15,20 @@ public class Bitacora {
 	int danio;
 	boolean critico;
 	boolean fallo;
-	int turno=0;
-
-	String registros[] = new String[100];
+	int turno;
+	String registros[];
 	
+	Bitacora() {
+		registros = new String[100];
+		turno=0;
+	}
 	
+	/**
+	 * Registra un ataque eleborado en un turno
+	 * @param atacante personaje que realizo el ataque
+	 * @param objetivo personaje que sufre el ataque
+	 * @param contexto elementos extra acerca de lo transcurrido al momento de atacar
+	 */	
 	public void registrarAtaque(Personaje atacante, Personaje objetivo,String contexto) {
 		String sucedido=(atacante.nombre+" ha atacado a "+objetivo.nombre);
 		sucedido+="\n";
@@ -28,6 +37,12 @@ public class Bitacora {
 		turno++;
 	}
 	
+	/**
+	 * Registra una habilidad eleborada en un turno
+	 * @param atacante personaje que realizo la habilidad
+	 * @param objetivo personaje que sufre la habilidad
+	 * @param contexto elementos extra acerca de lo transcurrido al momento de usar la habilidad
+	 */	
 	public void registrarHabilidad(Personaje atacante, Personaje objetivo,String contexto) {
 		String sucedido=(atacante.nombre+" ha usado su habilidad contra "+objetivo.nombre);
 		sucedido+="\n";
@@ -36,16 +51,26 @@ public class Bitacora {
 		turno++;
 	}
 	
+	/**
+	 * Añadir mas detalles de lo transcurrido en turno por culpa de un efecto
+	 * @param efecto
+	 */	
 	public void registrarEfecto(String efecto) {
 		registros[turno]+=efecto;
 	}
 	
+	/**
+	 * Se vacia la bitacora
+	 */	
 	public void vaciarBitacora() {
 		for(int i=0; i<registros.length; i++) {
 			registros[i] = null;
 		}
 	}
 	
+	/**
+	 * Se muestra la bitacora
+	 */	
 	public void mostrarBitacora() {
 		if(registros[0] == null) {
 			System.out.println("No se han realizado acciones");

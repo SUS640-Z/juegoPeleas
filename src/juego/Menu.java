@@ -430,16 +430,27 @@ public class Menu {
 		return false;
 	}
 	
+	/**
+	 * Mejora la experiencia del usuario
+	 */	
 	public static void presionarContinuar() {
 		in.nextLine();
 		System.out.println(ANSI_YELLOW+"[ Presione ENTER para continuar... ]"+ANSI_RESET);
 		in.nextLine();
 	}
 	
+	/**
+	 * Mejora la experiencia del usuario
+	 */	
 	public static void presionarContinuar2() {
 		System.out.println(ANSI_YELLOW+"[ Presione ENTER para continuar... ]"+ANSI_RESET);
 		in.nextLine();
 	}
+	
+	/**
+	 * Restablece todos los atributos al maximo de jugador
+	 * @param personajes
+	 */	
 	public static void restauracionPersonajes(Personaje[] personajes) {
 		for(int i=0; i<personajes.length; i++) {
 			if(personajes[i] != null) {
@@ -451,13 +462,20 @@ public class Menu {
 		}
 	}
 	
+	/**
+	 * Borra los personajes del equipo del jugador
+	 * @param jugador 
+	 */	
 	public static void reseteoEquipo(Jugador jugador) {
 		for(int i=0; i<jugador.personajesSelecionados.length; i++) {
 			jugador.personajesSelecionados[i] = null;
 		}
 		jugador.contPersonajes=0;
 	}
-	
+	/**
+	 * Muestra el equipo de personajes del jugador
+	 * @param jugador
+	 */	
 	public static void mostrarEquipo(Jugador jugador) {
 		System.out.println(ANSI_CYAN+"Equipo de "+jugador.nombre+ANSI_RESET);
 		mostrarPersonajes(jugador.personajesSelecionados);
