@@ -619,9 +619,9 @@ public class Menu {
 			if(jugador1.personajesSelecionados[i] != null) {
 				System.out.println("------------------------------------------------");
 				System.out.println(ANSI_CYAN + "Personaje: " + jugador1.personajesSelecionados[i].nombre + ANSI_RESET);
-				System.out.println("Daño Total:    " + jugador1.personajesSelecionados[i].danioTotal);
-				System.out.println("Críticos:      " + jugador1.personajesSelecionados[i].arma.getNumeroDeCriticos());
-				System.out.println("Habilidades:   " + jugador1.personajesSelecionados[i].numeroDeHabilidadesUsadas);
+				System.out.println("Daño Total Inflingido:    " + jugador1.personajesSelecionados[i].danioTotal);
+				System.out.println("Críticos Acertados:      " + jugador1.personajesSelecionados[i].arma.getNumeroDeCriticos());
+				System.out.println("Habilidades Usadas:   " + jugador1.personajesSelecionados[i].numeroDeHabilidadesUsadas);
 				System.out.println("Nivel Final:   " + jugador1.personajesSelecionados[i].nivel);
 			}
 		}
@@ -630,9 +630,9 @@ public class Menu {
 			if(jugador2.personajesSelecionados[i] != null) {
 				System.out.println("------------------------------------------------");
 				System.out.println(ANSI_CYAN + "Personaje: " + jugador2.personajesSelecionados[i].nombre + ANSI_RESET);
-				System.out.println("Daño Total:    " + jugador2.personajesSelecionados[i].danioTotal);
-				System.out.println("Críticos:      " + jugador2.personajesSelecionados[i].arma.getNumeroDeCriticos());
-				System.out.println("Habilidades:   " + jugador2.personajesSelecionados[i].numeroDeHabilidadesUsadas);
+				System.out.println("Daño Total Inflingido:    " + jugador2.personajesSelecionados[i].danioTotal);
+				System.out.println("Críticos Acertados:      " + jugador2.personajesSelecionados[i].arma.getNumeroDeCriticos());
+				System.out.println("Habilidades Usadas:   " + jugador2.personajesSelecionados[i].numeroDeHabilidadesUsadas);
 				System.out.println("Nivel Final:   " + jugador2.personajesSelecionados[i].nivel);
 			}
 		}
