@@ -16,7 +16,7 @@ public class Mago extends Personaje{
     public static final String ANSI_GREEN = "\u001B[32m";
 
 	 Mago(String nombre, Arma arma) {
-	        super(nombre, 60, 60, 12, 80, 15, arma, 1, 0, false, "", 0, 70, 100);
+	        super(nombre, 60, 60, 12, 80, 15, arma, 1, 0, false, "", 0, 70, 100,70);
 	    }
 
 	@Override
@@ -57,11 +57,11 @@ public class Mago extends Personaje{
 	public String habilidad(Jugador objetivo, int indice) {
 		String mensaje = "";
 
-        if(super.manaActual < 70){
+        if(super.manaActual < manaHabilidad){
             return ANSI_RED + "[ Mana insuficiente... ]" + ANSI_RESET;
         }
 
-        super.manaActual -= 70;
+        super.manaActual -= manaHabilidad;
 	    int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.7);
 		dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
 	    objetivo.personajesSelecionados[indice].vidaActual -= dano;

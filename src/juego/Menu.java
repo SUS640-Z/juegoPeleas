@@ -369,14 +369,16 @@ public class Menu {
             registroCombate.registrarEfecto(consecuenciasEfecto);
         }
 
-<<<<<<< HEAD
+
 		if(efecto == 2) {
 			principal.personajesSelecionados[principal.contPersonajes].precision /= 2;
 		}
+		boolean repetir=false;
 		int movimiento=0;
 		do {
+			repetir=false;
 			movimiento = interfaz(principal);
-	
+			
 			switch(movimiento) {
 				case 1:
 					System.out.println("--- Atacar ---");
@@ -407,122 +409,46 @@ public class Menu {
 					
 				case 2:
 					System.out.println("--- Usar Habilidad ---");
-					
-					String accionH=principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes);
-					System.out.println(accionH);
-					boolean turnoGuardadoH=false;
-					
-					if(secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
-						secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
-						secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
-						System.out.println(ANSI_YELLOW + "[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]" + ANSI_RESET);
+					if(principal.personajesSelecionados[principal.contPersonajes].manaActual > principal.personajesSelecionados[principal.contPersonajes].manaHabilidad){
+						String accionH=principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes);
+						System.out.println(accionH);
+						boolean turnoGuardadoH=false;
 						
-						accionH+=("\n[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]");
-						registroCombate.registrarHabilidad(principal.personajesSelecionados[principal.contPersonajes],secundario.personajesSelecionados[secundario.contPersonajes],accionH);
-						turnoGuardadoH=true;
+						if(secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
+							secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
+							secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
+							System.out.println(ANSI_YELLOW + "[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]" + ANSI_RESET);
+							
+							accionH+=("\n[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]");
+							registroCombate.registrarHabilidad(principal.personajesSelecionados[principal.contPersonajes],secundario.personajesSelecionados[secundario.contPersonajes],accionH);
+							turnoGuardadoH=true;
+							
+							secundario.contPersonajes++;
+							//ganador(principal, secundario);
+						}
+						if(efecto == 2) {
+							principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
+				    	}	
 						
-						secundario.contPersonajes++;
-						//ganador(principal, secundario);
+						if(!turnoGuardadoH) {
+							registroCombate.registrarHabilidad(principal.personajesSelecionados[principal.contPersonajes],secundario.personajesSelecionados[secundario.contPersonajes],accionH);
+						}
+					}else {
+						System.out.println(ANSI_RED+"Mana Insuficiente"+ANSI_RESET);
+						repetir= true;
 					}
-					if(efecto == 2) {
-						principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
-			    	}	
-					
-					if(!turnoGuardadoH) {
-						registroCombate.registrarHabilidad(principal.personajesSelecionados[principal.contPersonajes],secundario.personajesSelecionados[secundario.contPersonajes],accionH);
-					}
+				
 					break;
 					
 				case 3:
-					registroCombate.mostrarBitacora();
-					presionarContinuar();
-					if(efecto == 2) {
-						principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
-			    	}	
+					registroCombate.mostrarBitacora();	
 					break;
 			}
 			presionarContinuar();
-		}while(movimiento == 3 || (movimiento==2 && principal.personajesSelecionados[principal.contPersonajes].manaActual < 50));
+		}while(movimiento == 3 || (movimiento==2 && repetir) );
 	}
 	
-	/**
-        if (efecto == 2) {
-            principal.personajesSelecionados[principal.contPersonajes].precision /= 2;
-        }
-
-        int movimiento = 0;
-        do {
-            movimiento = interfaz(principal);
-
-            switch (movimiento) {
-                case 1:
-                    System.out.println(ANSI_GREEN + "--- Atacar ---" + ANSI_RESET);
-
-                    String accion = principal.personajesSelecionados[principal.contPersonajes].atacar(secundario, secundario.contPersonajes);
-                    System.out.println(ANSI_GREEN + accion + ANSI_RESET);  // Mostrar ataque con color verde
-
-                    boolean turnoGuardado = false;
-
-                    if (secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
-                        secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
-                        secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
-                        System.out.println(ANSI_YELLOW + "[ ¡" + secundario.personajesSelecionados[secundario.contPersonajes].nombre + " ha sido derrotado! ]" + ANSI_RESET);
-
-                        accion += ("\n[ ¡" + secundario.personajesSelecionados[secundario.contPersonajes].nombre + " ha sido derrotado! ]");
-                        registroCombate.registrarAtaque(principal.personajesSelecionados[principal.contPersonajes], secundario.personajesSelecionados[secundario.contPersonajes], accion);
-                        turnoGuardado = true;
-
-                        secundario.contPersonajes++;
-                    }
-                    if (efecto == 2) {
-                        principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
-                    }
-                    if (!turnoGuardado) {
-                        registroCombate.registrarAtaque(principal.personajesSelecionados[principal.contPersonajes], secundario.personajesSelecionados[secundario.contPersonajes], accion);
-                    }
-                    break;
-
-                case 2:
-                    System.out.println(ANSI_GREEN + "--- Usar Habilidad ---" + ANSI_RESET);
-
-                    String accionH = principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes);
-                    System.out.println(ANSI_GREEN + accionH + ANSI_RESET);  // Mostrar habilidad con color verde
-
-                    boolean turnoGuardadoH = false;
-
-                    if (secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
-                        secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
-                        secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
-                        System.out.println(ANSI_YELLOW + "[ ¡" + secundario.personajesSelecionados[secundario.contPersonajes].nombre + " ha sido derrotado! ]" + ANSI_RESET);
-
-                        accionH += ("\n[ ¡" + secundario.personajesSelecionados[secundario.contPersonajes].nombre + " ha sido derrotado! ]");
-                        registroCombate.registrarHabilidad(principal.personajesSelecionados[principal.contPersonajes], secundario.personajesSelecionados[secundario.contPersonajes], accionH);
-                        turnoGuardadoH = true;
-
-                        secundario.contPersonajes++;
-                    }
-                    if (efecto == 2) {
-                        principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
-                    }
-
-                    if (!turnoGuardadoH) {
-                        registroCombate.registrarHabilidad(principal.personajesSelecionados[principal.contPersonajes], secundario.personajesSelecionados[secundario.contPersonajes], accionH);
-                    }
-                    break;
-
-                case 3:
-                    registroCombate.mostrarBitacora();
-                    presionarContinuar();
-                    if (efecto == 2) {
-                        principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
-                    }
-                    break;
-            }
-        } while (movimiento == 3);
-    }
-
-    /**
->>>>>>> 74f67ed90b7ab212726a1ed570bea2d3a27f23ab
+	/*
 	 * Verifica si existe un ganador en el combate y termina el juego
 	 * @param jugador1 Jugador de la ronda actual
 	 * @param jugador2 Jugador de la siguiente ronda
