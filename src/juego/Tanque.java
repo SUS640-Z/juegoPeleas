@@ -40,13 +40,14 @@ public class Tanque extends Personaje {
 		}
 
         if (probabilidadAtaque < precision) {
-            int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
-            
+            int dano =  arma.calcularDano(super.poderAtaque);  
+
             if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Chango loco desquisiado")) {
             	dano *= 1.20;
             	mensaje = "[ El ataque fue muy efectivo! ]\n";
             }
-            
+
+            dano -= (int)(dano*(objetivo.personajesSelecionados[indice].getArmadura()/100));             
             super.danioTotal += dano;
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
             if(objetivo.personajesSelecionados[indice].vidaActual > 0) {
@@ -89,13 +90,13 @@ public class Tanque extends Personaje {
         super.numeroDeHabilidadesUsadas++;
         super.manaActual -= manaHabilidad;
         int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.5);
-        dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
-        
+			        
         if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Chango loco desquisiado")) {
         	dano *= 1.20;
         	mensaje += "[ El ataque fue muy efectivo! ]\n";
         }
         
+        dano -= (int)(dano*(objetivo.personajesSelecionados[indice].getArmadura()/100)); 
         super.danioTotal += dano;
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
         if(objetivo.personajesSelecionados[indice].vidaActual > 0) {

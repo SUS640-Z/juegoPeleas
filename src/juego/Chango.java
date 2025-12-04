@@ -40,13 +40,14 @@ public class Chango extends Personaje{
 		}
 
         if (probabilidadAtaque < precision) {
-            int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
-            
+            int dano =  arma.calcularDano(super.poderAtaque);
+                       
             if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Mago de hielo")) {
             	dano *= 1.20;
             	mensaje += "[ El ataque fue muy efectivo! ]\n";
             }
             
+            dano -= (int)(dano*(objetivo.personajesSelecionados[indice].getArmadura()/100)); 
             super.danioTotal += dano;
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
             if(objetivo.personajesSelecionados[indice].vidaActual > 0) {
@@ -114,7 +115,7 @@ public class Chango extends Personaje{
         	mensaje += "[ El ataque fue muy efectivo! ]\n";
         }
         
-        dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+        dano -= (int)(dano*(objetivo.personajesSelecionados[indice].getArmadura()/100));
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
         if(objetivo.personajesSelecionados[indice].vidaActual > 0) {
 			objetivo.personajesSelecionados[indice].experiencia += 5;

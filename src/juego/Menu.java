@@ -590,6 +590,7 @@ public class Menu {
 	public static void imprimirMuertesYGanador(Personaje[] personajes) {
 		System.out.println(ANSI_CYAN + "\nOrden de muertes: " + ANSI_RESET);
 		for(int i=0; i < ordenMuerte.length; i++) {
+			//aijuwehbfiuawNDIOHAIOUW4EHDFILOUAWENIOUDFHQDFHR4AIOWENFIUAEHNWDIOUAMNEWIODJA9WEUHFIUAWJENDIJKOAWEJNILFUAHWIOUEDJNAEILOW;DJAEIOWFHUYAEHWDFIO
 			if(ordenMuerte[i] != null && !ordenMuerte[i].equals("")) {
 				System.out.println((i+1)+". "+ordenMuerte[i]);
 			} 
