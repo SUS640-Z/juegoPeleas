@@ -140,7 +140,6 @@ public class Menu {
 	 * Imprime los personajes del juego
 	 */	
 	public static void mostrarPersonajes(Personaje[] personajes) {
-		System.out.println();
 		for(int i = 0; i < personajes.length; i++) {
 			if(personajes[i] != null) {
 				System.out.println(ANSI_YELLOW+"["+(i+1) + "] "+ANSI_RESET + personajes[i].nombre +" - "+ personajes[i].mostrarClase());
@@ -151,7 +150,7 @@ public class Menu {
 	public static void mostrarPersonajes2(Personaje[] personajes) {
 		in.nextLine();
 		for(int i = 0; i < personajes.length; i++) {
-			if(personajes[i] != null) {
+			if(personajes[i] != null && personajes[i].disponible) {
 				System.out.println(personajes[i].mostrarPresentacion());
 				presionarContinuar2();
 			}
@@ -202,10 +201,10 @@ public class Menu {
 	public static void asignarNombreJugador(Jugador jugador,int num) {
 		String nombre;
 		do {
-		System.out.print("Ingresa nombre de jugador "+num+" --> ");
+		System.out.print(ANSI_CYAN+"Ingresa nombre de jugador "+num+" --> "+ANSI_RESET);
 		nombre = in.nextLine(); 
 		if(nombre.trim().isEmpty()) {
-			System.out.println(ANSI_YELLOW+"No puede estar vacio tu nombre"+ANSI_RESET);
+			System.out.println(ANSI_YELLOW+"No puede estar vacio tu nombre\n"+ANSI_RESET);
 		}
 		}while(nombre.trim().isEmpty());
 
@@ -227,7 +226,7 @@ public class Menu {
 
             for(int i = 0; i < personajes.length; i++) {
                 if(personajes[i] != null && personajes[i].disponible) {
-                    System.out.println((i+1) + ". " + personajes[i].nombre +" - "+ personajes[i].mostrarClase());
+                    System.out.println(ANSI_YELLOW+"["+(i+1) + "] "+ANSI_RESET + personajes[i].nombre +" - "+ personajes[i].mostrarClase());
                 }
             }
 
