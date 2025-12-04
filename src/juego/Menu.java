@@ -272,7 +272,6 @@ public class Menu {
 				accionesBatalla(jugador2,jugador1);
 				turno=1;
 			}
-			presionarContinuar();
 		} 
 		ganador(jugador1, jugador2);
 	}
@@ -420,7 +419,8 @@ public class Menu {
 			    	}	
 					break;
 			}
-		}while(movimiento == 3);
+			presionarContinuar();
+		}while(movimiento == 3 || (movimiento==2 && principal.personajesSelecionados[principal.contPersonajes].manaActual < 50));
 	}
 	
 	/**
