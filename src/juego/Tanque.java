@@ -37,7 +37,7 @@ public class Tanque extends Personaje {
 
             if (Math.random() < 0.05) { 
                 super.armadura += 5;
-                mensaje += ANSI_GREEN + "[ ¡Te has fortalecido! ]";
+                mensaje += ANSI_GREEN + "[ ¡Te has fortalecido! ]\n";
             }
 
 			this.experiencia += 5;
@@ -70,7 +70,7 @@ public class Tanque extends Personaje {
         if (Math.random() < 0.6) {  
             objetivo.personajesSelecionados[indice].tieneEfecto = true;
             objetivo.personajesSelecionados[indice].tipoEfecto = "Stuneado";
-            objetivo.personajesSelecionados[indice].duracionEfecto = 3;
+            objetivo.personajesSelecionados[indice].duracionEfecto = 1;
             mensaje += ANSI_GREEN + "[ ¡Stuneado aplicado! ]\n";
         }
 

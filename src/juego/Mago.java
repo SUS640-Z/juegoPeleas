@@ -39,7 +39,7 @@ public class Mago extends Personaje{
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;
                 objetivo.personajesSelecionados[indice].tipoEfecto = "Congelado";
                 objetivo.personajesSelecionados[indice].duracionEfecto = 2;
-                mensaje += ANSI_GREEN + "[ ¡Congelación aplicada! ]";
+                mensaje += ANSI_GREEN + "[ ¡Congelación aplicada! ]\n";
             }
 
 			this.experiencia += 5;

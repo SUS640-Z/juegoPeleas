@@ -39,7 +39,7 @@ public class Vampiro extends Personaje{
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;
                 objetivo.personajesSelecionados[indice].tipoEfecto = "Sangrado";
                 objetivo.personajesSelecionados[indice].duracionEfecto = 2;
-                mensaje += ANSI_GREEN + "[ ¡Sangrado aplicado! ]";
+                mensaje += ANSI_GREEN + "[ ¡Sangrado aplicado! ]\n";
             }
 
 			this.experiencia += 5;
