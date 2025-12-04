@@ -31,6 +31,7 @@ public class Tanque extends Personaje {
 
         if (probabilidadAtaque < precision) {
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+            super.danioTotal += dano;
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
             mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
@@ -60,12 +61,14 @@ public class Tanque extends Personaje {
             return ANSI_RED + "[ Mana insuficiente... ]\n" + ANSI_RESET;
         }
 
+        super.numeroDeHabilidadesUsadas++;
         super.manaActual -= manaHabilidad;
         int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.5);
         dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+        super.danioTotal += dano;
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
-        mensaje += "[ Le has restado " + dano + " a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+        mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
         if (Math.random() < 0.6) {  
             objetivo.personajesSelecionados[indice].tieneEfecto = true;

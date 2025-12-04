@@ -14,6 +14,7 @@ public class Arma {
     private String nombre;
     private int danoExtra;
     private double probabilidadCritico;
+    private int numeroDeCriticos;
 
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_GREEN = "\u001B[32m";
@@ -27,6 +28,7 @@ public class Arma {
         this.nombre = nombre;
         this.danoExtra = danoExtra;
         this.probabilidadCritico = probabilidadCritico;
+        this.numeroDeCriticos = 0;
     }
     /**
      * Obtiene el nombre del arma.
@@ -35,6 +37,7 @@ public class Arma {
     public String getNombre() {
         return nombre;
     }
+
     /**
      * Obtiene la probabilidad de golpe crítico del arma.
      * @return probabilidad de golpe crítico.
@@ -52,6 +55,22 @@ public class Arma {
 	}
 
     /**
+     * Numero de criticos realizados con el arma.
+     * @return numero de criticos.
+     */
+    public int getNumeroDeCriticos() {
+        return numeroDeCriticos;
+    }
+
+    /**
+	 * Setter que recibe el numero de criticos del arma.
+	 * @param numeroDeCriticos numero de criticos.
+	 */	
+	public void setProbabilidadCritico(int numeroDeCriticos) {
+		this.numeroDeCriticos = numeroDeCriticos;
+	}
+
+    /**
      * Calcula el daño infligido considerando:
      * <ul>
      *     <li>Posibilidad de golpe crítico según la probabilidadCritico.</li>
@@ -63,6 +82,7 @@ public class Arma {
         int danoFinal = danoBase + danoExtra;
         int critico = (int)(Math.random() * 100) + 1;
         if (critico < probabilidadCritico) {
+            numeroDeCriticos++;
             danoFinal *= 2;
             System.out.println(ANSI_YELLOW);
             return danoFinal;

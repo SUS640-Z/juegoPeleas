@@ -1,4 +1,5 @@
 package juego;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -12,6 +13,8 @@ import java.util.Scanner;
 public class Menu {
 	static Scanner in = new Scanner(System.in);
 	static Bitacora registroCombate = new Bitacora();
+	static String ordenMuerte[] = new String[6];
+	static int contadorMuerte = 0;
 	public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_RESET = "\u001B[0m";
@@ -43,6 +46,8 @@ public class Menu {
 		personajes[8] = new Mago("Mago Sensacion", new Arma("Baston de la falacia",9999,9999));
 
 		while(opcionMenu != 4) {
+			Arrays.fill(ordenMuerte, "");
+			contadorMuerte = 0;
 			System.out.println(titulo());
 			System.out.println("| 1. Jugar");
 			System.out.println("| 2. Personajes Disponibles");
@@ -307,34 +312,34 @@ public class Menu {
 		}
 		
 		if(jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto.equals("Stuneado")) {
-			System.out.print(ANSI_RED + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" esta stuneado y no puede actuar este turno ]\n" + ANSI_RESET);
 			if(jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto == 0) {
 				jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto = false;
 				jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto = "";
 				System.out.print(ANSI_YELLOW + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta stuneado ]\n" + ANSI_RESET);
 			}
+			System.out.print(ANSI_RED + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" esta stuneado y no puede actuar este turno ]\n" + ANSI_RESET);
 			jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto--;
 			return 1;
 		}
 
 		if(jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto.equals("Congelado")) {
-			System.out.print(ANSI_RED + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" esta congelado y su precision esta reducida a la mitad ]\n" + ANSI_RESET);
 			if(jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto == 0) {
 				jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto = false;
 				jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto = "";
 				System.out.print(ANSI_YELLOW + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta congelado ]\n" + ANSI_RESET);
 			}			
+			System.out.print(ANSI_RED + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" esta congelado y su precision esta reducida a la mitad ]\n" + ANSI_RESET);
 			jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto--;
 			return 2;
 		}
 
 		if(jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto.equals("Sangrado")) {
-			System.out.print(ANSI_RED + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" tiene sangrado y pierde 5 de vida cada turno con sangrado ]\n" + ANSI_RESET);
 			if(jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto == 0) {
 				jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto = false;
 				jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto = "";
 				System.out.print(ANSI_YELLOW + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta sangrando ]\n" + ANSI_RESET);
 			}			
+			System.out.print(ANSI_RED + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" tiene sangrado y pierde 5 de vida cada turno con sangrado ]\n" + ANSI_RESET);
 			jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto--;
 			return 3;
 		}
@@ -363,6 +368,7 @@ public class Menu {
                 principal.personajesSelecionados[principal.contPersonajes].disponible = true;
                 System.out.println(ANSI_YELLOW + "[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! ]" + ANSI_RESET);
                 consecuenciasEfecto += "[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! ]";
+				ordenMuerte[contadorMuerte++] = principal.personajesSelecionados[principal.contPersonajes].nombre;
                 principal.contPersonajes++;
                 return;
             }
@@ -517,5 +523,14 @@ public class Menu {
 	public static void mostrarEquipo(Jugador jugador) {
 		System.out.println(ANSI_CYAN+"Equipo de "+jugador.nombre+ANSI_RESET);
 		mostrarPersonajes(jugador.personajesSelecionados);
+	}
+
+	public static void imprimirMuertes() {
+		System.out.println(ANSI_CYAN + "\nOrden de muertes:" + ANSI_RESET);
+		for(int i=0; i<ordenMuerte.length; i++) {
+			if(!ordenMuerte[i].equals("")) {
+				System.out.println((i+1)+". "+ordenMuerte[i]);
+			}
+		}
 	}
 }

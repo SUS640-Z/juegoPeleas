@@ -31,7 +31,8 @@ public class Mago extends Personaje{
 
         if (probabilidadAtaque < precision) {
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
-            objetivo.personajesSelecionados[indice].vidaActual -= dano;
+            super.danioTotal += dano;
+			objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
 			mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
@@ -61,12 +62,14 @@ public class Mago extends Personaje{
             return ANSI_RED + "[ Mana insuficiente... ]" + ANSI_RESET;
         }
 
+		super.numeroDeHabilidadesUsadas++;
         super.manaActual -= manaHabilidad;
 	    int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.7);
 		dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
-	    objetivo.personajesSelecionados[indice].vidaActual -= dano;
+	    super.danioTotal += dano;
+		objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
-	    mensaje += "[ Le has restado " + dano + " a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"; 
+	    mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"; 
 
 	    if (Math.random() < 0.5) {  
 	        objetivo.personajesSelecionados[indice].tieneEfecto = true;

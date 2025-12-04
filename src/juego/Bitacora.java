@@ -29,7 +29,7 @@ public class Bitacora {
 	 * @param objetivo personaje que sufre el ataque
 	 * @param contexto elementos extra acerca de lo transcurrido al momento de atacar
 	 */	
-	public void registrarAtaque(Personaje atacante, Personaje objetivo,String contexto) {
+	public void registrarAtaque(Personaje atacante, Personaje objetivo, String contexto) {
 		String sucedido=(atacante.nombre+" ha atacado a "+objetivo.nombre);
 		sucedido+="\n";
 		sucedido+=contexto;
@@ -43,7 +43,7 @@ public class Bitacora {
 	 * @param objetivo personaje que sufre la habilidad
 	 * @param contexto elementos extra acerca de lo transcurrido al momento de usar la habilidad
 	 */	
-	public void registrarHabilidad(Personaje atacante, Personaje objetivo,String contexto) {
+	public void registrarHabilidad(Personaje atacante, Personaje objetivo, String contexto) {
 		String sucedido=(atacante.nombre+" ha usado su habilidad contra "+objetivo.nombre);
 		sucedido+="\n";
 		sucedido+=contexto;
