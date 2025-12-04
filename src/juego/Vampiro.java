@@ -41,7 +41,7 @@ public class Vampiro extends Personaje{
 
         if (probabilidadAtaque < precision) {
             int dano =  arma.calcularDano(super.poderAtaque); 
-             
+
             if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Tanque")) {
             	dano *= 1.20;
             	mensaje = "[ El ataque fue muy efectivo! ]\n";
@@ -54,7 +54,7 @@ public class Vampiro extends Personaje{
                 objetivo.personajesSelecionados[indice].experiencia += 5;
             }
 
-            mensaje = ANSI_GREEN+"[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
+            mensaje = "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
             if (Math.random() < 0.05) { 
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;

@@ -591,7 +591,7 @@ public class Menu {
 		System.out.println(ANSI_CYAN + "\nOrden de muertes: " + ANSI_RESET);
 		for(int i=0; i < ordenMuerte.length; i++) {
 			//aijuwehbfiuawNDIOHAIOUW4EHDFILOUAWENIOUDFHQDFHR4AIOWENFIUAEHNWDIOUAMNEWIODJA9WEUHFIUAWJENDIJKOAWEJNILFUAHWIOUEDJNAEILOW;DJAEIOWFHUYAEHWDFIO
-			if(ordenMuerte[i] != null && !ordenMuerte[i].equals("")) {
+			if(ordenMuerte[i] != null) {
 				System.out.println((i+1)+". "+ordenMuerte[i]);
 			} 
 		}
@@ -610,8 +610,7 @@ public class Menu {
 	}
 
 	/**
-	 * Imprime las estadisticas completasd de los personajes de cada jugador
-	 * 
+	 * Imprime las estadisticas completas de cada personaje
 	 * @param jugador1 es el juagador 1
 	 * @param jugador2 es el jugador 2
 	 */
@@ -644,8 +643,8 @@ public class Menu {
 	 * reinicia el orden de muertes
 	 */
 	public static void reiniciarOrdenMuerte() {
-		for(int i=0; i<ordenMuerte.length; i++) {
-			ordenMuerte[i] = "";
+		for(int i = 0; i < ordenMuerte.length; i++) {
+			ordenMuerte[i] = null;
 		}
 		contadorMuerte = 0;
 	}
