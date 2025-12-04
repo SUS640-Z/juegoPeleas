@@ -16,7 +16,7 @@ public class Mago extends Personaje{
     public static final String ANSI_GREEN = "\u001B[32m";
 
 	 Mago(String nombre, Arma arma) {
-	        super(nombre, 60, 60, 12, 80, 15, arma, 1, 0, false, "", 0, 70, 100,70);
+	        super(nombre, 60, 60, 26, 80, 8, arma, 1, 0, false, "", 0, 70, 100,70);
 	    }
 
 	@Override
@@ -31,10 +31,16 @@ public class Mago extends Personaje{
 
         if (probabilidadAtaque < precision) {
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
-            super.danioTotal += dano;
-			objetivo.personajesSelecionados[indice].vidaActual -= dano;
+            
+            if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Vampiro")) {
+            	dano *= 1.20;
+            	mensaje += "[ El ataque fue muy efectivo! ]\n";
+            }
+            
+			super.danioTotal += dano;
+            objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
-			mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+            mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
             if (Math.random() < 0.05) { 
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;
@@ -66,8 +72,14 @@ public class Mago extends Personaje{
         super.manaActual -= manaHabilidad;
 	    int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.7);
 		dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
-	    super.danioTotal += dano;
-		objetivo.personajesSelecionados[indice].vidaActual -= dano;
+		
+		if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Vampiro")) {
+        	dano *= 1.20;
+        	mensaje += "[ El ataque fue muy efectivo! ]\n";
+        }
+		
+		super.danioTotal += dano;
+	    objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
 	    mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"; 
 
@@ -88,5 +100,10 @@ public class Mago extends Personaje{
 	@Override
 	public String mostrarClase() {
 		return "Mago de hielo";
+	}
+	
+	public String mostrarPresentacion() {
+		return "\nClase: "+ANSI_CYAN+ mostrarClase()+ANSI_RESET +
+			super.mostrarPresentacion();
 	}
 }

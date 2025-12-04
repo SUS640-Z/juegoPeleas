@@ -9,6 +9,12 @@ package juego;
  * @version 1.0
  */
 public abstract class Personaje {
+	public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_BLUE = "\u001B[34m";
 	//Atributos---------------------------------------------------------------------------------------------------------------------------------------------------------------
 	protected String nombre;
 	protected int vidaMaxima;
@@ -335,6 +341,18 @@ public abstract class Personaje {
 				"\nDuracion de Efecto: " + duracionEfecto +
 				"\nMana Actual: " + manaActual +
 				"\nMana Maximo: " + manaMaximo;
+	}
+	
+	public String mostrarPresentacion() {
+		return "\nNombre: "+ANSI_CYAN + nombre + ANSI_RESET+
+				"\nVida: " + ANSI_CYAN + vidaMaxima + ANSI_RESET + 
+				"\nAtaque: " + ANSI_CYAN + poderAtaque + ANSI_RESET + 
+				"\nPrecision: "+ ANSI_CYAN + precision + "%" + ANSI_RESET +
+				"\nArmadura: " + ANSI_CYAN + armadura + ANSI_RESET + 
+				"\nArma: " +  ANSI_CYAN + arma.getNombre() + ANSI_RESET + 
+				"\nCritico: "+ ANSI_CYAN + precision + "%" + ANSI_RESET +
+				"\nNivel: " + ANSI_CYAN + nivel + ANSI_RESET +
+				"\nMana : " + ANSI_CYAN + manaMaximo + ANSI_RESET;
 	}
 
 	/**

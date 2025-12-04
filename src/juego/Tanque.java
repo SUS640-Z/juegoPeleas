@@ -16,7 +16,7 @@ public class Tanque extends Personaje {
     public static final String ANSI_GREEN = "\u001B[32m";
 
 	 Tanque(String nombre, Arma arma) {
-	        super(nombre, 120, 120, 5, 95, 40, arma, 1, 0, false, "", 0, 50, 100,50);
+	        super(nombre, 120, 120, 19, 95,33, arma, 1, 0, false, "", 0, 50, 100,50);
 	 }
 
      @Override
@@ -31,10 +31,16 @@ public class Tanque extends Personaje {
 
         if (probabilidadAtaque < precision) {
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+            
+            if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Chango loco desquisiado")) {
+            	dano *= 1.20;
+            	mensaje += "[ El ataque fue muy efectivo! ]\n";
+            }
+            
             super.danioTotal += dano;
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
-            mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+            mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
             if (Math.random() < 0.05) { 
                 super.armadura += 5;
@@ -65,10 +71,16 @@ public class Tanque extends Personaje {
         super.manaActual -= manaHabilidad;
         int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.5);
         dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+        
+        if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Chango loco desquisiado")) {
+        	dano *= 1.20;
+        	mensaje += "[ El ataque fue muy efectivo! ]\n";
+        }
+        
         super.danioTotal += dano;
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
-        mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+        mensaje += "[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
         if (Math.random() < 0.6) {  
             objetivo.personajesSelecionados[indice].tieneEfecto = true;
@@ -79,7 +91,7 @@ public class Tanque extends Personaje {
 
         super.experiencia += 5;
 		if (super.subeNivel()) {
-			mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n"; 
+			mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n\n"; 
 		}
         return mensaje + ANSI_RESET;
     }
@@ -89,6 +101,10 @@ public class Tanque extends Personaje {
 		return "Tanque";
 	}
 	
+	public String mostrarPresentacion() {
+		return "\nClase: "+ANSI_CYAN+ mostrarClase()+ANSI_RESET +
+			super.mostrarPresentacion();
+	}
 	
 	
 }

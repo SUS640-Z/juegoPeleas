@@ -16,7 +16,7 @@ public class Vampiro extends Personaje{
     public static final String ANSI_GREEN = "\u001B[32m";
 
 	Vampiro(String nombre, Arma arma) {
-        super(nombre, 75, 75, 7, 85, 25, arma, 1, 0, false, "", 0, 50, 100,50);
+        super(nombre, 75, 75, 22, 85, 18, arma, 1, 0, false, "", 0, 50, 100,50);
     }
 
     @Override
@@ -31,10 +31,16 @@ public class Vampiro extends Personaje{
 
         if (probabilidadAtaque < precision) {
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+            
+            if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Tanque")) {
+            	dano *= 1.20;
+            	mensaje += "[ El ataque fue muy efectivo! ]\n";
+            }
+            
             super.danioTotal += dano;
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
-            mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+            mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
             if (Math.random() < 0.05) { 
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;
@@ -66,6 +72,12 @@ public class Vampiro extends Personaje{
         super.manaActual -= manaHabilidad;
         int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.3);
         dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+        
+        if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Tanque")) {
+        	dano *= 1.20;
+        	mensaje += "[ El ataque fue muy efectivo! ]\n";
+        }
+        
         super.danioTotal += dano;
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
@@ -96,5 +108,10 @@ public class Vampiro extends Personaje{
 	@Override
 	public String mostrarClase() {
 		return "Vampiro";
+	}
+	
+	public String mostrarPresentacion() {
+		return "\nClase: "+ANSI_CYAN+ mostrarClase()+ANSI_RESET +
+			super.mostrarPresentacion();
 	}
 }

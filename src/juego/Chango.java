@@ -16,7 +16,7 @@ public class Chango extends Personaje{
     public static final String ANSI_GREEN = "\u001B[32m";
 
     Chango(String nombre, Arma arma) {
-        super(nombre, 100, 100, 10, 80, 10, arma, 1, 0, false, "", 0, 33, 100,33);
+        super(nombre, 100, 100, 24, 80, 3, arma, 1, 0, false, "", 0, 33, 100,33);
     }
 
     @Override
@@ -29,12 +29,19 @@ public class Chango extends Personaje{
 			this.manaActual = this.manaMaximo;
 		}
 
+        super.numeroDeHabilidadesUsadas++;
         if (probabilidadAtaque < precision) {
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+            
+            if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Mago de hielo")) {
+            	dano *= 1.20;
+            	mensaje += "[ El ataque fue muy efectivo! ]\n";
+            }
+            
             super.danioTotal += dano;
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
 			
-            mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+            mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
             if (Math.random() < 0.05) { 
                 if(super.arma.getProbabilidadCritico() > 100){
@@ -82,11 +89,17 @@ public class Chango extends Personaje{
             }
         }
         
-        int dano = arma.calcularDano(super.poderAtaque);
-        dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
-        super.danioTotal += dano;
-        objetivo.personajesSelecionados[indice].vidaActual -= dano;        
+        int dano =  arma.calcularDano(super.poderAtaque);
         
+        if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Mago de hielo")) {
+        	dano *= 1.20;
+        	mensaje += "[ El ataque fue muy efectivo! ]\n";
+        }
+        
+        dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+        objetivo.personajesSelecionados[indice].vidaActual -= dano;
+        
+        super.danioTotal += dano;
         mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
         super.experiencia += 5;
@@ -99,5 +112,10 @@ public class Chango extends Personaje{
 	@Override
 	public String mostrarClase() {
 		return "Chango loco desquisiado";
+	}
+	
+	public String mostrarPresentacion() {
+		return "\nClase: "+ANSI_CYAN+ mostrarClase()+ANSI_RESET +
+			super.mostrarPresentacion();
 	}
 }

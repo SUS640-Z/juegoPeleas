@@ -7,6 +7,9 @@ package juego;
  * @author Guillermo Green Aviles
  * @author Favio Emiliano Sanchez Lopez
  * @version 0.2
+ * @param nombre identificador del jugador
+ * @param personajesSelecionados personajes que fueron selecionados por el jugador
+ * @param contPersonajes conocer el numero hasta ahora de elementos usados por personajesSeleccionados
  */
 public class Jugador {
 	String nombre;
