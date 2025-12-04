@@ -22,7 +22,7 @@ public class Tanque extends Personaje {
      @Override
     public String atacar(Jugador objetivo, int indice) {
 		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
-        String mensaje = "";
+        String mensaje;
 
 		this.manaActual += 10;
 		if(this.manaActual > this.manaMaximo){
@@ -33,7 +33,7 @@ public class Tanque extends Personaje {
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
-            mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+            mensaje = "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
             if (Math.random() < 0.05) { 
                 super.armadura += 5;
@@ -46,7 +46,7 @@ public class Tanque extends Personaje {
 			}
             
         } else{
-            mensaje += ANSI_RED + "[ Ataque fallido! ]";
+            mensaje = ANSI_RED + "[ Ataque fallido! ]";
         }
 
         return mensaje + ANSI_RESET;
@@ -65,7 +65,7 @@ public class Tanque extends Personaje {
         dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
-        mensaje += "[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+        mensaje += ANSI_GREEN+"[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
         if (Math.random() < 0.6) {  
             objetivo.personajesSelecionados[indice].tieneEfecto = true;
@@ -76,7 +76,7 @@ public class Tanque extends Personaje {
 
         super.experiencia += 5;
 		if (super.subeNivel()) {
-			mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n\n"; 
+			mensaje += ANSI_GREEN + "[ ¡"+nombre+"Ha subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n\n"; 
 		}
         return mensaje + ANSI_RESET;
     }

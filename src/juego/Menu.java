@@ -164,6 +164,7 @@ public class Menu {
 		registroCombate.vaciarBitacora();
 		in.nextLine();
 		do {
+			System.out.println();
 			asignarNombreJugador(jugador1,1);
 			asignarNombreJugador(jugador2,2);
 			if(jugador1.nombre.equalsIgnoreCase(jugador2.nombre)){
@@ -178,12 +179,13 @@ public class Menu {
 			reseteoEquipo(jugador2);
 			escogerPersonajes(jugador1, jugador2, personajes, turno);
 			mostrarEquipo(jugador1);
+			System.out.println();
 			mostrarEquipo(jugador2);
 			do {
 			System.out.print("¿Confirmar equipos? "+ANSI_GREEN+"[1.Si]"+ANSI_RED +"[2.No]"+ANSI_RESET +"--> ");
 			confirmar=in.nextInt();
 			if(confirmar < 1 || confirmar > 2) {
-				System.out.println(ANSI_YELLOW+"Esta opcion no coincide con ninguna de las disponibles"+ANSI_RESET);
+				System.out.println(ANSI_YELLOW+"\nEsta opcion no coincide con ninguna de las disponibles"+ANSI_RESET);
 			}
 			}while(confirmar < 1 || confirmar > 2);
 		}while(confirmar != 1);
@@ -287,10 +289,10 @@ public class Menu {
 	 * @return devuelve la accion realizada por el jugador
 	 */	
 	public static int interfaz(Jugador jugador) {
-		System.out.println(ANSI_CYAN+"===== Turno de "+jugador.nombre+" ====="+ANSI_RESET);
-		System.out.println("Personaje activo: "+jugador.personajesSelecionados[jugador.contPersonajes].nombre +"("+jugador.personajesSelecionados[jugador.contPersonajes].mostrarClase()+")");
-		System.out.print("Vida: "+jugador.personajesSelecionados[jugador.contPersonajes].vidaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].vidaMaxima);
-		System.out.print("\t\t | Mana: "+jugador.personajesSelecionados[jugador.contPersonajes].manaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].manaMaximo +"\n");
+		System.out.println(ANSI_CYAN+"=================== Turno de "+jugador.nombre+" ==================="+ANSI_RESET);
+		System.out.println("Personaje activo: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].nombre +"("+jugador.personajesSelecionados[jugador.contPersonajes].mostrarClase()+")"+ANSI_RESET);
+		System.out.print("Vida: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].vidaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].vidaMaxima+ANSI_RESET);
+		System.out.print("\t\t | Mana: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].manaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].manaMaximo+ANSI_RESET +"\n");
 		System.out.print("Nivel: "+jugador.personajesSelecionados[jugador.contPersonajes].nivel);
 		if(jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto) {
 			System.out.print("\t\t | Efecto de estado: "+jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto+" ("+jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto+" turnos restantes)\n");
@@ -302,15 +304,15 @@ public class Menu {
 		System.out.print("Critico: " + jugador.personajesSelecionados[jugador.contPersonajes].arma.getProbabilidadCritico() + "%");
 		System.out.print("\t\t | Armadura: " + jugador.personajesSelecionados[jugador.contPersonajes].armadura + " \n");
 		System.out.println("");
-		System.out.println("1) Atacar");
-		System.out.println("2) Usar habilidad");
-		System.out.println("3) Ver registro de combate");
+		System.out.println(ANSI_CYAN+"[1]"+ANSI_RESET+" Atacar");
+		System.out.println(ANSI_CYAN+"[2]"+ANSI_RESET+" Usar habilidad");
+		System.out.println(ANSI_CYAN+"[3]"+ANSI_RESET+" Ver registro de combate");
 		int opcion=0;
 		do {
 			System.out.print("Introduce el indice --> ");
 			opcion = in.nextInt();
 			if(opcion < 1 || opcion > 3) {
-				System.out.println("No disponible");
+				System.out.println(ANSI_YELLOW+"Opcion No disponible"+ANSI_RESET);
 			}
 		}while(opcion < 1 || opcion > 3);
 		return opcion;
@@ -442,8 +444,6 @@ public class Menu {
 			
 			switch(movimiento) {
 				case 1:
-					System.out.println("--- Atacar ---");
-					
 					String accion=principal.personajesSelecionados[principal.contPersonajes].atacar(secundario, secundario.contPersonajes);
 					System.out.println(accion);
 					boolean turnoGuardado=false;
@@ -469,7 +469,6 @@ public class Menu {
 					break;
 					
 				case 2:
-					System.out.println("--- Usar Habilidad ---");
 					if(principal.personajesSelecionados[principal.contPersonajes].manaActual >= principal.personajesSelecionados[principal.contPersonajes].manaHabilidad){
 						String accionH=principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes);
 						System.out.println(accionH);
