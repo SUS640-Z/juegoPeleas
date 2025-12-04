@@ -74,7 +74,7 @@ public class Menu {
 	
 	/**
 	 * Devuelve el titulo del juego
-	 * @retur titulo del juego
+	 * @return titulo del juego
 	 */	
 	public static String titulo() {
 		return ANSI_BLUE+"  ___              _             ___ ___  ___   ___ _           _      _             ___ __ ___ ___               __ _   __    ___      _        \r\n"
@@ -174,52 +174,73 @@ public class Menu {
 	 * El jugador seleccionan 3 personajes a su eleccion(sin repeticiones)
 	 * @param jugador usuario que escogue sus personajes
 	 * @param personajes personajes disponible
-	 */	
-	public static void escogerPersonajes(Jugador jugador1, Jugador jugador2, Personaje[] personajes, int turno) {
-		int iPersonaje;
-		
-		while(jugador1.contPersonajes < 3 || jugador2.contPersonajes < 3) {
-			System.out.print(ANSI_CYAN);
-			System.out.println((turno == 1) ? ("\n"+jugador1.nombre+" es turno de escoger un personaje") : ("\n"+jugador2.nombre+" es turno de escoger un personaje"));
-			System.out.print(ANSI_RESET);
-			
-			for(int i = 0; i < personajes.length; i++) {
-				if(personajes[i] != null && personajes[i].disponible) {
-					System.out.println((i+1) + ". " + personajes[i].nombre +" - "+ personajes[i].mostrarClase());
-				}
-			}
-			
-			System.out.print("Escribe el indice del personaje --> ");
-			iPersonaje = in.nextInt();
-			iPersonaje--;
-			
-			if(iPersonaje >= 0 && iPersonaje < personajes.length && personajes[iPersonaje] != null && personajes[iPersonaje].disponible) {
-				for(int i = 0; i < jugador1.personajesSelecionados.length; i++) {
-					if(turno == 1) {
-						if(jugador1.personajesSelecionados[i] == null) {
-							jugador1.personajesSelecionados[jugador1.contPersonajes] = personajes[iPersonaje];
-							personajes[iPersonaje].disponible = false;
-							jugador1.contPersonajes++;
-							turno = 2;
-							break;
-						}
-					}
-					else {
-						if(jugador2.personajesSelecionados[i] == null) {
-							jugador2.personajesSelecionados[jugador2.contPersonajes] = personajes[iPersonaje];
-							personajes[iPersonaje].disponible = false;
-							jugador2.contPersonajes++;
-							turno = 1;
-							break;
-						}
-					}
-				}
-			}
-			presionarContinuar();
-		}
-	}
+	 */
+    public static void escogerPersonajes(Jugador jugador1, Jugador jugador2, Personaje[] personajes, int turno) {
+        int iPersonaje;
 
-	/**
+        while(jugador1.contPersonajes < 3 || jugador2.contPersonajes < 3) {
+            System.out.print(ANSI_CYAN);
+            System.out.println((turno == 1) ? ("\n"+jugador1.nombre+" es turno de escoger un personaje") : ("\n"+jugador2.nombre+" es turno de escoger un personaje"));
+            System.out.print(ANSI_RESET);
+
+            for(int i = 0; i < personajes.length; i++) {
+                if(personajes[i] != null && personajes[i].disponible) {
+                    System.out.println((i+1) + ". " + personajes[i].nombre +" - "+ personajes[i].mostrarClase());
+                }
+            }
+
+            System.out.print("Escribe el indice del personaje --> ");
+            iPersonaje = in.nextInt();
+            iPersonaje--;
+
+            if (iPersonaje >= 0 && iPersonaje < personajes.length && personajes[iPersonaje] != null && personajes[iPersonaje].disponible) {
+                boolean personajeYaElegido = false;
+
+                for (int j = 0; j < jugador1.personajesSelecionados.length; j++) {
+                    if (jugador1.personajesSelecionados[j] == personajes[iPersonaje]) {
+                        personajeYaElegido = true;
+                        break;
+                    }
+                }
+                for (int j = 0; j < jugador2.personajesSelecionados.length; j++) {
+                    if (jugador2.personajesSelecionados[j] == personajes[iPersonaje]) {
+                        personajeYaElegido = true;
+                        break;
+                    }
+                }
+
+                if (personajeYaElegido) {
+                    System.out.println(ANSI_YELLOW + "[ ¡Este personaje ya ha sido elegido! Escoge otro personaje. ]" + ANSI_RESET);
+                } else {
+                    for (int i = 0; i < jugador1.personajesSelecionados.length; i++) {
+                        if (turno == 1) {
+                            if (jugador1.personajesSelecionados[i] == null) {
+                                jugador1.personajesSelecionados[jugador1.contPersonajes] = personajes[iPersonaje];
+                                personajes[iPersonaje].disponible = false;
+                                jugador1.contPersonajes++;
+                                turno = 2;
+                                break;
+                            }
+                        }
+                        else {
+                            if (jugador2.personajesSelecionados[i] == null) {
+                                jugador2.personajesSelecionados[jugador2.contPersonajes] = personajes[iPersonaje];
+                                personajes[iPersonaje].disponible = false;
+                                jugador2.contPersonajes++;
+                                turno = 1;
+                                break;
+                            }
+                        }
+                    }
+                }
+            } else {
+                System.out.println(ANSI_YELLOW + "[ Opción no válida. Por favor, elige un personaje disponible. ]" + ANSI_RESET);
+            }
+            presionarContinuar();
+        }
+    }
+
+    /**
 	 * Muestra las opciones disponibles por el jugador
 	 * @param jugador el que debera realizar la accion
 	 * @return devuelve la accion realizada por el jugador
@@ -325,29 +346,30 @@ public class Menu {
 	 * Acciones que puede hacer el jugador principal contra el jugador secundario
 	 * @param principal jugador que realiza las acciones
 	 * @param secundario jugador que sufre las acciones
-	 */	
-	public static void accionesBatalla(Jugador principal, Jugador secundario) {
-		int efecto = efectoActuando(principal);
-		if(efecto == 1) {
-			return;
-		}
+	 */
+    public static void accionesBatalla(Jugador principal, Jugador secundario) {
+        int efecto = efectoActuando(principal);
+        if (efecto == 1) {
+            return;
+        }
 
-		if(efecto == 3) {
-			String consecuenciasEfecto;
-			principal.personajesSelecionados[principal.contPersonajes].vidaActual -= 5;
-			System.out.println(ANSI_RED + "[ "+principal.personajesSelecionados[principal.contPersonajes].nombre+" perdio 5 de vida por el sangrado ]" + ANSI_RESET);
-			consecuenciasEfecto="[ "+principal.personajesSelecionados[principal.contPersonajes].nombre+" perdio 5 de vida por el sangrado ]";
-			if(principal.personajesSelecionados[principal.contPersonajes].vidaActual <= 0) {
-				principal.personajesSelecionados[principal.contPersonajes].vidaActual = 0;
-				principal.personajesSelecionados[principal.contPersonajes].disponible = true;
-				System.out.println(ANSI_YELLOW + "[ ¡"+principal.personajesSelecionados[principal.contPersonajes].nombre+" ha sido derrotado! ]" + ANSI_RESET);
-				consecuenciasEfecto+="[ ¡"+principal.personajesSelecionados[principal.contPersonajes].nombre+" ha sido derrotado! ]";
-				principal.contPersonajes++;
-				return;
-			}
-			registroCombate.registrarEfecto(consecuenciasEfecto);
-		}
+        if (efecto == 3) {
+            String consecuenciasEfecto;
+            principal.personajesSelecionados[principal.contPersonajes].vidaActual -= 5;
+            System.out.println(ANSI_RED + "[ " + principal.personajesSelecionados[principal.contPersonajes].nombre + " perdió 5 de vida por el sangrado ]" + ANSI_RESET);
+            consecuenciasEfecto = "[ " + principal.personajesSelecionados[principal.contPersonajes].nombre + " perdió 5 de vida por el sangrado ]";
+            if (principal.personajesSelecionados[principal.contPersonajes].vidaActual <= 0) {
+                principal.personajesSelecionados[principal.contPersonajes].vidaActual = 0;
+                principal.personajesSelecionados[principal.contPersonajes].disponible = true;
+                System.out.println(ANSI_YELLOW + "[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! ]" + ANSI_RESET);
+                consecuenciasEfecto += "[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! ]";
+                principal.contPersonajes++;
+                return;
+            }
+            registroCombate.registrarEfecto(consecuenciasEfecto);
+        }
 
+<<<<<<< HEAD
 		if(efecto == 2) {
 			principal.personajesSelecionados[principal.contPersonajes].precision /= 2;
 		}
@@ -424,6 +446,83 @@ public class Menu {
 	}
 	
 	/**
+        if (efecto == 2) {
+            principal.personajesSelecionados[principal.contPersonajes].precision /= 2;
+        }
+
+        int movimiento = 0;
+        do {
+            movimiento = interfaz(principal);
+
+            switch (movimiento) {
+                case 1:
+                    System.out.println(ANSI_GREEN + "--- Atacar ---" + ANSI_RESET);
+
+                    String accion = principal.personajesSelecionados[principal.contPersonajes].atacar(secundario, secundario.contPersonajes);
+                    System.out.println(ANSI_GREEN + accion + ANSI_RESET);  // Mostrar ataque con color verde
+
+                    boolean turnoGuardado = false;
+
+                    if (secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
+                        secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
+                        secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
+                        System.out.println(ANSI_YELLOW + "[ ¡" + secundario.personajesSelecionados[secundario.contPersonajes].nombre + " ha sido derrotado! ]" + ANSI_RESET);
+
+                        accion += ("\n[ ¡" + secundario.personajesSelecionados[secundario.contPersonajes].nombre + " ha sido derrotado! ]");
+                        registroCombate.registrarAtaque(principal.personajesSelecionados[principal.contPersonajes], secundario.personajesSelecionados[secundario.contPersonajes], accion);
+                        turnoGuardado = true;
+
+                        secundario.contPersonajes++;
+                    }
+                    if (efecto == 2) {
+                        principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
+                    }
+                    if (!turnoGuardado) {
+                        registroCombate.registrarAtaque(principal.personajesSelecionados[principal.contPersonajes], secundario.personajesSelecionados[secundario.contPersonajes], accion);
+                    }
+                    break;
+
+                case 2:
+                    System.out.println(ANSI_GREEN + "--- Usar Habilidad ---" + ANSI_RESET);
+
+                    String accionH = principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes);
+                    System.out.println(ANSI_GREEN + accionH + ANSI_RESET);  // Mostrar habilidad con color verde
+
+                    boolean turnoGuardadoH = false;
+
+                    if (secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
+                        secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
+                        secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
+                        System.out.println(ANSI_YELLOW + "[ ¡" + secundario.personajesSelecionados[secundario.contPersonajes].nombre + " ha sido derrotado! ]" + ANSI_RESET);
+
+                        accionH += ("\n[ ¡" + secundario.personajesSelecionados[secundario.contPersonajes].nombre + " ha sido derrotado! ]");
+                        registroCombate.registrarHabilidad(principal.personajesSelecionados[principal.contPersonajes], secundario.personajesSelecionados[secundario.contPersonajes], accionH);
+                        turnoGuardadoH = true;
+
+                        secundario.contPersonajes++;
+                    }
+                    if (efecto == 2) {
+                        principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
+                    }
+
+                    if (!turnoGuardadoH) {
+                        registroCombate.registrarHabilidad(principal.personajesSelecionados[principal.contPersonajes], secundario.personajesSelecionados[secundario.contPersonajes], accionH);
+                    }
+                    break;
+
+                case 3:
+                    registroCombate.mostrarBitacora();
+                    presionarContinuar();
+                    if (efecto == 2) {
+                        principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
+                    }
+                    break;
+            }
+        } while (movimiento == 3);
+    }
+
+    /**
+>>>>>>> 74f67ed90b7ab212726a1ed570bea2d3a27f23ab
 	 * Verifica si existe un ganador en el combate y termina el juego
 	 * @param jugador1 Jugador de la ronda actual
 	 * @param jugador2 Jugador de la siguiente ronda
