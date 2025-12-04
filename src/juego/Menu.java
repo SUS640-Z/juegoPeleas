@@ -369,7 +369,6 @@ public class Menu {
             registroCombate.registrarEfecto(consecuenciasEfecto);
         }
 
-<<<<<<< HEAD
 		if(efecto == 2) {
 			principal.personajesSelecionados[principal.contPersonajes].precision /= 2;
 		}
@@ -522,7 +521,6 @@ public class Menu {
     }
 
     /**
->>>>>>> 74f67ed90b7ab212726a1ed570bea2d3a27f23ab
 	 * Verifica si existe un ganador en el combate y termina el juego
 	 * @param jugador1 Jugador de la ronda actual
 	 * @param jugador2 Jugador de la siguiente ronda
