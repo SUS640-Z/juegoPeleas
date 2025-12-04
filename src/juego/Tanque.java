@@ -16,7 +16,7 @@ public class Tanque extends Personaje {
     public static final String ANSI_GREEN = "\u001B[32m";
 
     /**
-     * 
+     * Constructor de la clase Tanque
      * @param nombre el nombre del personaje
      * @param arma el arma del personaje
      */
@@ -32,7 +32,7 @@ public class Tanque extends Personaje {
      @Override
     public String atacar(Jugador objetivo, int indice) {
 		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
-        String mensaje;
+        String mensaje ="";
 
 		this.manaActual += 10;
 		if(this.manaActual > this.manaMaximo){
@@ -40,17 +40,21 @@ public class Tanque extends Personaje {
 		}
 
         if (probabilidadAtaque < precision) {
-            int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
-            
+            int dano =  arma.calcularDano(super.poderAtaque);  
+
             if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Chango loco desquisiado")) {
             	dano *= 1.20;
-            	mensaje += "[ El ataque fue muy efectivo! ]\n";
+            	mensaje = "[ El ataque fue muy efectivo! ]\n";
             }
-            
+
+            dano -= (int)(dano*(objetivo.personajesSelecionados[indice].getArmadura()/100));             
             super.danioTotal += dano;
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
+            if(objetivo.personajesSelecionados[indice].vidaActual > 0) {
+                objetivo.personajesSelecionados[indice].experiencia += 5;
+            }
 
-            mensaje = "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+            mensaje += ANSI_GREEN+"[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
             if (Math.random() < 0.05) { 
                 super.armadura += 5;
@@ -59,7 +63,7 @@ public class Tanque extends Personaje {
 
 			this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]";
+				mensaje += ANSI_GREEN + "[ ¡"+nombre+"ha subido de nivel,se ha restauraurado su vida y mana! Ahora eres nivel " + this.nivel + "! ]";
 			}
             
         } else{
@@ -71,7 +75,7 @@ public class Tanque extends Personaje {
 
      /**
       * Usa la habilidad especial contra el objetivo
-      * La habilidad consume manna, aplica dano y stunea al objetivo
+      * La habilidad consume mana, aplica dano y stunea al objetivo
       * @param objetivo es el jugador que recibira el ataque
       * @param indice es el indice del personaje en el equipo del jugador objetivo
       */
@@ -86,15 +90,18 @@ public class Tanque extends Personaje {
         super.numeroDeHabilidadesUsadas++;
         super.manaActual -= manaHabilidad;
         int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.5);
-        dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
-        
+			        
         if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Chango loco desquisiado")) {
         	dano *= 1.20;
         	mensaje += "[ El ataque fue muy efectivo! ]\n";
         }
         
+        dano -= (int)(dano*(objetivo.personajesSelecionados[indice].getArmadura()/100)); 
         super.danioTotal += dano;
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
+        if(objetivo.personajesSelecionados[indice].vidaActual > 0) {
+			objetivo.personajesSelecionados[indice].experiencia += 5;
+		}
 
         mensaje += ANSI_GREEN+"[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
@@ -102,7 +109,7 @@ public class Tanque extends Personaje {
             objetivo.personajesSelecionados[indice].tieneEfecto = true;
             objetivo.personajesSelecionados[indice].tipoEfecto = "Stuneado";
             objetivo.personajesSelecionados[indice].duracionEfecto = 1;
-            mensaje += ANSI_GREEN + "[ ¡Stuneado aplicado! ]\n";
+            mensaje += ANSI_CYAN + "[ ¡Stuneado aplicado! ]\n";
         }
 
         super.experiencia += 5;

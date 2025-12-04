@@ -46,6 +46,7 @@ public class Menu {
 		personajes[8] = new Mago("Mago Sensacion", new Arma("Baston de la falacia",9999,9999));
 
 		while(opcionMenu != 5) {
+			restauracionPersonajes(personajes);
 			System.out.println(tituloH());
 			System.out.println(ANSI_CYAN+"[1]"+ANSI_RESET+" Jugar");
 			System.out.println(ANSI_CYAN+"[2]"+ANSI_RESET+" Personajes Disponibles");
@@ -180,7 +181,6 @@ public class Menu {
 		int confirmar=0;
 		do {
 			int turno = (int) (Math.random() * 2)+1;
-			restauracionPersonajes(personajes);
 			reseteoEquipo(jugador1);
 			reseteoEquipo(jugador2);
 			escogerPersonajes(jugador1, jugador2, personajes, turno);
@@ -366,8 +366,8 @@ public class Menu {
 			if(jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto == 0) {
 				jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto = false;
 				jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto = "";
-				System.out.print(ANSI_YELLOW + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta stuneado ]\n" + ANSI_RESET);
-				consecuenciasEfecto += ANSI_YELLOW + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta stuneado ]\n" + ANSI_RESET;
+				System.out.print(ANSI_CYAN + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta stuneado ]\n" + ANSI_RESET);
+				consecuenciasEfecto += ANSI_CYAN + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta stuneado ]\n" + ANSI_RESET;
 			}
 			registroCombate.registrarEfecto(consecuenciasEfecto);
 			registroCombate.turno++;
@@ -383,8 +383,8 @@ public class Menu {
 			if(jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto == 0) {
 				jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto = false;
 				jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto = "";
-				System.out.print(ANSI_YELLOW + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta congelado ]\n" + ANSI_RESET);
-				consecuenciasEfecto += ANSI_YELLOW + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta congelado ]\n" + ANSI_RESET;
+				System.out.print(ANSI_CYAN + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta congelado ]\n" + ANSI_RESET);
+				consecuenciasEfecto += ANSI_CYAN + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta congelado ]\n" + ANSI_RESET;
 			}			
 			registroCombate.registrarEfecto(consecuenciasEfecto);
 			registroCombate.turno++;
@@ -400,8 +400,8 @@ public class Menu {
 			if(jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto == 0) {
 				jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto = false;
 				jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto = "";
-				System.out.print(ANSI_YELLOW + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta sangrando ]\n" + ANSI_RESET);
-				consecuenciasEfecto += ANSI_YELLOW + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta sangrando ]\n" + ANSI_RESET;
+				System.out.print(ANSI_CYAN + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta sangrando ]\n" + ANSI_RESET);
+				consecuenciasEfecto += ANSI_CYAN + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta sangrando ]\n" + ANSI_RESET;
 			}			
 			registroCombate.registrarEfecto(consecuenciasEfecto);
 			registroCombate.turno++;
@@ -432,8 +432,8 @@ public class Menu {
             if (principal.personajesSelecionados[principal.contPersonajes].vidaActual <= 0) {
                 principal.personajesSelecionados[principal.contPersonajes].vidaActual = 0;
                 principal.personajesSelecionados[principal.contPersonajes].disponible = true;
-                System.out.println(ANSI_YELLOW + "[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! ]" + ANSI_RESET);
-                consecuenciasEfecto += ANSI_YELLOW +"[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! ]"+ ANSI_RESET;
+                System.out.println(ANSI_RED + "[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! ]" + ANSI_RESET);
+                consecuenciasEfecto += ANSI_RED +"[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! ]"+ ANSI_RESET;
                 principal.contPersonajes++;
                 return;
             }
@@ -459,9 +459,9 @@ public class Menu {
 					if(secundario.personajesSelecionados[secundario.contPersonajes].vidaActual <= 0) {
 						secundario.personajesSelecionados[secundario.contPersonajes].vidaActual = 0;
 						secundario.personajesSelecionados[secundario.contPersonajes].disponible = true;
-						System.out.println(ANSI_YELLOW + "[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]" + ANSI_RESET);
+						System.out.println(ANSI_RED + "[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado!, "+secundario.nombre+" perdio un miembro del equipo ]"+ ANSI_RESET);
 						
-						accion+=("[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado! ]");
+						accion+=(ANSI_RED+ "[ ¡"+secundario.personajesSelecionados[secundario.contPersonajes].nombre+" ha sido derrotado!, "+secundario.nombre+" perdio un miembro del equipo ] "+ ANSI_RESET);
 						registroCombate.registrarAtaque(principal.personajesSelecionados[principal.contPersonajes],secundario.personajesSelecionados[secundario.contPersonajes],accion);
 						turnoGuardado=true;
 						
@@ -491,7 +491,6 @@ public class Menu {
 							turnoGuardadoH=true;
 							
 							secundario.contPersonajes++;
-							//ganador(principal, secundario);
 						}
 						if(efecto == 2) {
 							principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
@@ -591,6 +590,7 @@ public class Menu {
 	public static void imprimirMuertesYGanador(Personaje[] personajes) {
 		System.out.println(ANSI_CYAN + "\nOrden de muertes: " + ANSI_RESET);
 		for(int i=0; i < ordenMuerte.length; i++) {
+			//aijuwehbfiuawNDIOHAIOUW4EHDFILOUAWENIOUDFHQDFHR4AIOWENFIUAEHNWDIOUAMNEWIODJA9WEUHFIUAWJENDIJKOAWEJNILFUAHWIOUEDJNAEILOW;DJAEIOWFHUYAEHWDFIO
 			if(ordenMuerte[i] != null && !ordenMuerte[i].equals("")) {
 				System.out.println((i+1)+". "+ordenMuerte[i]);
 			} 
@@ -620,9 +620,9 @@ public class Menu {
 			if(jugador1.personajesSelecionados[i] != null) {
 				System.out.println("------------------------------------------------");
 				System.out.println(ANSI_CYAN + "Personaje: " + jugador1.personajesSelecionados[i].nombre + ANSI_RESET);
-				System.out.println("Daño Total:    " + jugador1.personajesSelecionados[i].danioTotal);
-				System.out.println("Críticos:      " + jugador1.personajesSelecionados[i].arma.getNumeroDeCriticos());
-				System.out.println("Habilidades:   " + jugador1.personajesSelecionados[i].numeroDeHabilidadesUsadas);
+				System.out.println("Daño Total Inflingido:    " + jugador1.personajesSelecionados[i].danioTotal);
+				System.out.println("Críticos Acertados:      " + jugador1.personajesSelecionados[i].arma.getNumeroDeCriticos());
+				System.out.println("Habilidades Usadas:   " + jugador1.personajesSelecionados[i].numeroDeHabilidadesUsadas);
 				System.out.println("Nivel Final:   " + jugador1.personajesSelecionados[i].nivel);
 			}
 		}
@@ -631,9 +631,9 @@ public class Menu {
 			if(jugador2.personajesSelecionados[i] != null) {
 				System.out.println("------------------------------------------------");
 				System.out.println(ANSI_CYAN + "Personaje: " + jugador2.personajesSelecionados[i].nombre + ANSI_RESET);
-				System.out.println("Daño Total:    " + jugador2.personajesSelecionados[i].danioTotal);
-				System.out.println("Críticos:      " + jugador2.personajesSelecionados[i].arma.getNumeroDeCriticos());
-				System.out.println("Habilidades:   " + jugador2.personajesSelecionados[i].numeroDeHabilidadesUsadas);
+				System.out.println("Daño Total Inflingido:    " + jugador2.personajesSelecionados[i].danioTotal);
+				System.out.println("Críticos Acertados:      " + jugador2.personajesSelecionados[i].arma.getNumeroDeCriticos());
+				System.out.println("Habilidades Usadas:   " + jugador2.personajesSelecionados[i].numeroDeHabilidadesUsadas);
 				System.out.println("Nivel Final:   " + jugador2.personajesSelecionados[i].nivel);
 			}
 		}

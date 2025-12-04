@@ -82,6 +82,7 @@ public class Arma {
         int danoFinal = danoBase + danoExtra;
         int critico = (int)(Math.random() * 100) + 1;
         if (critico < probabilidadCritico) {
+            System.out.println(ANSI_YELLOW + "[ ¡Golpe crítico! ]");
             numeroDeCriticos++;
             danoFinal *= 2;
             System.out.println(ANSI_YELLOW);

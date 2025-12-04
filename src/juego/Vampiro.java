@@ -16,7 +16,7 @@ public class Vampiro extends Personaje{
     public static final String ANSI_GREEN = "\u001B[32m";
 
     /**
-     * 
+     * Constructor de la clase Vampiro
      * @param nombre el nombre del personaje
      * @param arma el arma del personaje
      */
@@ -40,15 +40,19 @@ public class Vampiro extends Personaje{
 		}
 
         if (probabilidadAtaque < precision) {
-            int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
-            
+            int dano =  arma.calcularDano(super.poderAtaque); 
+             
             if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Tanque")) {
             	dano *= 1.20;
             	mensaje = "[ El ataque fue muy efectivo! ]\n";
             }
-            
+
+            dano -= (int)(dano*(objetivo.personajesSelecionados[indice].getArmadura()/100));             
             super.danioTotal += dano;
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
+            if(objetivo.personajesSelecionados[indice].vidaActual > 0) {
+                objetivo.personajesSelecionados[indice].experiencia += 5;
+            }
 
             mensaje = ANSI_GREEN+"[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
@@ -72,13 +76,13 @@ public class Vampiro extends Personaje{
 	
     /**
      * Usa la habilidad especial contra el objetivo
-     * La habilidad consume manna, aplica sangrado y dano al objetivo
+     * La habilidad consume mana, aplica sangrado y dano al objetivo
      * @param objetivo es el jugador que recibira el ataque
      * @param indice es el indice del personaje en el equipo del jugador objetivo
      */
 	@Override
     public String habilidad(Jugador objetivo, int indice) {
-        String mensaje;
+        String mensaje="";
 
         if(super.manaActual < manaHabilidad){
             return ANSI_RED + "[ Mana insuficiente... ]\n" + ANSI_RESET;
@@ -87,17 +91,20 @@ public class Vampiro extends Personaje{
         super.numeroDeHabilidadesUsadas++;
         super.manaActual -= manaHabilidad;
         int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.3);
-        dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
-        
+			     
         if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Tanque")) {
         	dano *= 1.20;
-        	mensaje = "[ El ataque fue muy efectivo! ]\n";
+        	mensaje += "[ El ataque fue muy efectivo! ]\n";
         }
-        
+
+        dano -= (int)(dano*(objetivo.personajesSelecionados[indice].getArmadura()/100));    
         super.danioTotal += dano;
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
+        if(objetivo.personajesSelecionados[indice].vidaActual > 0) {
+			objetivo.personajesSelecionados[indice].experiencia += 5;
+		}
 
-        mensaje = ANSI_GREEN+"[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
+        mensaje += ANSI_GREEN+"[ "+nombre+"le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
         if (Math.random() < 0.4) { // 40% probabilidad de sangrado
             objetivo.personajesSelecionados[indice].tieneEfecto = true;
