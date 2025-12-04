@@ -39,7 +39,6 @@ public class Chango extends Personaje{
 			this.manaActual = this.manaMaximo;
 		}
 
-        super.numeroDeHabilidadesUsadas++;
         if (probabilidadAtaque < precision) {
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
             

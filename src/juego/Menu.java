@@ -198,7 +198,7 @@ public class Menu {
 
 		presionarContinuar();
 		
-		batalla(jugador1,jugador2);
+		batalla(jugador1, jugador2, personajes);
 	}
 	
 	/**
@@ -329,8 +329,9 @@ public class Menu {
 	 * Sistema de batalla
 	 * @param jugador1 usuario que se enfrentara a jugador 2
 	 * @param jugador2 usuario que se enfrentara a jugador 1
+	 * @param personajes arreglo con todos los personajes
 	 */	
-	public static void batalla(Jugador jugador1, Jugador jugador2) {
+	public static void batalla(Jugador jugador1, Jugador jugador2, Personaje[] personajes) {
 		jugador1.contPersonajes=0;
 		jugador2.contPersonajes=0;
 		int turno = (int) (Math.random() * 2)+1;
@@ -344,6 +345,7 @@ public class Menu {
 			}
 		} 
 		ganador(jugador1, jugador2);
+		resumenDelCombate(jugador1, jugador2, personajes);
 	}
 
 	/**
@@ -464,7 +466,6 @@ public class Menu {
 						turnoGuardado=true;
 						
 						secundario.contPersonajes++;
-						//ganador(principal, secundario);
 					}
 					if(efecto == 2) {
 						principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
@@ -532,7 +533,6 @@ public class Menu {
 			System.out.println(ANSI_YELLOW + "¡El combate acabo en empate!" + ANSI_RESET);
 			return true;
 		} 
-		resumenDelCombate(jugador1, jugador2);
 		return false;
 	}
 	
@@ -588,20 +588,25 @@ public class Menu {
 		mostrarPersonajes(jugador.personajesSelecionados);
 	}
 
-	public static void imprimirMuertesYGanador() {
+	public static void imprimirMuertesYGanador(Personaje[] personajes) {
 		System.out.println(ANSI_CYAN + "\nOrden de muertes: " + ANSI_RESET);
-		for(int i=0; i<ordenMuerte.length; i++) {
-			if(!ordenMuerte[i].equals("")) {
+		for(int i=0; i < ordenMuerte.length; i++) {
+			if(ordenMuerte[i] != null && !ordenMuerte[i].equals("")) {
 				System.out.println((i+1)+". "+ordenMuerte[i]);
-			}
+			} 
 		}
 
 		System.out.println(ANSI_CYAN + "\nGanador del combate: " + ANSI_RESET);
-		if(ordenMuerte[5].equals("")) {
-			System.out.println("Empate");
+		if(ordenMuerte[5] == null || ordenMuerte[5].equals("")) {
+			for(int i=0; i < personajes.length; i++) {
+				if(personajes[i] != null && !personajes[i].disponible) {
+					System.out.println(ANSI_GREEN + "[ " + personajes[i].nombre + " ]" + ANSI_RESET);
+					return;
+				}
+			}
 		} else {
-			System.out.println(ordenMuerte[5]);
-		}
+			System.out.println("Empate");
+		} 
 	}
 
 	/**
@@ -615,10 +620,10 @@ public class Menu {
 			if(jugador1.personajesSelecionados[i] != null) {
 				System.out.println("------------------------------------------------");
 				System.out.println(ANSI_CYAN + "Personaje: " + jugador1.personajesSelecionados[i].nombre + ANSI_RESET);
-				System.out.println("  - Daño Total:    " + jugador1.personajesSelecionados[i].danioTotal);
-				System.out.println("  - Críticos:      " + jugador1.personajesSelecionados[i].arma.getNumeroDeCriticos());
-				System.out.println("  - Habilidades:   " + jugador1.personajesSelecionados[i].numeroDeHabilidadesUsadas);
-				System.out.println("  - Nivel Final:   " + jugador1.personajesSelecionados[i].nivel);
+				System.out.println("Daño Total:    " + jugador1.personajesSelecionados[i].danioTotal);
+				System.out.println("Críticos:      " + jugador1.personajesSelecionados[i].arma.getNumeroDeCriticos());
+				System.out.println("Habilidades:   " + jugador1.personajesSelecionados[i].numeroDeHabilidadesUsadas);
+				System.out.println("Nivel Final:   " + jugador1.personajesSelecionados[i].nivel);
 			}
 		}
 
@@ -645,15 +650,17 @@ public class Menu {
 		contadorMuerte = 0;
 	}
 
+	
 	/**
 	 * Imprime un resumen del combate
 	 * 
 	 * @param jugador1 es el jugador 1
 	 * @param jugador2 es el jugador 2 
+	 * @param personajes es el arreglo con todos los personajes
 	 */
-	public static void resumenDelCombate(Jugador jugador1, Jugador jugador2) {
+	public static void resumenDelCombate(Jugador jugador1, Jugador jugador2, Personaje[] personajes) {
 		System.out.println(ANSI_CYAN + "\n=== RESUMEN DEL COMBATE ===" + ANSI_RESET);
-		imprimirMuertesYGanador();
+		imprimirMuertesYGanador(personajes);
 		imprimirEstadisticasCompletas(jugador1, jugador2);
 		reiniciarOrdenMuerte();
 	}
