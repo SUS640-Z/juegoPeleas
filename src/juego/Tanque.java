@@ -56,11 +56,11 @@ public class Tanque extends Personaje {
 	 public String habilidad(Jugador objetivo, int indice) {
         String mensaje = "";
 
-        if(super.manaActual < 50){
+        if(super.manaActual < 55){
             return ANSI_RED + "[ Mana insuficiente... ]\n" + ANSI_RESET;
         }
 
-        super.manaActual -= 50;
+        super.manaActual -= 55;
         int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.5);
         dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
@@ -70,7 +70,7 @@ public class Tanque extends Personaje {
         if (Math.random() < 0.6) {  
             objetivo.personajesSelecionados[indice].tieneEfecto = true;
             objetivo.personajesSelecionados[indice].tipoEfecto = "Stuneado";
-            objetivo.personajesSelecionados[indice].duracionEfecto = 3;
+            objetivo.personajesSelecionados[indice].duracionEfecto = 1;
             mensaje += ANSI_GREEN + "[ ¡Stuneado aplicado! ]\n";
         }
 

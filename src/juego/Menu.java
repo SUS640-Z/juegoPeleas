@@ -308,34 +308,34 @@ public class Menu {
 		
 		if(jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto.equals("Stuneado")) {
 			System.out.print(ANSI_RED + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" esta stuneado y no puede actuar este turno ]\n" + ANSI_RESET);
-			jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto--;
 			if(jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto == 0) {
 				jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto = false;
 				jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto = "";
 				System.out.print(ANSI_YELLOW + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta stuneado ]\n" + ANSI_RESET);
 			}
+			jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto--;
 			return 1;
 		}
 
 		if(jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto.equals("Congelado")) {
 			System.out.print(ANSI_RED + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" esta congelado y su precision esta reducida a la mitad ]\n" + ANSI_RESET);
-			jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto--;
 			if(jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto == 0) {
 				jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto = false;
 				jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto = "";
 				System.out.print(ANSI_YELLOW + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta congelado ]\n" + ANSI_RESET);
-			}
+			}			
+			jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto--;
 			return 2;
 		}
 
 		if(jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto.equals("Sangrado")) {
 			System.out.print(ANSI_RED + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" tiene sangrado y pierde 5 de vida cada turno con sangrado ]\n" + ANSI_RESET);
-			jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto--;
 			if(jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto == 0) {
 				jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto = false;
 				jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto = "";
 				System.out.print(ANSI_YELLOW + "[ "+jugador.personajesSelecionados[jugador.contPersonajes].nombre+" ya no esta sangrando ]\n" + ANSI_RESET);
-			}
+			}			
+			jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto--;
 			return 3;
 		}
 
@@ -407,7 +407,7 @@ public class Menu {
 				case 2:
 					System.out.println("--- Usar Habilidad ---");
 					
-					String accionH=principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes);
+					String accionH = principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes);
 					System.out.println(accionH);
 					boolean turnoGuardadoH=false;
 					
