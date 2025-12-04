@@ -16,7 +16,7 @@ public class Mago extends Personaje{
     public static final String ANSI_GREEN = "\u001B[32m";
 
 	 Mago(String nombre, Arma arma) {
-	        super(nombre, 60, 60, 12, 80, 15, arma, 1, 0, false, "", 0, 70, 100,70);
+	        super(nombre, 60, 60, 26, 80, 8, arma, 1, 0, false, "", 0, 70, 100,70);
 	    }
 
 	@Override
@@ -33,7 +33,7 @@ public class Mago extends Personaje{
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
-			mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+            mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
             if (Math.random() < 0.05) { 
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;

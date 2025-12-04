@@ -16,7 +16,7 @@ public class Vampiro extends Personaje{
     public static final String ANSI_GREEN = "\u001B[32m";
 
 	Vampiro(String nombre, Arma arma) {
-        super(nombre, 75, 75, 7, 85, 25, arma, 1, 0, false, "", 0, 50, 100,50);
+        super(nombre, 75, 75, 22, 85, 18, arma, 1, 0, false, "", 0, 50, 100,50);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class Vampiro extends Personaje{
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
-            mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+            mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
             if (Math.random() < 0.05) { 
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;

@@ -34,7 +34,6 @@ public class Bitacora {
 		sucedido+="\n";
 		sucedido+=contexto;
 		registros[turno]=sucedido;
-		turno++;
 	}
 	
 	/**
@@ -48,7 +47,6 @@ public class Bitacora {
 		sucedido+="\n";
 		sucedido+=contexto;
 		registros[turno]=sucedido;
-		turno++;
 	}
 	
 	/**
@@ -66,6 +64,7 @@ public class Bitacora {
 		for(int i=0; i<registros.length; i++) {
 			registros[i] = null;
 		}
+		turno=0;
 	}
 	
 	/**

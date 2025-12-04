@@ -16,7 +16,7 @@ public class Chango extends Personaje{
     public static final String ANSI_GREEN = "\u001B[32m";
 
     Chango(String nombre, Arma arma) {
-        super(nombre, 100, 100, 10, 80, 10, arma, 1, 0, false, "", 0, 33, 100,33);
+        super(nombre, 100, 100, 24, 80, 3, arma, 1, 0, false, "", 0, 33, 100,33);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class Chango extends Personaje{
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
 			
-            mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+            mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
             if (Math.random() < 0.05) { 
                 if(super.arma.getProbabilidadCritico() > 100){
