@@ -1,8 +1,8 @@
 package juego;
 
 /**
- * La clase mago hijo de clse personaje
- * Establece estadisticas y movimientos de mago
+ * La clase Mago hijo de clase Personaje
+ * Establece estadisticas y movimientos de Mago
  * @author Etneilav Andree Soto Valdez
  * @author Jesus Ivan Jimenez Aguilar
  * @author Guillermo Green Aviles
@@ -15,10 +15,20 @@ public class Mago extends Personaje{
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_GREEN = "\u001B[32m";
 
+    /**
+     * 
+     * @param nombre el nombre del personaje
+     * @param arma el arma del personaje
+     */
 	 Mago(String nombre, Arma arma) {
 	        super(nombre, 60, 60, 26, 80, 8, arma, 1, 0, false, "", 0, 70, 100,70);
 	    }
 
+	 /**
+	  * Realiza un ataque basico contra el personaje del jugador objetivo
+	  * @param objetivo es el jugador que recibira el ataque
+	  * @param indice es el indice del personaje en el equipo del jugador objetivo
+	  */
 	@Override
     public String atacar(Jugador objetivo, int indice) {
 		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
@@ -31,6 +41,13 @@ public class Mago extends Personaje{
 
         if (probabilidadAtaque < precision) {
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+            
+            if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Vampiro")) {
+            	dano *= 1.20;
+            	mensaje += "[ El ataque fue muy efectivo! ]\n";
+            }
+            
+			super.danioTotal += dano;
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
             mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
@@ -53,6 +70,12 @@ public class Mago extends Personaje{
         return mensaje + ANSI_RESET;
 	}
 
+	/**
+     * Usa la habilidad especial contra el objetivo
+     * La habilidad consume manna, aplica dano y congelacion al objetivo
+     * @param objetivo es el jugador que recibira el ataque
+     * @param indice es el indice del personaje en el equipo del jugador objetivo
+     */
 	@Override
 	public String habilidad(Jugador objetivo, int indice) {
 		String mensaje = "";
@@ -61,12 +84,20 @@ public class Mago extends Personaje{
             return ANSI_RED + "[ Mana insuficiente... ]" + ANSI_RESET;
         }
 
+		super.numeroDeHabilidadesUsadas++;
         super.manaActual -= manaHabilidad;
 	    int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.7);
 		dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+		
+		if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Vampiro")) {
+        	dano *= 1.20;
+        	mensaje += "[ El ataque fue muy efectivo! ]\n";
+        }
+		
+		super.danioTotal += dano;
 	    objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
-	    mensaje += "[ Le has restado " + dano + " a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"; 
+	    mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"; 
 
 	    if (Math.random() < 0.5) {  
 	        objetivo.personajesSelecionados[indice].tieneEfecto = true;
@@ -82,11 +113,21 @@ public class Mago extends Personaje{
 		return mensaje + ANSI_RESET;
     }
 
+	/**
+	 * Devuelve la clase del personaje
+	 * 
+	 * @return nombre descriptivo de la clase
+	 */
 	@Override
 	public String mostrarClase() {
 		return "Mago de hielo";
 	}
 	
+	/**
+	 * Devuelve una presentacion completa del personaje, incluyendo su clase y estadisticas
+	 * 
+	 * @return cadena con la presentacion del personaje
+	 */
 	public String mostrarPresentacion() {
 		return "\nClase: "+ANSI_CYAN+ mostrarClase()+ANSI_RESET +
 			super.mostrarPresentacion();

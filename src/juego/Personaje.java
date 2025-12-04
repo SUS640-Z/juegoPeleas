@@ -33,6 +33,8 @@ public abstract class Personaje {
 	//Variable Ivan
 	protected boolean disponible;
 	protected int manaHabilidad;
+	protected int danioTotal;
+	protected int numeroDeHabilidadesUsadas;
 	
 	//Constructores---------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
@@ -51,9 +53,11 @@ public abstract class Personaje {
 	 * @param duracionEfecto Cuantos turnos tendrá el efecto actual
 	 * @param manaActual mana actual del personaje
 	 * @param manaMaximo mana maximo del personaje
-
- double presicion, int armadura,	 */
-	public Personaje(String nombre, int vidaMaxima, int vidaActual, int poderAtaque, double precision, int armadura, Arma arma, int nivel, int experiencia, boolean tieneEfecto, String tipoEfecto, int duracionEfecto, int manaActual, int manaMaximo,int manaHabilidad) {
+	 * @param manaHabilidad mana necesario para usar la habilidad especial
+	 * @param danioTotal daño total realizado por el personaje
+	 * @param numeroDeHabilidadesUsadas numero de habilidades usadas por el personaje
+	*/
+	public Personaje(String nombre, int vidaMaxima, int vidaActual, int poderAtaque, double precision, int armadura, Arma arma, int nivel, int experiencia, boolean tieneEfecto, String tipoEfecto, int duracionEfecto, int manaActual, int manaMaximo, int manaHabilidad) {
 		this.nombre = nombre;
 		this.vidaMaxima = vidaMaxima;
 		this.vidaActual = vidaActual;
@@ -68,8 +72,10 @@ public abstract class Personaje {
 		this.duracionEfecto = duracionEfecto;
 		this.manaActual = manaActual;
 		this.manaMaximo = manaMaximo;
-		this.manaHabilidad=manaHabilidad;
-		disponible=true;
+		this.manaHabilidad = manaHabilidad;
+		this.danioTotal = 0;
+		this.numeroDeHabilidadesUsadas = 0;
+		disponible = true;
 	}
 	
 	//Getters y setters---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -282,6 +288,36 @@ public abstract class Personaje {
 	public void setManaMaximo(int manaMaximo) {
 		this.manaMaximo = manaMaximo;
 	}
+
+	/**
+	 * @return El dano total del personaje
+	 */
+	public int getDanioTotal() {
+		return danioTotal;
+	}
+
+	/**
+	 * Setter que recibe el dano total del personaje.
+	 * @param danioTotal dano total del personaje
+	 */	
+	public void setDanioTotal(int danioTotal) {
+		this.danioTotal = danioTotal;
+	}
+
+	/**
+	 * @return Numero de habilidades usadas por el personaje
+	 */
+	public int getNumeroDeHabilidadesUsadas() {
+		return numeroDeHabilidadesUsadas;
+	}
+
+	/**
+	 * Setter que recibe el numero de habilidades usadas del personaje.
+	 * @param numeroDeHabilidadesUsadas numero de habilidades usadas por el personaje
+	 */	
+	public void setNumeroDeHabilidadesUsadas(int numeroDeHabilidadesUsadas) {
+		this.numeroDeHabilidadesUsadas = numeroDeHabilidadesUsadas;
+	}
 	
 	//Metodos
 	/**
@@ -297,7 +333,7 @@ public abstract class Personaje {
 				"\nPrecision: " + precision + "%" +
 				"\nArmadura: " + armadura + 
 				"\nArma: " + arma.getNombre() + 
-				"\nCritico: " + arma.getProbabilidadCritico() + 
+				"\nCritico: " + arma.getProbabilidadCritico() + "%" +
 				"\nNivel: " + nivel + 
 				"\nExperiencia: " + experiencia + 
 				"\nTiene Efecto: " + tieneEfecto + 
@@ -307,6 +343,10 @@ public abstract class Personaje {
 				"\nMana Maximo: " + manaMaximo;
 	}
 	
+	/**
+	 * devuelve una presentacion completa del personaje
+	 * @return cadena con la presentacion del personaje
+	 */
 	public String mostrarPresentacion() {
 		return "\nNombre: "+ANSI_CYAN + nombre + ANSI_RESET+
 				"\nVida: " + ANSI_CYAN + vidaMaxima + ANSI_RESET + 
@@ -342,6 +382,11 @@ public abstract class Personaje {
 		return false;
 	}
 
+	/**
+	 * Actualiza los datos del nivel del personaje
+	 * @param nivel es el nivel del personaje
+	 * @param experiencia es la experiencia del personaje
+	 */
 	public void actualizarDatosDeNivel(int nivel, int experiencia){
 		this.nivel = nivel;
 		this.experiencia -= experiencia;
@@ -361,5 +406,8 @@ public abstract class Personaje {
 	 */
 	public abstract String habilidad(Jugador objetivo, int indice);
 	
+	/**
+	 * Devuelve la clase del personaje
+	 */
 	public abstract String mostrarClase();
 }

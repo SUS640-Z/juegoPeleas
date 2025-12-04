@@ -1,8 +1,8 @@
 package juego;
 
 /**
- * La clase tanque hijo de clse personaje
- * Establece estadisticas y movimientos de tanque
+ * La clase Tanque hijo de clase Personaje
+ * Establece estadisticas y movimientos de Tanque
  * @author Etneilav Andree Soto Valdez
  * @author Jesus Ivan Jimenez Aguilar
  * @author Guillermo Green Aviles
@@ -15,10 +15,20 @@ public class Tanque extends Personaje {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_GREEN = "\u001B[32m";
 
+    /**
+     * 
+     * @param nombre el nombre del personaje
+     * @param arma el arma del personaje
+     */
 	 Tanque(String nombre, Arma arma) {
 	        super(nombre, 120, 120, 19, 95,33, arma, 1, 0, false, "", 0, 50, 100,50);
 	 }
 
+	 /**
+	  * Realiza un ataque basico contra el personaje del jugador objetivo
+	  * @param objetivo es el jugador que recibira el ataque
+	  * @param indice es el indice del personaje en el equipo del jugador objetivo
+	  */
      @Override
     public String atacar(Jugador objetivo, int indice) {
 		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
@@ -31,6 +41,13 @@ public class Tanque extends Personaje {
 
         if (probabilidadAtaque < precision) {
             int dano = (int)(arma.calcularDano(poderAtaque) - arma.calcularDano(poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+            
+            if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Chango loco desquisiado")) {
+            	dano *= 1.20;
+            	mensaje += "[ El ataque fue muy efectivo! ]\n";
+            }
+            
+            super.danioTotal += dano;
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
             mensaje = "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
@@ -52,6 +69,12 @@ public class Tanque extends Personaje {
         return mensaje + ANSI_RESET;
 	}
 
+     /**
+      * Usa la habilidad especial contra el objetivo
+      * La habilidad consume manna, aplica dano y stunea al objetivo
+      * @param objetivo es el jugador que recibira el ataque
+      * @param indice es el indice del personaje en el equipo del jugador objetivo
+      */
 	@Override
 	 public String habilidad(Jugador objetivo, int indice) {
         String mensaje = "";
@@ -60,9 +83,17 @@ public class Tanque extends Personaje {
             return ANSI_RED + "[ Mana insuficiente... ]\n" + ANSI_RESET;
         }
 
+        super.numeroDeHabilidadesUsadas++;
         super.manaActual -= manaHabilidad;
         int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.5);
         dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
+        
+        if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Chango loco desquisiado")) {
+        	dano *= 1.20;
+        	mensaje += "[ El ataque fue muy efectivo! ]\n";
+        }
+        
+        super.danioTotal += dano;
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
 
         mensaje += ANSI_GREEN+"[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
@@ -81,11 +112,21 @@ public class Tanque extends Personaje {
         return mensaje + ANSI_RESET;
     }
 
+	/**
+	 * Devuelve la clase del personaje
+	 * 
+	 * @return nombre descriptivo de la clase
+	 */
 	@Override
 	public String mostrarClase() {
 		return "Tanque";
 	}
 	
+	/**
+	 * Devuelve una presentacion completa del personaje, incluyendo su clase y estadisticas
+	 * 
+	 * @return cadena con la presentacion del personaje
+	 */
 	public String mostrarPresentacion() {
 		return "\nClase: "+ANSI_CYAN+ mostrarClase()+ANSI_RESET +
 			super.mostrarPresentacion();

@@ -13,6 +13,8 @@ import java.util.Scanner;
 public class Menu {
 	static Scanner in = new Scanner(System.in);
 	static Bitacora registroCombate = new Bitacora();
+	static String ordenMuerte[] = new String[6];
+	static int contadorMuerte = 0;
 	public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_RESET = "\u001B[0m";
@@ -138,6 +140,7 @@ public class Menu {
 
 	/**
 	 * Imprime los personajes del juego
+	 * @param personajes arreglo con todos los personajes
 	 */	
 	public static void mostrarPersonajes(Personaje[] personajes) {
 		for(int i = 0; i < personajes.length; i++) {
@@ -159,6 +162,9 @@ public class Menu {
 	
 	/**
 	 * Logica y funcionamiento del juego
+	 * @param jugador1 es el jugador 1
+	 * @param jugador2 es el jugador 2
+	 * @parama personajes es el arreglo con todos los personajes
 	 */	
 	public static void jugar(Jugador jugador1, Jugador jugador2, Personaje[] personajes) {
 		registroCombate.vaciarBitacora();
@@ -526,6 +532,7 @@ public class Menu {
 			System.out.println(ANSI_YELLOW + "¡El combate acabo en empate!" + ANSI_RESET);
 			return true;
 		} 
+		resumenDelCombate(jugador1, jugador2);
 		return false;
 	}
 	
@@ -548,7 +555,7 @@ public class Menu {
 	
 	/**
 	 * Restablece todos los atributos al maximo de jugador
-	 * @param personajes
+	 * @param personajes arreglo con todos los personajes
 	 */	
 	public static void restauracionPersonajes(Personaje[] personajes) {
 		for(int i=0; i<personajes.length; i++) {
@@ -579,5 +586,75 @@ public class Menu {
 	public static void mostrarEquipo(Jugador jugador) {
 		System.out.println(ANSI_CYAN+"Equipo de "+jugador.nombre+ANSI_RESET);
 		mostrarPersonajes(jugador.personajesSelecionados);
+	}
+
+	public static void imprimirMuertesYGanador() {
+		System.out.println(ANSI_CYAN + "\nOrden de muertes: " + ANSI_RESET);
+		for(int i=0; i<ordenMuerte.length; i++) {
+			if(!ordenMuerte[i].equals("")) {
+				System.out.println((i+1)+". "+ordenMuerte[i]);
+			}
+		}
+
+		System.out.println(ANSI_CYAN + "\nGanador del combate: " + ANSI_RESET);
+		if(ordenMuerte[5].equals("")) {
+			System.out.println("Empate");
+		} else {
+			System.out.println(ordenMuerte[5]);
+		}
+	}
+
+	/**
+	 * Imprime las estadisticas completasd de los personajes de cada jugador
+	 * 
+	 * @param jugador1 es el juagador 1
+	 * @param jugador2 es el jugador 2
+	 */
+	public static void imprimirEstadisticasCompletas(Jugador jugador1, Jugador jugador2) {
+		for(int i = 0; i < jugador1.personajesSelecionados.length; i++) {
+			if(jugador1.personajesSelecionados[i] != null) {
+				System.out.println("------------------------------------------------");
+				System.out.println(ANSI_CYAN + "Personaje: " + jugador1.personajesSelecionados[i].nombre + ANSI_RESET);
+				System.out.println("  - Daño Total:    " + jugador1.personajesSelecionados[i].danioTotal);
+				System.out.println("  - Críticos:      " + jugador1.personajesSelecionados[i].arma.getNumeroDeCriticos());
+				System.out.println("  - Habilidades:   " + jugador1.personajesSelecionados[i].numeroDeHabilidadesUsadas);
+				System.out.println("  - Nivel Final:   " + jugador1.personajesSelecionados[i].nivel);
+			}
+		}
+
+		for(int i = 0; i < jugador2.personajesSelecionados.length; i++) {
+			if(jugador2.personajesSelecionados[i] != null) {
+				System.out.println("------------------------------------------------");
+				System.out.println(ANSI_CYAN + "Personaje: " + jugador2.personajesSelecionados[i].nombre + ANSI_RESET);
+				System.out.println("Daño Total:    " + jugador2.personajesSelecionados[i].danioTotal);
+				System.out.println("Críticos:      " + jugador2.personajesSelecionados[i].arma.getNumeroDeCriticos());
+				System.out.println("Habilidades:   " + jugador2.personajesSelecionados[i].numeroDeHabilidadesUsadas);
+				System.out.println("Nivel Final:   " + jugador2.personajesSelecionados[i].nivel);
+			}
+		}
+		System.out.println("------------------------------------------------");
+	}
+
+	/**
+	 * reinicia el orden de muertes
+	 */
+	public static void reiniciarOrdenMuerte() {
+		for(int i=0; i<ordenMuerte.length; i++) {
+			ordenMuerte[i] = "";
+		}
+		contadorMuerte = 0;
+	}
+
+	/**
+	 * Imprime un resumen del combate
+	 * 
+	 * @param jugador1 es el jugador 1
+	 * @param jugador2 es el jugador 2 
+	 */
+	public static void resumenDelCombate(Jugador jugador1, Jugador jugador2) {
+		System.out.println(ANSI_CYAN + "\n=== RESUMEN DEL COMBATE ===" + ANSI_RESET);
+		imprimirMuertesYGanador();
+		imprimirEstadisticasCompletas(jugador1, jugador2);
+		reiniciarOrdenMuerte();
 	}
 }
