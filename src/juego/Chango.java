@@ -16,7 +16,7 @@ public class Chango extends Personaje{
     public static final String ANSI_GREEN = "\u001B[32m";
 
     /**
-     * 
+     * Constructor de la clase Chango
      * @param nombre el nombre del personaje
      * @param arma el arma del personaje
      */
@@ -77,7 +77,7 @@ public class Chango extends Personaje{
 
     /**
      * Usa la habilidad especial contra el objetivo
-     * La habilidad consume manna, aplica dano y aumenta la probabilidad de critico
+     * La habilidad consume mana, aplica dano y aumenta la probabilidad de critico
      * @param objetivo es el jugador que recibira el ataque
      * @param indice es el indice del personaje en el equipo del jugador objetivo
      */

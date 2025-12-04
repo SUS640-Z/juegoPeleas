@@ -491,7 +491,6 @@ public class Menu {
 							turnoGuardadoH=true;
 							
 							secundario.contPersonajes++;
-							//ganador(principal, secundario);
 						}
 						if(efecto == 2) {
 							principal.personajesSelecionados[principal.contPersonajes].precision *= 2;

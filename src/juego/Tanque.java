@@ -16,7 +16,7 @@ public class Tanque extends Personaje {
     public static final String ANSI_GREEN = "\u001B[32m";
 
     /**
-     * 
+     * Constructor de la clase Tanque
      * @param nombre el nombre del personaje
      * @param arma el arma del personaje
      */
@@ -74,7 +74,7 @@ public class Tanque extends Personaje {
 
      /**
       * Usa la habilidad especial contra el objetivo
-      * La habilidad consume manna, aplica dano y stunea al objetivo
+      * La habilidad consume mana, aplica dano y stunea al objetivo
       * @param objetivo es el jugador que recibira el ataque
       * @param indice es el indice del personaje en el equipo del jugador objetivo
       */

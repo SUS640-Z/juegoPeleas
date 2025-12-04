@@ -16,7 +16,7 @@ public class Mago extends Personaje{
     public static final String ANSI_GREEN = "\u001B[32m";
 
     /**
-     * 
+     * Constructor de la clase Mago
      * @param nombre el nombre del personaje
      * @param arma el arma del personaje
      */
@@ -75,7 +75,7 @@ public class Mago extends Personaje{
 
 	/**
      * Usa la habilidad especial contra el objetivo
-     * La habilidad consume manna, aplica dano y congelacion al objetivo
+     * La habilidad consume mana, aplica dano y congelacion al objetivo
      * @param objetivo es el jugador que recibira el ataque
      * @param indice es el indice del personaje en el equipo del jugador objetivo
      */
