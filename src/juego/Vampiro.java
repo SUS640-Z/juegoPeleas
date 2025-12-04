@@ -32,7 +32,7 @@ public class Vampiro extends Personaje{
     @Override
     public String atacar(Jugador objetivo, int indice) {
 		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
-        String mensaje = "";
+        String mensaje;
 
 		this.manaActual += 10;
 		if(this.manaActual > this.manaMaximo){
@@ -44,7 +44,7 @@ public class Vampiro extends Personaje{
             
             if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Tanque")) {
             	dano *= 1.20;
-            	mensaje += "[ El ataque fue muy efectivo! ]\n";
+            	mensaje = "[ El ataque fue muy efectivo! ]\n";
             }
             
             super.danioTotal += dano;
@@ -53,7 +53,7 @@ public class Vampiro extends Personaje{
                 objetivo.personajesSelecionados[indice].experiencia += 5;
             }
 
-            mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+            mensaje = ANSI_GREEN+"[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
             if (Math.random() < 0.05) { 
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;
@@ -64,10 +64,10 @@ public class Vampiro extends Personaje{
 
 			this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]";
+				mensaje += ANSI_GREEN + "[ ¡"+nombre+"ha subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]";
 			}
         } else{
-            mensaje += ANSI_RED + "[ Ataque fallido! ]";
+            mensaje = ANSI_RED + "[ Ataque fallido! ]"+ANSI_RESET;
         }
 
         return mensaje + ANSI_RESET;
@@ -81,7 +81,7 @@ public class Vampiro extends Personaje{
      */
 	@Override
     public String habilidad(Jugador objetivo, int indice) {
-        String mensaje = "";
+        String mensaje;
 
         if(super.manaActual < manaHabilidad){
             return ANSI_RED + "[ Mana insuficiente... ]\n" + ANSI_RESET;
@@ -94,7 +94,7 @@ public class Vampiro extends Personaje{
         
         if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Tanque")) {
         	dano *= 1.20;
-        	mensaje += "[ El ataque fue muy efectivo! ]\n";
+        	mensaje = "[ El ataque fue muy efectivo! ]\n";
         }
         
         super.danioTotal += dano;
@@ -103,7 +103,7 @@ public class Vampiro extends Personaje{
 			objetivo.personajesSelecionados[indice].experiencia += 5;
 		}
 
-        mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+        mensaje = ANSI_GREEN+"[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
         if (Math.random() < 0.4) { // 40% probabilidad de sangrado
             objetivo.personajesSelecionados[indice].tieneEfecto = true;
@@ -117,12 +117,12 @@ public class Vampiro extends Personaje{
             if (super.vidaActual > super.vidaMaxima) {
                 super.vidaActual = super.vidaMaxima;
             }  // Asegurar que no supera la vida maxima.
-            mensaje += ANSI_GREEN + "[ Has regenerado " + (dano * 0.5) + " de vida! ]\n";
+            mensaje += ANSI_GREEN + "[ "+nombre+"ha regenerado " + (dano * 0.5) + " de vida! ]\n";
         }
 
         super.experiencia += 5;
 		if (super.subeNivel()) {
-			mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n"; 
+			mensaje += ANSI_GREEN + "[ ¡"+nombre+"Ha subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n"; 
 		}
         return mensaje + ANSI_RESET;
     }
