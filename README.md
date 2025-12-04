@@ -1,4 +1,6 @@
-# Guillermo  
-# Ivan  
-# Favio  
-- > ~~***Etnailv Andree Soto Valdez***~~  
+## Integrantes:
+
+- **Guillermo**
+- **Ivan**
+- **Favio**
+- **Etneilav**
