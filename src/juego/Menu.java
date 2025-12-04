@@ -44,12 +44,12 @@ public class Menu {
 		personajes[8] = new Mago("Mago Sensacion", new Arma("Baston de la falacia",9999,9999));
 
 		while(opcionMenu != 5) {
-			System.out.println(titulo());
-			System.out.println("| 1. Jugar");
-			System.out.println("| 2. Personajes Disponibles");
-			System.out.println("| 3. Ver Reglas");
-			System.out.println("| 4. Ver combate anterior");
-			System.out.println("| 5. Salir");
+			System.out.println(tituloH());
+			System.out.println(ANSI_CYAN+"[1]"+ANSI_RESET+" Jugar");
+			System.out.println(ANSI_CYAN+"[2]"+ANSI_RESET+" Personajes Disponibles");
+			System.out.println(ANSI_CYAN+"[3]"+ANSI_RESET+" Ver Reglas");
+			System.out.println(ANSI_CYAN+"[4]"+ANSI_RESET+" Ver combate anterior");
+			System.out.println(ANSI_CYAN+"[5]"+ANSI_RESET+" Salir");
 			System.out.print("[ Ingresa una opcion ]: ");
 			opcionMenu = in.nextInt();
 
@@ -59,9 +59,7 @@ public class Menu {
 					presionarContinuar2();
 					break;
 				case 2:
-					mostrarPersonajes(personajes);
-					in.nextLine();
-					presionarEnter();
+					mostrarPersonajes2(personajes);
 					break;
 				case 3:
 					reglas();
@@ -75,6 +73,12 @@ public class Menu {
 				case 5:
 					System.out.println(ANSI_YELLOW+"[ ¡Gracias por jugar! ]");
 					break;
+				default:
+					System.out.println(ANSI_YELLOW+"[ No existe esta opcion ]"+ANSI_RESET);
+					in.nextLine();
+					presionarEnter();
+					break;
+					
 			}
 		}
 	}
@@ -83,25 +87,40 @@ public class Menu {
 	 * Devuelve el titulo del juego
 	 * @return titulo del juego
 	 */	
-	public static String titulo() {
-		return ANSI_BLUE+"  ___              _             ___ ___  ___   ___ _           _      _             ___ __ ___ ___               __ _   __    ___      _        \r\n"
-	    		+ " | _ \\_  _ _ _  __| |_  ___ ___ | _ \\ _ \\/ __| / __(_)_ __ _  _| |__ _| |_ ___ _ _  |_  )  \\_  ) __|  ___   __ __/ // | /  \\  | _ ) ___| |_ __ _ \r\n"
-	    		+ " |  _/ || | ' \\(_-< ' \\/ -_|_-< |   /  _/ (_ | \\__ \\ | '  \\ || | / _` |  _/ _ \\ '_|  / / () / /|__ \\ |___|  \\ V / _ \\ || () | | _ \\/ -_)  _/ _` |\r\n"
-	    		+ " |_|  \\_,_|_||_/__/_||_\\___/__/ |_|_\\_|  \\___| |___/_|_|_|_\\_,_|_\\__,_|\\__\\___/_|   /___\\__/___|___/         \\_/\\___/_(_)__/  |___/\\___|\\__\\__,_|\r\n"
-	    		+ "                                                                                                                                                 "+ANSI_RESET;
-    }
+	
+	public static String tituloG() {
+		return ANSI_RED+"                                                                     \r\n"
+				+ "                                                                     \r\n"
+				+ "█████▄ ▄▄ ▄▄ ▄▄  ▄▄  ▄▄▄▄ ▄▄ ▄▄ ▄▄▄▄▄  ▄▄▄▄   █████▄  █████▄  ▄████  \r\n"
+				+ "██▄▄█▀ ██ ██ ███▄██ ██▀▀▀ ██▄██ ██▄▄  ███▄▄   ██▄▄██▄ ██▄▄█▀ ██  ▄▄▄ \r\n"
+				+ "██     ▀███▀ ██ ▀██ ▀████ ██ ██ ██▄▄▄ ▄▄██▀   ██   ██ ██      ▀███▀  \r\n"
+				+ "                                                                     "+ANSI_RESET;
+	}
+	
+	public static String tituloH() {
+		return ANSI_RED+"                                                                              \r\n"
+				+ "▄▄▄▄▄▄▄                     ▄▄                  ▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄    ▄▄▄▄▄▄▄  \r\n"
+				+ "███▀▀███▄                   ██                  ███▀▀███▄ ███▀▀███▄ ███▀▀▀▀▀  \r\n"
+				+ "███▄▄███▀ ██ ██ ████▄ ▄████ ████▄ ▄█▀█▄ ▄█▀▀▀   ███▄▄███▀ ███▄▄███▀ ███       \r\n"
+				+ "███▀▀▀▀   ██ ██ ██ ██ ██    ██ ██ ██▄█▀ ▀███▄   ███▀▀██▄  ███▀▀▀▀   ███  ███▀ \r\n"
+				+ "███       ▀██▀█ ██ ██ ▀████ ██ ██ ▀█▄▄▄ ▄▄▄█▀   ███  ▀███ ███       ▀██████▀  \r\n"
+				+ "                                                                              \r\n"
+				+ "                                                                              "+ANSI_RESET;
+	}
+	
+
 	
 	/**
 	 * Imprime las reglas del juego
 	 */	
 	public static void reglas() {
-		System.out.println("\n[ Reglas del juego ]");
-		System.out.println("| 1. Los jugadores deberan ingresar un nombre por el cual se identifiquen.");
-        System.out.println("| 2. El turno de los jugadores será decidido al azar.");
-        System.out.println("| 3. El jugador podra decidir si atacar o usar su habilidad cuando sea turno.");
-        System.out.println("| 4. Una vez realize su movimiento, el jugador tendra oportunidad de actuar.");
-        System.out.println("| 5. Los turnos cambiaran intercaladamente por cada movimiento del jugador.");
-        System.out.println("| 6. El combate termina cuando uno de los jugadores tenga todos personaje con vida actual 0.");
+		System.out.println(ANSI_YELLOW+"\n[ Reglas del juego ]"+ANSI_RESET);
+		System.out.println(ANSI_YELLOW+"| "+ANSI_RESET+"1. Los jugadores deberan ingresar un nombre por el cual se identifiquen.");
+        System.out.println(ANSI_YELLOW+"| "+ANSI_RESET+"2. El turno de los jugadores será decidido al azar.");
+        System.out.println(ANSI_YELLOW+"| "+ANSI_RESET+"3. El jugador podra decidir si atacar o usar su habilidad cuando sea turno.");
+        System.out.println(ANSI_YELLOW+"| "+ANSI_RESET+"4. Una vez realize su movimiento, el jugador tendra oportunidad de actuar.");
+        System.out.println(ANSI_YELLOW+"| "+ANSI_RESET+"5. Los turnos cambiaran intercaladamente por cada movimiento del jugador.");
+        System.out.println(ANSI_YELLOW+"| "+ANSI_RESET+"6. El combate termina cuando uno de los jugadores tenga todos personaje con vida actual 0.");
         in.nextLine();
 	}
 	
@@ -109,7 +128,8 @@ public class Menu {
 	 * Manejar mejor la informacion presentada en pantalla
 	 */	
 	public static void presionarEnter() {
-		System.out.println("\n[ Presione ENTER para continuar... ]");
+		
+		System.out.println(ANSI_YELLOW+"[ Presione ENTER para continuar... ]"+ANSI_RESET);
 		in.nextLine();
 		for(int i=0; i<1000; i++) {
 			System.out.println("\n");
@@ -120,9 +140,20 @@ public class Menu {
 	 * Imprime los personajes del juego
 	 */	
 	public static void mostrarPersonajes(Personaje[] personajes) {
+		System.out.println();
 		for(int i = 0; i < personajes.length; i++) {
 			if(personajes[i] != null) {
-				System.out.println((i+1) + ". " + personajes[i].nombre +" - "+ personajes[i].mostrarClase());
+				System.out.println(ANSI_YELLOW+"["+(i+1) + "] "+ANSI_RESET + personajes[i].nombre +" - "+ personajes[i].mostrarClase());
+			}
+		}
+	}	
+	
+	public static void mostrarPersonajes2(Personaje[] personajes) {
+		in.nextLine();
+		for(int i = 0; i < personajes.length; i++) {
+			if(personajes[i] != null) {
+				System.out.println(personajes[i].mostrarPresentacion());
+				presionarContinuar2();
 			}
 		}
 	}	

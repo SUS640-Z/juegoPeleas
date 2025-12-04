@@ -86,4 +86,9 @@ public class Mago extends Personaje{
 	public String mostrarClase() {
 		return "Mago de hielo";
 	}
+	
+	public String mostrarPresentacion() {
+		return "\nClase: "+ANSI_CYAN+ mostrarClase()+ANSI_RESET +
+			super.mostrarPresentacion();
+	}
 }

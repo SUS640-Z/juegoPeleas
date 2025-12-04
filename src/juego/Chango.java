@@ -97,4 +97,9 @@ public class Chango extends Personaje{
 	public String mostrarClase() {
 		return "Chango loco desquisiado";
 	}
+	
+	public String mostrarPresentacion() {
+		return "\nClase: "+ANSI_CYAN+ mostrarClase()+ANSI_RESET +
+			super.mostrarPresentacion();
+	}
 }

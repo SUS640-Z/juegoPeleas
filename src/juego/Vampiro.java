@@ -94,4 +94,9 @@ public class Vampiro extends Personaje{
 	public String mostrarClase() {
 		return "Vampiro";
 	}
+	
+	public String mostrarPresentacion() {
+		return "\nClase: "+ANSI_CYAN+ mostrarClase()+ANSI_RESET +
+			super.mostrarPresentacion();
+	}
 }

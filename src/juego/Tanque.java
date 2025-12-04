@@ -86,6 +86,10 @@ public class Tanque extends Personaje {
 		return "Tanque";
 	}
 	
+	public String mostrarPresentacion() {
+		return "\nClase: "+ANSI_CYAN+ mostrarClase()+ANSI_RESET +
+			super.mostrarPresentacion();
+	}
 	
 	
 }
