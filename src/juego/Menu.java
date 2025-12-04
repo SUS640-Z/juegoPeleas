@@ -529,6 +529,7 @@ public class Menu {
 			System.out.println(ANSI_YELLOW + "¡El combate acabo en empate!" + ANSI_RESET);
 			return true;
 		} 
+		resumenDelCombate(jugador1, jugador2);
 		return false;
 	}
 	
@@ -584,12 +585,58 @@ public class Menu {
 		mostrarPersonajes(jugador.personajesSelecionados);
 	}
 
-	public static void imprimirMuertes() {
-		System.out.println(ANSI_CYAN + "\nOrden de muertes:" + ANSI_RESET);
+	public static void imprimirMuertesYGanador() {
+		System.out.println(ANSI_CYAN + "\nOrden de muertes: " + ANSI_RESET);
 		for(int i=0; i<ordenMuerte.length; i++) {
 			if(!ordenMuerte[i].equals("")) {
 				System.out.println((i+1)+". "+ordenMuerte[i]);
 			}
 		}
+
+		System.out.println(ANSI_CYAN + "\nGanador del combate: " + ANSI_RESET);
+		if(ordenMuerte[5].equals("")) {
+			System.out.println("Empate");
+		} else {
+			System.out.println(ordenMuerte[5]);
+		}
+	}
+
+	public static void imprimirEstadisticasCompletas(Jugador jugador1, Jugador jugador2) {
+		for(int i = 0; i < jugador1.personajesSelecionados.length; i++) {
+			if(jugador1.personajesSelecionados[i] != null) {
+				System.out.println("------------------------------------------------");
+				System.out.println(ANSI_CYAN + "Personaje: " + jugador1.personajesSelecionados[i].nombre + ANSI_RESET);
+				System.out.println("  - Daño Total:    " + jugador1.personajesSelecionados[i].danioTotal);
+				System.out.println("  - Críticos:      " + jugador1.personajesSelecionados[i].arma.getNumeroDeCriticos());
+				System.out.println("  - Habilidades:   " + jugador1.personajesSelecionados[i].numeroDeHabilidadesUsadas);
+				System.out.println("  - Nivel Final:   " + jugador1.personajesSelecionados[i].nivel);
+			}
+		}
+
+		for(int i = 0; i < jugador2.personajesSelecionados.length; i++) {
+			if(jugador2.personajesSelecionados[i] != null) {
+				System.out.println("------------------------------------------------");
+				System.out.println(ANSI_CYAN + "Personaje: " + jugador2.personajesSelecionados[i].nombre + ANSI_RESET);
+				System.out.println("Daño Total:    " + jugador2.personajesSelecionados[i].danioTotal);
+				System.out.println("Críticos:      " + jugador2.personajesSelecionados[i].arma.getNumeroDeCriticos());
+				System.out.println("Habilidades:   " + jugador2.personajesSelecionados[i].numeroDeHabilidadesUsadas);
+				System.out.println("Nivel Final:   " + jugador2.personajesSelecionados[i].nivel);
+			}
+		}
+		System.out.println("------------------------------------------------");
+	}
+
+	public static void reiniciarOrdenMuerte() {
+		for(int i=0; i<ordenMuerte.length; i++) {
+			ordenMuerte[i] = "";
+		}
+		contadorMuerte = 0;
+	}
+
+	public static void resumenDelCombate(Jugador jugador1, Jugador jugador2) {
+		System.out.println(ANSI_CYAN + "\n=== RESUMEN DEL COMBATE ===" + ANSI_RESET);
+		imprimirMuertesYGanador();
+		imprimirEstadisticasCompletas(jugador1, jugador2);
+		reiniciarOrdenMuerte();
 	}
 }
