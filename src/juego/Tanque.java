@@ -32,7 +32,7 @@ public class Tanque extends Personaje {
      @Override
     public String atacar(Jugador objetivo, int indice) {
 		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
-        String mensaje;
+        String mensaje ="";
 
 		this.manaActual += 10;
 		if(this.manaActual > this.manaMaximo){
@@ -54,7 +54,7 @@ public class Tanque extends Personaje {
                 objetivo.personajesSelecionados[indice].experiencia += 5;
             }
 
-            mensaje = "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+            mensaje += ANSI_GREEN+"[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
             if (Math.random() < 0.05) { 
                 super.armadura += 5;
@@ -63,7 +63,7 @@ public class Tanque extends Personaje {
 
 			this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]";
+				mensaje += ANSI_GREEN + "[ ¡"+nombre+"ha subido de nivel,se ha restauraurado su vida y mana! Ahora eres nivel " + this.nivel + "! ]";
 			}
             
         } else{
@@ -109,7 +109,7 @@ public class Tanque extends Personaje {
             objetivo.personajesSelecionados[indice].tieneEfecto = true;
             objetivo.personajesSelecionados[indice].tipoEfecto = "Stuneado";
             objetivo.personajesSelecionados[indice].duracionEfecto = 1;
-            mensaje += ANSI_GREEN + "[ ¡Stuneado aplicado! ]\n";
+            mensaje += ANSI_CYAN + "[ ¡Stuneado aplicado! ]\n";
         }
 
         super.experiencia += 5;
