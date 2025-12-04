@@ -49,6 +49,9 @@ public class Chango extends Personaje{
             
             super.danioTotal += dano;
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
+            if(objetivo.personajesSelecionados[indice].vidaActual > 0) {
+                objetivo.personajesSelecionados[indice].experiencia += 5;
+            }
 			
             mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
@@ -113,6 +116,9 @@ public class Chango extends Personaje{
         
         dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
+        if(objetivo.personajesSelecionados[indice].vidaActual > 0) {
+			objetivo.personajesSelecionados[indice].experiencia += 5;
+		}
         
         super.danioTotal += dano;
         mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";

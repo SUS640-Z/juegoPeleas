@@ -49,6 +49,9 @@ public class Tanque extends Personaje {
             
             super.danioTotal += dano;
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
+            if(objetivo.personajesSelecionados[indice].vidaActual > 0) {
+                objetivo.personajesSelecionados[indice].experiencia += 5;
+            }
 
             mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
@@ -95,6 +98,9 @@ public class Tanque extends Personaje {
         
         super.danioTotal += dano;
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
+        if(objetivo.personajesSelecionados[indice].vidaActual > 0) {
+			objetivo.personajesSelecionados[indice].experiencia += 5;
+		}
 
         mensaje += "[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 

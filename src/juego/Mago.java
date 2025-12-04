@@ -49,6 +49,9 @@ public class Mago extends Personaje{
             
 			super.danioTotal += dano;
             objetivo.personajesSelecionados[indice].vidaActual -= dano;
+			if(objetivo.personajesSelecionados[indice].vidaActual > 0) {
+				objetivo.personajesSelecionados[indice].experiencia += 5;
+			}
 
             mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
@@ -96,6 +99,9 @@ public class Mago extends Personaje{
 		
 		super.danioTotal += dano;
 	    objetivo.personajesSelecionados[indice].vidaActual -= dano;
+		if(objetivo.personajesSelecionados[indice].vidaActual > 0) {
+			objetivo.personajesSelecionados[indice].experiencia += 5;
+		}
 
 	    mensaje += "[ Le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"; 
 
