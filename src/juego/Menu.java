@@ -369,7 +369,6 @@ public class Menu {
             registroCombate.registrarEfecto(consecuenciasEfecto);
         }
 
-
 		if(efecto == 2) {
 			principal.personajesSelecionados[principal.contPersonajes].precision /= 2;
 		}
