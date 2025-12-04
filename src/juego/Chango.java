@@ -1,8 +1,8 @@
 package juego;
 
 /**
- * La clase mago hijo de clse personaje
- * Establece estadisticas y movimientos de mago
+ * La clase Chango hijo de clase Personaje
+ * Establece estadisticas y movimientos de Chango
  * @author Etneilav Andree Soto Valdez
  * @author Jesus Ivan Jimenez Aguilar
  * @author Guillermo Green Aviles
@@ -15,10 +15,20 @@ public class Chango extends Personaje{
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_GREEN = "\u001B[32m";
 
+    /**
+     * 
+     * @param nombre el nombre del personaje
+     * @param arma el arma del personaje
+     */
     Chango(String nombre, Arma arma) {
         super(nombre, 100, 100, 24, 80, 3, arma, 1, 0, false, "", 0, 33, 100,33);
     }
 
+    /**
+     * Realiza un ataque basico contra el personaje del jugador objetivo
+     * @param objetivo es el jugador que recibira el ataque
+     * @param indice es el indice del personaje en el equipo del jugador objetivo
+     */
     @Override
     public String atacar(Jugador objetivo, int indice) {
 		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
@@ -62,6 +72,12 @@ public class Chango extends Personaje{
         return mensaje + ANSI_RESET;
 	}
 
+    /**
+     * Usa la habilidad especial contra el objetivo
+     * La habilidad consume manna, aplica dano y aumenta la probabilidad de critico
+     * @param objetivo es el jugador que recibira el ataque
+     * @param indice es el indice del personaje en el equipo del jugador objetivo
+     */
 	@Override
 	 public String habilidad(Jugador objetivo, int indice) {
         String mensaje = "";
@@ -108,11 +124,21 @@ public class Chango extends Personaje{
         return mensaje + ANSI_RESET;
     }
 
+	/**
+	 * Devuelve la clase del personaje
+	 * 
+	 * @return nombre descriptivo de la clase
+	 */
 	@Override
 	public String mostrarClase() {
 		return "Chango loco desquisiado";
 	}
 	
+	/**
+	 * Devuelve una presentacion completa del personaje, incluyendo su clase y estadisticas
+	 * 
+	 * @return cadena con la presentacion del personaje
+	 */
 	public String mostrarPresentacion() {
 		return "\nClase: "+ANSI_CYAN+ mostrarClase()+ANSI_RESET +
 			super.mostrarPresentacion();

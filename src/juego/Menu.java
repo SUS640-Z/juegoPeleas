@@ -140,6 +140,7 @@ public class Menu {
 
 	/**
 	 * Imprime los personajes del juego
+	 * @param personajes arreglo con todos los personajes
 	 */	
 	public static void mostrarPersonajes(Personaje[] personajes) {
 		for(int i = 0; i < personajes.length; i++) {
@@ -161,6 +162,9 @@ public class Menu {
 	
 	/**
 	 * Logica y funcionamiento del juego
+	 * @param jugador1 es el jugador 1
+	 * @param jugador2 es el jugador 2
+	 * @parama personajes es el arreglo con todos los personajes
 	 */	
 	public static void jugar(Jugador jugador1, Jugador jugador2, Personaje[] personajes) {
 		registroCombate.vaciarBitacora();
@@ -323,6 +327,7 @@ public class Menu {
 	 * Sistema de batalla
 	 * @param jugador1 usuario que se enfrentara a jugador 2
 	 * @param jugador2 usuario que se enfrentara a jugador 1
+	 * @param personajes arreglo con todos los personajes
 	 */	
 	public static void batalla(Jugador jugador1, Jugador jugador2, Personaje[] personajes) {
 		jugador1.contPersonajes=0;
@@ -461,7 +466,6 @@ public class Menu {
 						turnoGuardado=true;
 						
 						secundario.contPersonajes++;
-						//ganador(principal, secundario);
 					}
 					if(efecto == 2) {
 						principal.personajesSelecionados[principal.contPersonajes].precision *= 2;
@@ -552,7 +556,7 @@ public class Menu {
 	
 	/**
 	 * Restablece todos los atributos al maximo de jugador
-	 * @param personajes
+	 * @param personajes arreglo con todos los personajes
 	 */	
 	public static void restauracionPersonajes(Personaje[] personajes) {
 		for(int i=0; i<personajes.length; i++) {
@@ -606,6 +610,12 @@ public class Menu {
 		} 
 	}
 
+	/**
+	 * Imprime las estadisticas completasd de los personajes de cada jugador
+	 * 
+	 * @param jugador1 es el juagador 1
+	 * @param jugador2 es el jugador 2
+	 */
 	public static void imprimirEstadisticasCompletas(Jugador jugador1, Jugador jugador2) {
 		for(int i = 0; i < jugador1.personajesSelecionados.length; i++) {
 			if(jugador1.personajesSelecionados[i] != null) {
@@ -631,6 +641,9 @@ public class Menu {
 		System.out.println("------------------------------------------------");
 	}
 
+	/**
+	 * reinicia el orden de muertes
+	 */
 	public static void reiniciarOrdenMuerte() {
 		for(int i=0; i<ordenMuerte.length; i++) {
 			ordenMuerte[i] = "";
@@ -638,6 +651,14 @@ public class Menu {
 		contadorMuerte = 0;
 	}
 
+	
+	/**
+	 * Imprime un resumen del combate
+	 * 
+	 * @param jugador1 es el jugador 1
+	 * @param jugador2 es el jugador 2 
+	 * @param personajes es el arreglo con todos los personajes
+	 */
 	public static void resumenDelCombate(Jugador jugador1, Jugador jugador2, Personaje[] personajes) {
 		System.out.println(ANSI_CYAN + "\n=== RESUMEN DEL COMBATE ===" + ANSI_RESET);
 		imprimirMuertesYGanador(personajes);

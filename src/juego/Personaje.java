@@ -343,6 +343,10 @@ public abstract class Personaje {
 				"\nMana Maximo: " + manaMaximo;
 	}
 	
+	/**
+	 * devuelve una presentacion completa del personaje
+	 * @return cadena con la presentacion del personaje
+	 */
 	public String mostrarPresentacion() {
 		return "\nNombre: "+ANSI_CYAN + nombre + ANSI_RESET+
 				"\nVida: " + ANSI_CYAN + vidaMaxima + ANSI_RESET + 
@@ -378,6 +382,11 @@ public abstract class Personaje {
 		return false;
 	}
 
+	/**
+	 * Actualiza los datos del nivel del personaje
+	 * @param nivel es el nivel del personaje
+	 * @param experiencia es la experiencia del personaje
+	 */
 	public void actualizarDatosDeNivel(int nivel, int experiencia){
 		this.nivel = nivel;
 		this.experiencia -= experiencia;
@@ -397,5 +406,8 @@ public abstract class Personaje {
 	 */
 	public abstract String habilidad(Jugador objetivo, int indice);
 	
+	/**
+	 * Devuelve la clase del personaje
+	 */
 	public abstract String mostrarClase();
 }
