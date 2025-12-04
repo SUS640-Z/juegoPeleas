@@ -16,7 +16,7 @@ public class Vampiro extends Personaje{
     public static final String ANSI_GREEN = "\u001B[32m";
 
 	Vampiro(String nombre, Arma arma) {
-        super(nombre, 75, 75, 7, 85, 25, arma, 1, 0, false, "", 0, 50, 100);
+        super(nombre, 75, 75, 7, 85, 25, arma, 1, 0, false, "", 0, 50, 100,50);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Vampiro extends Personaje{
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;
                 objetivo.personajesSelecionados[indice].tipoEfecto = "Sangrado";
                 objetivo.personajesSelecionados[indice].duracionEfecto = 2;
-                mensaje += ANSI_GREEN + "[ ¡Sangrado aplicado! ]";
+                mensaje += ANSI_GREEN + "[ ¡Sangrado aplicado! ]\n";
             }
 
 			this.experiencia += 5;
@@ -57,11 +57,11 @@ public class Vampiro extends Personaje{
     public String habilidad(Jugador objetivo, int indice) {
         String mensaje = "";
 
-        if(super.manaActual < 50){
+        if(super.manaActual < manaHabilidad){
             return ANSI_RED + "[ Mana insuficiente... ]\n" + ANSI_RESET;
         }
 
-        super.manaActual -= 50;
+        super.manaActual -= manaHabilidad;
         int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.3);
         dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
         objetivo.personajesSelecionados[indice].vidaActual -= dano;

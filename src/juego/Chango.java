@@ -16,7 +16,7 @@ public class Chango extends Personaje{
     public static final String ANSI_GREEN = "\u001B[32m";
 
     Chango(String nombre, Arma arma) {
-        super(nombre, 100, 100, 10, 80, 10, arma, 1, 0, false, "", 0, 33, 100);
+        super(nombre, 100, 100, 10, 80, 10, arma, 1, 0, false, "", 0, 33, 100,33);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Chango extends Personaje{
                     super.arma.setProbabilidadCritico(100);
                 } else {
                     super.arma.setProbabilidadCritico(super.arma.getProbabilidadCritico() + 5);
-                    mensaje += ANSI_GREEN + "[ La probabilidad de critico de tu arma ha aumentado en 5%! ]";
+                    mensaje += ANSI_GREEN + "[ La probabilidad de critico de tu arma ha aumentado en 5%! ]\n";
                 }
             }
 
@@ -59,11 +59,11 @@ public class Chango extends Personaje{
 	 public String habilidad(Jugador objetivo, int indice) {
         String mensaje = "";
 
-        if(super.manaActual < 33){
+        if(super.manaActual < manaHabilidad){
             return ANSI_RED + "[ Mana insuficiente... ]\n" + ANSI_RESET;
         }
 
-        super.manaActual -= 33;
+        super.manaActual -= manaHabilidad;
 
         if(super.arma.getProbabilidadCritico() >= 100){
             super.arma.setProbabilidadCritico(100);

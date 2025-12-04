@@ -26,6 +26,7 @@ public abstract class Personaje {
 	protected int manaMaximo;
 	//Variable Ivan
 	protected boolean disponible;
+	protected int manaHabilidad;
 	
 	//Constructores---------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/**
@@ -46,7 +47,7 @@ public abstract class Personaje {
 	 * @param manaMaximo mana maximo del personaje
 
  double presicion, int armadura,	 */
-	public Personaje(String nombre, int vidaMaxima, int vidaActual, int poderAtaque, double precision, int armadura, Arma arma, int nivel, int experiencia, boolean tieneEfecto, String tipoEfecto, int duracionEfecto, int manaActual, int manaMaximo) {
+	public Personaje(String nombre, int vidaMaxima, int vidaActual, int poderAtaque, double precision, int armadura, Arma arma, int nivel, int experiencia, boolean tieneEfecto, String tipoEfecto, int duracionEfecto, int manaActual, int manaMaximo,int manaHabilidad) {
 		this.nombre = nombre;
 		this.vidaMaxima = vidaMaxima;
 		this.vidaActual = vidaActual;
@@ -61,6 +62,7 @@ public abstract class Personaje {
 		this.duracionEfecto = duracionEfecto;
 		this.manaActual = manaActual;
 		this.manaMaximo = manaMaximo;
+		this.manaHabilidad=manaHabilidad;
 		disponible=true;
 	}
 	

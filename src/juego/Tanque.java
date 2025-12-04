@@ -16,7 +16,7 @@ public class Tanque extends Personaje {
     public static final String ANSI_GREEN = "\u001B[32m";
 
 	 Tanque(String nombre, Arma arma) {
-	        super(nombre, 120, 120, 5, 95, 40, arma, 1, 0, false, "", 0, 50, 100);
+	        super(nombre, 120, 120, 5, 95, 40, arma, 1, 0, false, "", 0, 50, 100,50);
 	 }
 
      @Override
@@ -37,7 +37,7 @@ public class Tanque extends Personaje {
 
             if (Math.random() < 0.05) { 
                 super.armadura += 5;
-                mensaje += ANSI_GREEN + "[ ¡Te has fortalecido! ]";
+                mensaje += ANSI_GREEN + "[ ¡Te has fortalecido! ]\n";
             }
 
 			this.experiencia += 5;
@@ -56,11 +56,11 @@ public class Tanque extends Personaje {
 	 public String habilidad(Jugador objetivo, int indice) {
         String mensaje = "";
 
-        if(super.manaActual < 55){
+        if(super.manaActual < manaHabilidad){
             return ANSI_RED + "[ Mana insuficiente... ]\n" + ANSI_RESET;
         }
 
-        super.manaActual -= 55;
+        super.manaActual -= manaHabilidad;
         int dano = (int)(arma.calcularDano(super.poderAtaque) * 1.5);
         dano -= (int)(arma.calcularDano(super.poderAtaque)*(objetivo.personajesSelecionados[indice].getArmadura()/100));
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
