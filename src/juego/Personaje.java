@@ -354,7 +354,7 @@ public abstract class Personaje {
 				"\nPrecision: "+ ANSI_CYAN + precision + "%" + ANSI_RESET +
 				"\nArmadura: " + ANSI_CYAN + armadura + ANSI_RESET + 
 				"\nArma: " +  ANSI_CYAN + arma.getNombre() + ANSI_RESET + 
-				"\nCritico: "+ ANSI_CYAN + precision + "%" + ANSI_RESET +
+				"\nCritico: "+ ANSI_CYAN + arma.getProbabilidadCritico() + "%" + ANSI_RESET +
 				"\nNivel: " + ANSI_CYAN + nivel + ANSI_RESET +
 				"\nMana : " + ANSI_CYAN + manaMaximo + ANSI_RESET;
 	}

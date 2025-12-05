@@ -21,29 +21,32 @@ public class Menu {
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_BLUE = "\u001B[34m";
+	public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_NEON_GREEN = "\u001B[92m";
+    public static final String ANSI_ORANGE = "\u001B[38;5;208m";
 
 	public static void main(String[] args) {
 		int opcionMenu = 0;
 		Jugador jugador1 = new Jugador();
 		Jugador jugador2 = new Jugador();
-		Personaje[] personajes = new Personaje[10];
-
+		Personaje[] personajes = new Personaje[12];
 		
-		// Paladines
-		personajes[0] = new Chango("Cremo", new Arma("Latigo mutilante",1,35));
-		personajes[1] = new Chango("Geremias",  new Arma("Piedra dolorosa",3,15));
+		// Changos Locos Desquisiados
+		personajes[0] = new Chango("Guillermo Green Aviles", new Arma("Piedra enorme gigantezca",3,25));
+		personajes[1] = new Chango("Chango Dios",  new Arma("Persuiasion seductiva",2,35));
+		personajes[2] = new Chango("Pie Peludo Jr",  new Arma("Dedito hediondo",4,15));
 		// Tanques
-		personajes[2] = new Tanque("Juan Carlos de la Mancha", new Arma("Mazo estruendoso",1,40));
-		personajes[3] = new Tanque("Leto",  new Arma("Martillo antihigienico",3,25));
-		
+		personajes[3] = new Tanque("Etneilav Andree Soto Valdez", new Arma("La aguja del dolor",0,50));
+		personajes[4] = new Tanque("Niño chino con hambre",  new Arma("La Bola Nuclear",5,15));
+		personajes[5] = new Tanque("NinjaBot 50",  new Arma("Six seveeeeen",3,25));
 		// Vampiros
-		personajes[4] = new Vampiro("Señor Atomico", new Arma("Colmillos filudos",2,25));
-		personajes[5] = new Vampiro("Señor Lagarto", new Arma("Colmillos mordisqueantes",3,20));
-
+		personajes[6] = new Vampiro("Roberto Geraldo Zumaya", new Arma("Colmillo succionador total 3000 uyyy",2,25));
+		personajes[7] = new Vampiro("Mi Tio", new Arma("Un six de tecate rojo light",3,20));
+		personajes[8] = new Vampiro("El Vampirudo", new Arma("Colmillos mordisqueantes",5,10));
 		// Mago
-		personajes[6] = new Mago("Mango Amarrillo", new Arma("Vara de la verdad",2,5));
-		personajes[7] = new Mago("Mango Verde", new Arma("Baston de la falacia",1,10));
-		personajes[8] = new Mago("Mago Sensacion", new Arma("Baston de la falacia",9999,9999));
+		personajes[9] = new Mago("Jesus Ivan Jimenez Aguilar", new Arma("Piedra filosofal enorme gigantezca",2,5));
+		personajes[10] = new Mago("Mago Zedong", new Arma("Baston de la calamidad inminente",1,10));
+		personajes[11] = new Mago("Mago Mediocre Fetido", new Arma("Triturador de almas exitosas",5,0));
 
 		while(opcionMenu != 5) {
 			restauracionPersonajes(personajes);
@@ -171,8 +174,8 @@ public class Menu {
 		in.nextLine();
 		do {
 			System.out.println();
-			asignarNombreJugador(jugador1,1);
-			asignarNombreJugador(jugador2,2);
+			asignarNombreJugador(jugador1, 1, ANSI_CYAN);
+			asignarNombreJugador(jugador2, 2, ANSI_RED);
 			if(jugador1.nombre.equalsIgnoreCase(jugador2.nombre)){
 				System.out.println(ANSI_YELLOW+"Los jugadores no se pueden llamar igual"+ANSI_RESET);
 			}
@@ -183,11 +186,11 @@ public class Menu {
 			reseteoEquipo(jugador1);
 			reseteoEquipo(jugador2);
 			escogerPersonajes(jugador1, jugador2, personajes, turno);
-			mostrarEquipo(jugador1);
+			mostrarEquipo(jugador1, ANSI_CYAN);
 			System.out.println();
-			mostrarEquipo(jugador2);
+			mostrarEquipo(jugador2, ANSI_RED);
 			do {
-			System.out.print("¿Confirmar equipos? "+ANSI_GREEN+"[1.Si]"+ANSI_RED +"[2.No]"+ANSI_RESET +"--> ");
+			System.out.print("\n¿Confirmar equipos? "+ANSI_GREEN+"[1.Si]"+ANSI_RED +"[2.No]"+ANSI_RESET +"--> ");
 			confirmar=in.nextInt();
 			if(confirmar < 1 || confirmar > 2) {
 				System.out.println(ANSI_YELLOW+"\nEsta opcion no coincide con ninguna de las disponibles"+ANSI_RESET);
@@ -205,10 +208,10 @@ public class Menu {
 	 * @param jugador jugador que recive el nombre
 	 * @param num numero del jugador
 	 */	
-	public static void asignarNombreJugador(Jugador jugador,int num) {
+	public static void asignarNombreJugador(Jugador jugador,int num, String ANSI_J) {
 		String nombre;
 		do {
-		System.out.print(ANSI_CYAN+"Ingresa nombre de jugador "+num+" --> "+ANSI_RESET);
+		System.out.print(ANSI_J+"Ingresa nombre de jugador "+num+" --> "+ANSI_RESET);
 		nombre = in.nextLine(); 
 		if(nombre.trim().isEmpty()) {
 			System.out.println(ANSI_YELLOW+"No puede estar vacio tu nombre\n"+ANSI_RESET);
@@ -227,7 +230,13 @@ public class Menu {
         int iPersonaje;
 
         while(jugador1.contPersonajes < 3 || jugador2.contPersonajes < 3) {
-            System.out.print(ANSI_CYAN);
+			String ANSI_J;
+			if(turno == 1) {
+				ANSI_J=ANSI_CYAN;
+			}else {
+				ANSI_J=ANSI_RED;
+			}
+            System.out.print(ANSI_J);
             System.out.println((turno == 1) ? ("\n"+jugador1.nombre+" es turno de escoger un personaje") : ("\n"+jugador2.nombre+" es turno de escoger un personaje"));
             System.out.print(ANSI_RESET);
 
@@ -237,7 +246,7 @@ public class Menu {
                 }
             }
 
-            System.out.print("Escribe el indice del personaje --> ");
+            System.out.print("\nEscribe el indice del personaje --> ");
             iPersonaje = in.nextInt();
             iPersonaje--;
 
@@ -293,7 +302,7 @@ public class Menu {
 	 * @param jugador el que debera realizar la accion
 	 * @return devuelve la accion realizada por el jugador
 	 */			
-	public static int interfaz(Jugador jugador,int turno) {
+	public static int interfaz(Jugador jugador, int turno) {
 		String ANSI_J;
 		if(turno == 1) {
 			ANSI_J=ANSI_CYAN;
@@ -301,23 +310,23 @@ public class Menu {
 			ANSI_J=ANSI_RED;
 		}
 		System.out.println(ANSI_J+"\n\n░▒▓███████████████████████ Turno de "+jugador.nombre+" ███████████████████████▓▒░"+ANSI_RESET);
-		System.out.println(ANSI_J+"░▒▓█"+ANSI_RESET+" ┌────────────────────────────────────────────────────┐");
+		System.out.println(ANSI_J+"░▒▓█"+ANSI_RESET+" ┌───────────────────────────────────────────────────────┐");
 		System.out.println(ANSI_J+"░▒▓█"+ANSI_RESET+" │ Personaje activo: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].nombre +"("+jugador.personajesSelecionados[jugador.contPersonajes].mostrarClase()+")"+ANSI_RESET);
-		System.out.println(ANSI_J+"░▒▓█"+ANSI_RESET+" ├────────────────────────┬───────────────────────────┤");
+		System.out.println(ANSI_J+"░▒▓█"+ANSI_RESET+" ├───────────────────────────┬───────────────────────────┤");
 		System.out.print(ANSI_J+"░▒▓█"+ANSI_RESET+" │ Vida: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].vidaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].vidaMaxima+ANSI_RESET);
-		System.out.print("  \t │ Mana: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].manaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].manaMaximo+ANSI_RESET +"\n");
+		System.out.print("\t\t │ Mana: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].manaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].manaMaximo+ANSI_RESET +"\n");
 		System.out.print(ANSI_J+"░▒▓█"+ANSI_RESET+" │ Nivel: "+jugador.personajesSelecionados[jugador.contPersonajes].nivel);
 		if(jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto) {
-			System.out.print("\t\t │ Efecto de estado: "+jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto+" ("+jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto+" turnos restantes)\n");
+			System.out.print("\t\t\t │ Efecto de estado: "+jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto+" ("+jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto+" turnos restantes)\n");
 		}else {
-			System.out.print("\t\t │ Efecto de estado: Ninguno\n");
+			System.out.print("\t\t\t │ Efecto de estado: Ninguno\n");
 		}
 		System.out.print(ANSI_J+"░▒▓█"+ANSI_RESET+" │ Experiencia: " + jugador.personajesSelecionados[jugador.contPersonajes].experiencia);
-		System.out.print("\t │ Precision: " + jugador.personajesSelecionados[jugador.contPersonajes].precision + "% \n");
+		System.out.print("\t\t │ Precision: " + jugador.personajesSelecionados[jugador.contPersonajes].precision + "% \n");
 		System.out.print(ANSI_J+"░▒▓█"+ANSI_RESET+" │ Critico: " + jugador.personajesSelecionados[jugador.contPersonajes].arma.getProbabilidadCritico() + "%");
-		System.out.print(" \t │ Armadura: " + jugador.personajesSelecionados[jugador.contPersonajes].armadura + " \n");
-		System.out.println(ANSI_J+"░▒▓█"+ANSI_RESET+" └────────────────────────┴───────────────────────────┘");
-		System.out.println(ANSI_J+"░▒▓████████████████████████████ "+jugador.nombre+" ███████████████████████████▓▒░"+ANSI_RESET);
+		System.out.print(" \t\t │ Armadura: " + jugador.personajesSelecionados[jugador.contPersonajes].armadura + " \n");
+		System.out.println(ANSI_J+"░▒▓█"+ANSI_RESET+" └───────────────────────────┴───────────────────────────┘");
+		System.out.println(ANSI_J+"░▒▓████████████████████████████ "+jugador.nombre+" ███████████████████████████▓▒░\n"+ANSI_RESET);
 		System.out.println(ANSI_CYAN+"[1]"+ANSI_RESET+" Atacar");
 		System.out.println(ANSI_CYAN+"[2]"+ANSI_RESET+" Usar habilidad");
 		System.out.println(ANSI_CYAN+"[3]"+ANSI_RESET+" Ver registro de combate");
@@ -460,7 +469,7 @@ public class Menu {
 			
 			switch(movimiento) {
 				case 1:
-					System.out.println(ANSI_CYAN+"=================== ATAQUE ==================="+ANSI_RESET);
+					System.out.println(ANSI_ORANGE+"\n░▒▓██████████████████████████ ATAQUE █████████████████████████▓▒░"+ANSI_RESET);
 					String accion=principal.personajesSelecionados[principal.contPersonajes].atacar(secundario, secundario.contPersonajes);
 					System.out.println(accion);
 					boolean turnoGuardado=false;
@@ -485,7 +494,7 @@ public class Menu {
 					break;
 					
 				case 2:
-					System.out.println(ANSI_CYAN+"=================== HABILIDAD ==================="+ANSI_RESET);
+					System.out.println(ANSI_PURPLE+"\n░▒▓█████████████████████████ HABILIDAD ███████████████████████▓▒░"+ANSI_RESET);
 					if(principal.personajesSelecionados[principal.contPersonajes].manaActual >= principal.personajesSelecionados[principal.contPersonajes].manaHabilidad){
 						String accionH=principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes);
 						System.out.println(accionH);
@@ -531,7 +540,6 @@ public class Menu {
 	 */	
 	public static boolean ganador(Jugador jugador1, Jugador jugador2) {
 		if(jugador1.contPersonajes == 3){
-			
 			System.out.println(ANSI_GREEN + "¡Felicidades " + jugador2.nombre + " has ganado el combate!" + ANSI_RESET);
 			return true;
 		}
@@ -593,29 +601,29 @@ public class Menu {
 	 * Muestra el equipo de personajes del jugador
 	 * @param jugador
 	 */	
-	public static void mostrarEquipo(Jugador jugador) {
-		System.out.println(ANSI_CYAN+"Equipo de "+jugador.nombre+ANSI_RESET);
+	public static void mostrarEquipo(Jugador jugador, String ANSI_J) {
+		System.out.println(ANSI_J+"Equipo de "+jugador.nombre+ANSI_RESET);
 		mostrarPersonajes(jugador.personajesSelecionados);
 	}
 
 	public static void imprimirMuertesYGanador(Personaje[] personajes) {
-		System.out.println(ANSI_CYAN + "\nOrden de muertes: " + ANSI_RESET);
+		System.out.println(ANSI_PURPLE + "\n░▒▓████████████████████ ORDEN DE MUERTES █████████████████████▓▒░\n" + ANSI_RESET);
 		for(int i = 0; i < ordenMuerte.length; i++) {
 			if(ordenMuerte[i] != null) {
 				System.out.println((i+1)+". "+ordenMuerte[i]);
 			} 
 		}
 
-		System.out.println(ANSI_CYAN + "\nGanador del combate: " + ANSI_RESET);
+		System.out.println(ANSI_NEON_GREEN + "\n░▒▓███████████████████ GANADOR DEL COMBATE ███████████████████▓▒░\n" + ANSI_RESET);
 		if(ordenMuerte[5] == null || ordenMuerte[5].equals("")) {
 			for(int i=0; i < personajes.length; i++) {
 				if(personajes[i] != null && !personajes[i].disponible) {
-					System.out.println(ANSI_GREEN + "[ " + personajes[i].nombre + " ]" + ANSI_RESET);
+					System.out.println(ANSI_NEON_GREEN + "\t\t░▒▓█████ " + personajes[i].nombre + " █████▓▒░" + ANSI_RESET);
 					return;
 				}
 			}
 		} else {
-			System.out.println("Empate");
+			System.out.println(ANSI_NEON_GREEN + "\t\t░▒▓███████ EMPATE ███████▓▒░" + ANSI_RESET);
 		} 
 	}
 
@@ -625,8 +633,7 @@ public class Menu {
 	 * @param jugador2 es el jugador 2
 	 */
 	public static void imprimirEstadisticasCompletas(Jugador jugador1, Jugador jugador2) {
-		System.out.println(ANSI_CYAN + "\n\t\t RESUMEN FINAL DEL COMBATE" + ANSI_RESET);
-		System.out.println(ANSI_RED + "\n░▒▓███████████████████ PERSONAJES DE " + jugador1.nombre + " ███████████████████▓▒░" + ANSI_RESET);
+		System.out.println(ANSI_RED + "\n░▒▓███████████████████ ESTADISTICAS FINALES DE " + jugador1.nombre + " ███████████████████▓▒░\n" + ANSI_RESET);
 		System.out.println("┌──────────────────────────────────────────────────┐");
 		for(int i = 0; i < jugador1.personajesSelecionados.length; i++) {
 			if(jugador1.personajesSelecionados[i] != null) {
@@ -636,14 +643,14 @@ public class Menu {
 				System.out.println("│ Habilidades Usadas:    " + jugador1.personajesSelecionados[i].numeroDeHabilidadesUsadas);
 				System.out.println("│ Nivel Final:           " + jugador1.personajesSelecionados[i].nivel);
 			}
-			if(i != 3) {
+			if(i != 2) {
 				System.out.println("├──────────────────────────────────────────────────┤");
 			} else {
 				System.out.println("└──────────────────────────────────────────────────┘");
 			}
 		}
 		System.out.println("\n");
-		System.out.println(ANSI_CYAN + "░▒▓███████████████████ PERSONAJES DE " + jugador2.nombre + " ███████████████████▓▒░" + ANSI_RESET);
+		System.out.println(ANSI_CYAN + "░▒▓███████████████████ ESTADISTICAS FINALES DE " + jugador2.nombre + " ███████████████████▓▒░\n" + ANSI_RESET);
 		System.out.println("┌──────────────────────────────────────────────────┐");
 		for(int i = 0; i < jugador2.personajesSelecionados.length; i++) {
 			if(jugador2.personajesSelecionados[i] != null) {
@@ -670,7 +677,6 @@ public class Menu {
 		}
 		contadorMuerte = 0;
 	}
-
 	
 	/**
 	 * Imprime un resumen del combate
@@ -679,7 +685,7 @@ public class Menu {
 	 * @param personajes es el arreglo con todos los personajes
 	 */
 	public static void resumenDelCombate(Jugador jugador1, Jugador jugador2, Personaje[] personajes) {
-		System.out.println(ANSI_CYAN + "\n=== RESUMEN DEL COMBATE ===" + ANSI_RESET);
+		System.out.println("\n\t\t░▒▓███ RESUMEN DE COMBATE ███▓▒░");
 		imprimirMuertesYGanador(personajes);
 		imprimirEstadisticasCompletas(jugador1, jugador2);
 		reiniciarOrdenMuerte();
