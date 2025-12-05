@@ -295,20 +295,22 @@ public class Menu {
 	 * @return devuelve la accion realizada por el jugador
 	 */	
 	public static int interfaz(Jugador jugador) {
-		System.out.println(ANSI_CYAN+"=================== Turno de "+jugador.nombre+" ==================="+ANSI_RESET);
-		System.out.println("Personaje activo: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].nombre +"("+jugador.personajesSelecionados[jugador.contPersonajes].mostrarClase()+")"+ANSI_RESET);
-		System.out.print("Vida: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].vidaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].vidaMaxima+ANSI_RESET);
-		System.out.print("\t\t | Mana: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].manaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].manaMaximo+ANSI_RESET +"\n");
-		System.out.print("Nivel: "+jugador.personajesSelecionados[jugador.contPersonajes].nivel);
+		System.out.println(ANSI_CYAN+"\n\n░▒▓███████████████████ Turno de "+jugador.nombre+" ███████████████████▓▒░"+ANSI_RESET);
+		System.out.println(" Personaje activo: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].nombre +"("+jugador.personajesSelecionados[jugador.contPersonajes].mostrarClase()+")"+ANSI_RESET);
+		System.out.println("┌────────────────────────┬───────────────────────────┐");
+		System.out.print("│ Vida: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].vidaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].vidaMaxima+ANSI_RESET);
+		System.out.print("  \t │ Mana: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].manaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].manaMaximo+ANSI_RESET +"\n");
+		System.out.print("│ Nivel: "+jugador.personajesSelecionados[jugador.contPersonajes].nivel);
 		if(jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto) {
-			System.out.print("\t\t | Efecto de estado: "+jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto+" ("+jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto+" turnos restantes)\n");
+			System.out.print("\t\t │ Efecto de estado: "+jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto+" ("+jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto+" turnos restantes)\n");
 		}else {
-			System.out.print("\t\t | Efecto de estado: Ninguno\n");
+			System.out.print("\t\t │ Efecto de estado: Ninguno\n");
 		}
-		System.out.print("Experiencia: " + jugador.personajesSelecionados[jugador.contPersonajes].experiencia);
-		System.out.print("\t\t | Precision: " + jugador.personajesSelecionados[jugador.contPersonajes].precision + "% \n");
-		System.out.print("Critico: " + jugador.personajesSelecionados[jugador.contPersonajes].arma.getProbabilidadCritico() + "%");
-		System.out.print("\t\t | Armadura: " + jugador.personajesSelecionados[jugador.contPersonajes].armadura + " \n");
+		System.out.print("│ Experiencia: " + jugador.personajesSelecionados[jugador.contPersonajes].experiencia);
+		System.out.print("\t │ Precision: " + jugador.personajesSelecionados[jugador.contPersonajes].precision + "% \n");
+		System.out.print("│ Critico: " + jugador.personajesSelecionados[jugador.contPersonajes].arma.getProbabilidadCritico() + "%");
+		System.out.print(" \t │ Armadura: " + jugador.personajesSelecionados[jugador.contPersonajes].armadura + " \n");
+		System.out.println("└────────────────────────┴───────────────────────────┘");
 		System.out.println("");
 		System.out.println(ANSI_CYAN+"[1]"+ANSI_RESET+" Atacar");
 		System.out.println(ANSI_CYAN+"[2]"+ANSI_RESET+" Usar habilidad");
@@ -615,28 +617,40 @@ public class Menu {
 	 * @param jugador2 es el jugador 2
 	 */
 	public static void imprimirEstadisticasCompletas(Jugador jugador1, Jugador jugador2) {
+		System.out.println(ANSI_CYAN + "\n\t\t RESUMEN FINAL DEL COMBATE" + ANSI_RESET);
+		System.out.println(ANSI_RED + "\n░▒▓███████████████████ PERSONAJES DE " + jugador1.nombre + " ███████████████████▓▒░" + ANSI_RESET);
+		System.out.println("┌──────────────────────────────────────────────────┐");
 		for(int i = 0; i < jugador1.personajesSelecionados.length; i++) {
 			if(jugador1.personajesSelecionados[i] != null) {
-				System.out.println("------------------------------------------------");
-				System.out.println(ANSI_CYAN + "Personaje: " + jugador1.personajesSelecionados[i].nombre + ANSI_RESET);
-				System.out.println("Daño Total Inflingido: " + jugador1.personajesSelecionados[i].danioTotal);
-				System.out.println("Críticos Acertados:    " + jugador1.personajesSelecionados[i].arma.getNumeroDeCriticos());
-				System.out.println("Habilidades Usadas:    " + jugador1.personajesSelecionados[i].numeroDeHabilidadesUsadas);
-				System.out.println("Nivel Final:           " + jugador1.personajesSelecionados[i].nivel);
+				System.out.println("│ " + ANSI_RED + "Personaje: " + jugador1.personajesSelecionados[i].nombre + ANSI_RESET);
+				System.out.println("│ Daño Total Inflingido: " + jugador1.personajesSelecionados[i].danioTotal);
+				System.out.println("│ Críticos Acertados:    " + jugador1.personajesSelecionados[i].arma.getNumeroDeCriticos());
+				System.out.println("│ Habilidades Usadas:    " + jugador1.personajesSelecionados[i].numeroDeHabilidadesUsadas);
+				System.out.println("│ Nivel Final:           " + jugador1.personajesSelecionados[i].nivel);
+			}
+			if(i != 3) {
+				System.out.println("├──────────────────────────────────────────────────┤");
+			} else {
+				System.out.println("└──────────────────────────────────────────────────┘");
 			}
 		}
-
+		System.out.println("\n");
+		System.out.println(ANSI_CYAN + "░▒▓███████████████████ PERSONAJES DE " + jugador2.nombre + " ███████████████████▓▒░" + ANSI_RESET);
+		System.out.println("┌──────────────────────────────────────────────────┐");
 		for(int i = 0; i < jugador2.personajesSelecionados.length; i++) {
 			if(jugador2.personajesSelecionados[i] != null) {
-				System.out.println("------------------------------------------------");
-				System.out.println(ANSI_CYAN + "Personaje: " + jugador2.personajesSelecionados[i].nombre + ANSI_RESET);
-				System.out.println("Daño Total Inflingido: " + jugador2.personajesSelecionados[i].danioTotal);
-				System.out.println("Críticos Acertados:    " + jugador2.personajesSelecionados[i].arma.getNumeroDeCriticos());
-				System.out.println("Habilidades Usadas:    " + jugador2.personajesSelecionados[i].numeroDeHabilidadesUsadas);
-				System.out.println("Nivel Final:           " + jugador2.personajesSelecionados[i].nivel);
+				System.out.println("│ " + ANSI_CYAN + "Personaje: " + jugador2.personajesSelecionados[i].nombre + ANSI_RESET);
+				System.out.println("│ Daño Total Inflingido: " + jugador2.personajesSelecionados[i].danioTotal);
+				System.out.println("│ Críticos Acertados:    " + jugador2.personajesSelecionados[i].arma.getNumeroDeCriticos());
+				System.out.println("│ Habilidades Usadas:    " + jugador2.personajesSelecionados[i].numeroDeHabilidadesUsadas);
+				System.out.println("│ Nivel Final:           " + jugador2.personajesSelecionados[i].nivel);
+			}
+			if(i != 2) {
+				System.out.println("├──────────────────────────────────────────────────┤");
+			} else {
+				System.out.println("└──────────────────────────────────────────────────┘");
 			}
 		}
-		System.out.println("------------------------------------------------");
 	}
 
 	/**
