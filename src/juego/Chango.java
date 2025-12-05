@@ -32,7 +32,7 @@ public class Chango extends Personaje{
     @Override
     public String atacar(Jugador objetivo, int indice) {
 		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
-        String mensaje = "";
+        String mensaje="";
 
 		this.manaActual += 10;
 		if(this.manaActual > this.manaMaximo){
@@ -41,10 +41,10 @@ public class Chango extends Personaje{
 
         if (probabilidadAtaque < precision) {
             int dano =  arma.calcularDano(super.poderAtaque);
-                       
+            
             if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Mago de hielo")) {
             	dano *= 1.20;
-            	mensaje += "[ El ataque fue muy efectivo! ]\n";
+            	mensaje += "[ El ataque fue muy efectivo! ]\n";;
             }
             
             dano -= (int)(dano*(objetivo.personajesSelecionados[indice].getArmadura()/100)); 
@@ -54,7 +54,7 @@ public class Chango extends Personaje{
                 objetivo.personajesSelecionados[indice].experiencia += 5;
             }
 			
-            mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
+            mensaje += ANSI_GREEN+"[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
             if (Math.random() < 0.05) { 
                 if(super.arma.getProbabilidadCritico() > 100){
@@ -98,7 +98,7 @@ public class Chango extends Personaje{
             mensaje += ANSI_YELLOW + "[ La probabilidad de critico de su arma ha llegado al maximo! ]\n";
         } else {
             super.arma.setProbabilidadCritico(super.arma.getProbabilidadCritico() + 5);
-            mensaje += ANSI_CYAN+ "[ La probabilidad de critico de su arma ha aumentado en 5%! ]\n";
+            mensaje += ANSI_GREEN+ "[ La probabilidad de critico de su arma ha aumentado en 5%! ]\n";
         }
 
         if(super.precision < 33){

@@ -103,7 +103,7 @@ public class Tanque extends Personaje {
 			objetivo.personajesSelecionados[indice].experiencia += 5;
 		}
 
-        mensaje += "[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
+        mensaje += ANSI_GREEN+"[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
         if (Math.random() < 0.6) {  
             objetivo.personajesSelecionados[indice].tieneEfecto = true;
@@ -114,7 +114,7 @@ public class Tanque extends Personaje {
 
         super.experiencia += 5;
 		if (super.subeNivel()) {
-			mensaje += ANSI_GREEN + "[ ¡"+nombre+"Ha subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n\n"; 
+			mensaje += ANSI_GREEN + "[ ¡"+nombre+"Ha subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n"; 
 		}
         return mensaje + ANSI_RESET;
     }

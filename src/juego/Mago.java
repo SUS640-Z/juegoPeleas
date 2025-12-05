@@ -54,7 +54,7 @@ public class Mago extends Personaje{
 				objetivo.personajesSelecionados[indice].experiencia += 5;
 			}
 
-            mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+            mensaje += ANSI_GREEN+"[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
             if (Math.random() < 0.05) { 
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;
