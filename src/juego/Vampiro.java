@@ -32,7 +32,7 @@ public class Vampiro extends Personaje{
     @Override
     public String atacar(Jugador objetivo, int indice) {
 		int probabilidadAtaque = (int)(Math.random() * 100) + 1;
-        String mensaje;
+        String mensaje="";
 
 		this.manaActual += 10;
 		if(this.manaActual > this.manaMaximo){
@@ -44,7 +44,7 @@ public class Vampiro extends Personaje{
 
             if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Tanque")) {
             	dano *= 1.20;
-            	mensaje = "[ El ataque fue muy efectivo! ]\n";
+            	mensaje += "[ El ataque fue muy efectivo! ]\n";
             }
 
             dano -= (int)(dano*(objetivo.personajesSelecionados[indice].getArmadura()/100));             
