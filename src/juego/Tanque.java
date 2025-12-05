@@ -95,7 +95,7 @@ public class Tanque extends Personaje {
         	dano *= 1.20;
         	mensaje += "[ El ataque fue muy efectivo! ]\n";
         }
-        
+
         dano -= (int)(dano*(objetivo.personajesSelecionados[indice].getArmadura()/100)); 
         super.danioTotal += dano;
         objetivo.personajesSelecionados[indice].vidaActual -= dano;
@@ -103,7 +103,7 @@ public class Tanque extends Personaje {
 			objetivo.personajesSelecionados[indice].experiencia += 5;
 		}
 
-        mensaje += ANSI_GREEN+"[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
+        mensaje += "[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
         if (Math.random() < 0.6) {  
             objetivo.personajesSelecionados[indice].tieneEfecto = true;
