@@ -131,10 +131,9 @@ public class Menu {
 	 * Manejar mejor la informacion presentada en pantalla
 	 */	
 	public static void presionarEnter() {
-		
 		System.out.println(ANSI_YELLOW+"[ Presione ENTER para continuar... ]"+ANSI_RESET);
 		in.nextLine();
-		for(int i=0; i<1000; i++) {
+		for(int i=0; i<100; i++) {
 			System.out.println("\n");
 		}
 	}
@@ -432,14 +431,8 @@ public class Menu {
             if (principal.personajesSelecionados[principal.contPersonajes].vidaActual <= 0) {
                 principal.personajesSelecionados[principal.contPersonajes].vidaActual = 0;
                 principal.personajesSelecionados[principal.contPersonajes].disponible = true;
-<<<<<<< HEAD
                 System.out.println(ANSI_RED + "[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! "+secundario.nombre+" perdio un miembro del equipo ] "+ ANSI_RESET);
                 consecuenciasEfecto += ANSI_RED +"[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! "+secundario.nombre+" perdio un miembro del equipo ] "+ ANSI_RESET;
-=======
-                System.out.println(ANSI_RED + "[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! ]" + ANSI_RESET);
-				ordenMuerte[contadorMuerte++] = principal.personajesSelecionados[principal.contPersonajes].nombre;
-                consecuenciasEfecto += ANSI_RED +"[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! ]"+ ANSI_RESET;
->>>>>>> 85ccbe7b5883949a9561afdea817c21b8601a78b
                 principal.contPersonajes++;
                 return;
             }
@@ -458,6 +451,7 @@ public class Menu {
 			
 			switch(movimiento) {
 				case 1:
+					System.out.println(ANSI_CYAN+"=================== ATAQUE ==================="+ANSI_RESET);
 					String accion=principal.personajesSelecionados[principal.contPersonajes].atacar(secundario, secundario.contPersonajes);
 					System.out.println(accion);
 					boolean turnoGuardado=false;
@@ -482,6 +476,7 @@ public class Menu {
 					break;
 					
 				case 2:
+					System.out.println(ANSI_CYAN+"=================== HABILIDAD ==================="+ANSI_RESET);
 					if(principal.personajesSelecionados[principal.contPersonajes].manaActual >= principal.personajesSelecionados[principal.contPersonajes].manaHabilidad){
 						String accionH=principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes);
 						System.out.println(accionH);
