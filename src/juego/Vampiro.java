@@ -104,7 +104,7 @@ public class Vampiro extends Personaje{
 			objetivo.personajesSelecionados[indice].experiencia += 5;
 		}
 
-        mensaje += ANSI_GREEN+"[ "+nombre+"le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
+        mensaje += "[ "+nombre+"le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
         if (Math.random() < 0.4) { // 40% probabilidad de sangrado
             objetivo.personajesSelecionados[indice].tieneEfecto = true;

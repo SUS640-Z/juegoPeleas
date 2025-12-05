@@ -96,7 +96,7 @@ public class Mago extends Personaje{
         	dano *= 1.20;
         	mensaje += "[ El ataque fue muy efectivo! ]\n";
         }
-		
+
 		dano -= (int)(dano*(objetivo.personajesSelecionados[indice].getArmadura()/100)); 
 		super.danioTotal += dano;
 	    objetivo.personajesSelecionados[indice].vidaActual -= dano;
@@ -104,7 +104,7 @@ public class Mago extends Personaje{
 			objetivo.personajesSelecionados[indice].experiencia += 5;
 		}
 
-	    mensaje += ANSI_GREEN+"[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET; 
+	    mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET; 
 
 	    if (Math.random() < 0.5) {  
 	        objetivo.personajesSelecionados[indice].tieneEfecto = true;
