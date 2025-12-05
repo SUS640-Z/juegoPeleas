@@ -525,6 +525,7 @@ public class Menu {
 	 */	
 	public static boolean ganador(Jugador jugador1, Jugador jugador2) {
 		if(jugador1.contPersonajes == 3){
+			
 			System.out.println(ANSI_GREEN + "¡Felicidades " + jugador2.nombre + " has ganado el combate!" + ANSI_RESET);
 			return true;
 		}
