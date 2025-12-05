@@ -65,7 +65,7 @@ public class Vampiro extends Personaje{
 
 			this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += ANSI_GREEN + "[ ¡"+nombre+"ha subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]";
+				mensaje += ANSI_GREEN + "[ ¡"+nombre+" ha subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]";
 			}
         } else{
             mensaje = ANSI_RED + "[ Ataque fallido! ]"+ANSI_RESET;
@@ -123,7 +123,7 @@ public class Vampiro extends Personaje{
 
         super.experiencia += 5;
 		if (super.subeNivel()) {
-			mensaje += ANSI_GREEN + "[ ¡"+nombre+"Ha subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n"; 
+			mensaje += ANSI_GREEN + "[ ¡"+nombre+" ha subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n"; 
 		}
         return mensaje + ANSI_RESET;
     }

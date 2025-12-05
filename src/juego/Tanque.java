@@ -63,7 +63,7 @@ public class Tanque extends Personaje {
 
 			this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += ANSI_GREEN + "[ ¡"+nombre+"ha subido de nivel,se ha restauraurado su vida y mana! Ahora eres nivel " + this.nivel + "! ]";
+				mensaje += ANSI_GREEN + "[ ¡"+nombre+" ha subido de nivel, se ha restauraurado su vida y mana! Ahora eres nivel " + this.nivel + "! ]";
 			}
             
         } else{
@@ -114,7 +114,7 @@ public class Tanque extends Personaje {
 
         super.experiencia += 5;
 		if (super.subeNivel()) {
-			mensaje += ANSI_GREEN + "[ ¡"+nombre+"Ha subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n\n"; 
+			mensaje += ANSI_GREEN + "[ ¡"+nombre+" ha subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n\n"; 
 		}
         return mensaje + ANSI_RESET;
     }

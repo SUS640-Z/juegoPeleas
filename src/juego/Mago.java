@@ -65,7 +65,7 @@ public class Mago extends Personaje{
 
 			this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]";
+				mensaje += ANSI_GREEN + "[ ¡"+nombre+" ha subido de nivel, se restauro su vida y mana! Ahora es nivel " + this.nivel + "! ]\n";
 			}
         } else{
             mensaje += ANSI_RED + "[ Ataque fallido! ]";
@@ -115,7 +115,7 @@ public class Mago extends Personaje{
 
 		super.experiencia += 5;
 		if (super.subeNivel()) {
-			mensaje += ANSI_GREEN + "[ ¡"+nombre+"ha subido de nivel,se restauro su vida y mana! Ahora es nivel " + this.nivel + "! ]\n";
+			mensaje += ANSI_GREEN + "[ ¡"+nombre+" ha subido de nivel, se restauro su vida y mana! Ahora es nivel " + this.nivel + "! ]\n";
 		}
 		return mensaje + ANSI_RESET;
     }
