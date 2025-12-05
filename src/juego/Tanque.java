@@ -54,7 +54,7 @@ public class Tanque extends Personaje {
                 objetivo.personajesSelecionados[indice].experiencia += 5;
             }
 
-            mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
+            mensaje += "[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
             if (Math.random() < 0.05) { 
                 super.armadura += 5;
@@ -63,7 +63,7 @@ public class Tanque extends Personaje {
 
 			this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += ANSI_GREEN + "[ ¡"+nombre+" ha subido de nivel, se ha restauraurado su vida y mana! Ahora eres nivel " + this.nivel + "! ]";
+			    mensaje += ANSI_GREEN + "[ ¡"+nombre+" has subido de nivel, se ha restaurado tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n"; 
 			}
             
         } else{
@@ -103,7 +103,7 @@ public class Tanque extends Personaje {
 			objetivo.personajesSelecionados[indice].experiencia += 5;
 		}
 
-        mensaje += "[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
+        mensaje += ANSI_GREEN+"[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
         if (Math.random() < 0.6) {  
             objetivo.personajesSelecionados[indice].tieneEfecto = true;
@@ -114,7 +114,7 @@ public class Tanque extends Personaje {
 
         super.experiencia += 5;
 		if (super.subeNivel()) {
-			mensaje += ANSI_GREEN + "[ ¡"+nombre+" ha subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n\n"; 
+			mensaje += ANSI_GREEN + "[ ¡"+nombre+" has subido de nivel, se ha restaurado tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n"; 
 		}
         return mensaje + ANSI_RESET;
     }

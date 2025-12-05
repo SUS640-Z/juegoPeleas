@@ -54,7 +54,7 @@ public class Vampiro extends Personaje{
                 objetivo.personajesSelecionados[indice].experiencia += 5;
             }
 
-            mensaje = "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
+            mensaje = "[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
             if (Math.random() < 0.05) { 
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;
@@ -65,7 +65,7 @@ public class Vampiro extends Personaje{
 
 			this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += ANSI_GREEN + "[ ¡"+nombre+" ha subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]";
+			    mensaje += ANSI_GREEN + "[ ¡"+nombre+" has subido de nivel, se ha restaurado tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n"; 
 			}
         } else{
             mensaje = ANSI_RED + "[ Ataque fallido! ]"+ANSI_RESET;
@@ -104,7 +104,7 @@ public class Vampiro extends Personaje{
 			objetivo.personajesSelecionados[indice].experiencia += 5;
 		}
 
-        mensaje += "[ "+nombre+"le has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
+        mensaje += ANSI_GREEN+"[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
         if (Math.random() < 0.4) { // 40% probabilidad de sangrado
             objetivo.personajesSelecionados[indice].tieneEfecto = true;
@@ -118,12 +118,12 @@ public class Vampiro extends Personaje{
             if (super.vidaActual > super.vidaMaxima) {
                 super.vidaActual = super.vidaMaxima;
             }  // Asegurar que no supera la vida maxima.
-            mensaje += ANSI_GREEN + "[ "+nombre+"ha regenerado " + (dano * 0.5) + " de vida! ]\n";
+            mensaje += ANSI_GREEN + "[ "+nombre+" has regenerado " + (dano * 0.5) + " de vida! ]\n";
         }
 
         super.experiencia += 5;
 		if (super.subeNivel()) {
-			mensaje += ANSI_GREEN + "[ ¡"+nombre+" ha subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n"; 
+			mensaje += ANSI_GREEN + "[ ¡"+nombre+" has subido de nivel, se ha restaurado tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n"; 
 		}
         return mensaje + ANSI_RESET;
     }
