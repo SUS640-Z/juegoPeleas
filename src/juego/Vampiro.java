@@ -44,7 +44,7 @@ public class Vampiro extends Personaje{
 
             if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Tanque")) {
             	dano *= 1.20;
-            	mensaje += "[ El ataque fue muy efectivo! ]\n";
+            	mensaje += ANSI_GREEN+"[ El ataque fue muy efectivo! ]\n";
             }
 
             dano -= (int)(dano*(objetivo.personajesSelecionados[indice].getArmadura()/100));             
@@ -54,7 +54,7 @@ public class Vampiro extends Personaje{
                 objetivo.personajesSelecionados[indice].experiencia += 5;
             }
 
-            mensaje = "[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
+            mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
             if (Math.random() < 0.05) { 
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;
@@ -94,7 +94,7 @@ public class Vampiro extends Personaje{
 			     
         if(objetivo.personajesSelecionados[indice].mostrarClase().equalsIgnoreCase("Tanque")) {
         	dano *= 1.20;
-        	mensaje += "[ El ataque fue muy efectivo! ]\n";
+        	mensaje += ANSI_GREEN+"[ El ataque fue muy efectivo! ]\n";
         }
 
         dano -= (int)(dano*(objetivo.personajesSelecionados[indice].getArmadura()/100));    

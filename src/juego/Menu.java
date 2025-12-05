@@ -131,10 +131,9 @@ public class Menu {
 	 * Manejar mejor la informacion presentada en pantalla
 	 */	
 	public static void presionarEnter() {
-		
 		System.out.println(ANSI_YELLOW+"[ Presione ENTER para continuar... ]"+ANSI_RESET);
 		in.nextLine();
-		for(int i=0; i<1000; i++) {
+		for(int i=0; i<100; i++) {
 			System.out.println("\n");
 		}
 	}
@@ -293,26 +292,32 @@ public class Menu {
 	 * Muestra las opciones disponibles por el jugador
 	 * @param jugador el que debera realizar la accion
 	 * @return devuelve la accion realizada por el jugador
-	 */	
-	public static int interfaz(Jugador jugador) {
-		System.out.println(ANSI_CYAN+"\n\n░▒▓███████████████████████ Turno de "+jugador.nombre+" ███████████████████████▓▒░"+ANSI_RESET);
-		System.out.println("░▒▓█ ┌────────────────────────────────────────────────────┐");
-		System.out.println("░▒▓█ │ Personaje activo: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].nombre +"("+jugador.personajesSelecionados[jugador.contPersonajes].mostrarClase()+")"+ANSI_RESET);
-		System.out.println("░▒▓█ ├────────────────────────┬───────────────────────────┤");
-		System.out.print("░▒▓█ │ Vida: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].vidaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].vidaMaxima+ANSI_RESET);
+	 */			
+	public static int interfaz(Jugador jugador,int turno) {
+		String ANSI_J;
+		if(turno == 1) {
+			ANSI_J=ANSI_CYAN;
+		}else {
+			ANSI_J=ANSI_RED;
+		}
+		System.out.println(ANSI_J+"\n\n░▒▓███████████████████████ Turno de "+jugador.nombre+" ███████████████████████▓▒░"+ANSI_RESET);
+		System.out.println(ANSI_J+"░▒▓█"+ANSI_RESET+" ┌────────────────────────────────────────────────────┐");
+		System.out.println(ANSI_J+"░▒▓█"+ANSI_RESET+" │ Personaje activo: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].nombre +"("+jugador.personajesSelecionados[jugador.contPersonajes].mostrarClase()+")"+ANSI_RESET);
+		System.out.println(ANSI_J+"░▒▓█"+ANSI_RESET+" ├────────────────────────┬───────────────────────────┤");
+		System.out.print(ANSI_J+"░▒▓█"+ANSI_RESET+" │ Vida: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].vidaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].vidaMaxima+ANSI_RESET);
 		System.out.print("  \t │ Mana: "+ANSI_YELLOW+jugador.personajesSelecionados[jugador.contPersonajes].manaActual+" / "+jugador.personajesSelecionados[jugador.contPersonajes].manaMaximo+ANSI_RESET +"\n");
-		System.out.print("░▒▓█ │ Nivel: "+jugador.personajesSelecionados[jugador.contPersonajes].nivel);
+		System.out.print(ANSI_J+"░▒▓█"+ANSI_RESET+" │ Nivel: "+jugador.personajesSelecionados[jugador.contPersonajes].nivel);
 		if(jugador.personajesSelecionados[jugador.contPersonajes].tieneEfecto) {
 			System.out.print("\t\t │ Efecto de estado: "+jugador.personajesSelecionados[jugador.contPersonajes].tipoEfecto+" ("+jugador.personajesSelecionados[jugador.contPersonajes].duracionEfecto+" turnos restantes)\n");
 		}else {
 			System.out.print("\t\t │ Efecto de estado: Ninguno\n");
 		}
-		System.out.print("░▒▓█ │ Experiencia: " + jugador.personajesSelecionados[jugador.contPersonajes].experiencia);
+		System.out.print(ANSI_J+"░▒▓█"+ANSI_RESET+" │ Experiencia: " + jugador.personajesSelecionados[jugador.contPersonajes].experiencia);
 		System.out.print("\t │ Precision: " + jugador.personajesSelecionados[jugador.contPersonajes].precision + "% \n");
-		System.out.print("░▒▓█ │ Critico: " + jugador.personajesSelecionados[jugador.contPersonajes].arma.getProbabilidadCritico() + "%");
+		System.out.print(ANSI_J+"░▒▓█"+ANSI_RESET+" │ Critico: " + jugador.personajesSelecionados[jugador.contPersonajes].arma.getProbabilidadCritico() + "%");
 		System.out.print(" \t │ Armadura: " + jugador.personajesSelecionados[jugador.contPersonajes].armadura + " \n");
-		System.out.println("░▒▓█ └────────────────────────┴───────────────────────────┘");
-		System.out.println("░▒▓████████████████████████████ "+jugador.nombre+" ███████████████████████████▓▒░");
+		System.out.println(ANSI_J+"░▒▓█"+ANSI_RESET+" └────────────────────────┴───────────────────────────┘");
+		System.out.println(ANSI_J+"░▒▓████████████████████████████ "+jugador.nombre+" ███████████████████████████▓▒░"+ANSI_RESET);
 		System.out.println(ANSI_CYAN+"[1]"+ANSI_RESET+" Atacar");
 		System.out.println(ANSI_CYAN+"[2]"+ANSI_RESET+" Usar habilidad");
 		System.out.println(ANSI_CYAN+"[3]"+ANSI_RESET+" Ver registro de combate");
@@ -340,10 +345,10 @@ public class Menu {
 		int turno = (int) (Math.random() * 2)+1;
 		while(jugador1.contPersonajes !=3 && jugador2.contPersonajes != 3) {
 			if(turno == 1) {
-				accionesBatalla(jugador1,jugador2);
+				accionesBatalla(jugador1,jugador2,turno);
 				turno=2;
 			}else{
-				accionesBatalla(jugador2,jugador1);
+				accionesBatalla(jugador2,jugador1,turno);
 				turno=1;
 			}
 		} 
@@ -420,7 +425,7 @@ public class Menu {
 	 * @param principal jugador que realiza las acciones
 	 * @param secundario jugador que sufre las acciones
 	 */
-    public static void accionesBatalla(Jugador principal, Jugador secundario) {
+    public static void accionesBatalla(Jugador principal, Jugador secundario, int turno) {
         int efecto = efectoActuando(principal);
         if (efecto == 1) {
             return;
@@ -435,9 +440,8 @@ public class Menu {
             if (principal.personajesSelecionados[principal.contPersonajes].vidaActual <= 0) {
                 principal.personajesSelecionados[principal.contPersonajes].vidaActual = 0;
                 principal.personajesSelecionados[principal.contPersonajes].disponible = true;
-                System.out.println(ANSI_RED + "[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! ]" + ANSI_RESET);
-				ordenMuerte[contadorMuerte++] = principal.personajesSelecionados[principal.contPersonajes].nombre;
-                consecuenciasEfecto += ANSI_RED +"[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! ]"+ ANSI_RESET;
+                System.out.println(ANSI_RED + "[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! "+secundario.nombre+" perdio un miembro del equipo ] "+ ANSI_RESET);
+                consecuenciasEfecto += ANSI_RED +"[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! "+secundario.nombre+" perdio un miembro del equipo ] "+ ANSI_RESET;
                 principal.contPersonajes++;
                 return;
             }
@@ -452,10 +456,11 @@ public class Menu {
 		int movimiento=0;
 		do {
 			repetir=false;
-			movimiento = interfaz(principal);
+			movimiento = interfaz(principal,turno);
 			
 			switch(movimiento) {
 				case 1:
+					System.out.println(ANSI_CYAN+"=================== ATAQUE ==================="+ANSI_RESET);
 					String accion=principal.personajesSelecionados[principal.contPersonajes].atacar(secundario, secundario.contPersonajes);
 					System.out.println(accion);
 					boolean turnoGuardado=false;
@@ -480,6 +485,7 @@ public class Menu {
 					break;
 					
 				case 2:
+					System.out.println(ANSI_CYAN+"=================== HABILIDAD ==================="+ANSI_RESET);
 					if(principal.personajesSelecionados[principal.contPersonajes].manaActual >= principal.personajesSelecionados[principal.contPersonajes].manaHabilidad){
 						String accionH=principal.personajesSelecionados[principal.contPersonajes].habilidad(secundario, secundario.contPersonajes);
 						System.out.println(accionH);
