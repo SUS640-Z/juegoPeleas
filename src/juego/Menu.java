@@ -432,8 +432,8 @@ public class Menu {
             if (principal.personajesSelecionados[principal.contPersonajes].vidaActual <= 0) {
                 principal.personajesSelecionados[principal.contPersonajes].vidaActual = 0;
                 principal.personajesSelecionados[principal.contPersonajes].disponible = true;
-                System.out.println(ANSI_RED + "[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! ]" + ANSI_RESET);
-                consecuenciasEfecto += ANSI_RED +"[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! ]"+ ANSI_RESET;
+                System.out.println(ANSI_RED + "[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! "+secundario.nombre+" perdio un miembro del equipo ] "+ ANSI_RESET);
+                consecuenciasEfecto += ANSI_RED +"[ ¡" + principal.personajesSelecionados[principal.contPersonajes].nombre + " ha sido derrotado! "+secundario.nombre+" perdio un miembro del equipo ] "+ ANSI_RESET;
                 principal.contPersonajes++;
                 return;
             }
