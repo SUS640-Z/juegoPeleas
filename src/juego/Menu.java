@@ -90,16 +90,6 @@ public class Menu {
 	 * Devuelve el titulo del juego
 	 * @return titulo del juego
 	 */	
-	
-	public static String tituloG() {
-		return ANSI_RED+"                                                                     \r\n"
-				+ "                                                                     \r\n"
-				+ "█████▄ ▄▄ ▄▄ ▄▄  ▄▄  ▄▄▄▄ ▄▄ ▄▄ ▄▄▄▄▄  ▄▄▄▄   █████▄  █████▄  ▄████  \r\n"
-				+ "██▄▄█▀ ██ ██ ███▄██ ██▀▀▀ ██▄██ ██▄▄  ███▄▄   ██▄▄██▄ ██▄▄█▀ ██  ▄▄▄ \r\n"
-				+ "██     ▀███▀ ██ ▀██ ▀████ ██ ██ ██▄▄▄ ▄▄██▀   ██   ██ ██      ▀███▀  \r\n"
-				+ "                                                                     "+ANSI_RESET;
-	}
-	
 	public static String tituloH() {
 		return ANSI_RED+"                                                                              \r\n"
 				+ "▄▄▄▄▄▄▄                     ▄▄                  ▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄    ▄▄▄▄▄▄▄  \r\n"
@@ -291,6 +281,7 @@ public class Menu {
     /**
 	 * Muestra las opciones disponibles por el jugador
 	 * @param jugador el que debera realizar la accion
+	 * @para
 	 * @return devuelve la accion realizada por el jugador
 	 */			
 	public static int interfaz(Jugador jugador,int turno) {
@@ -531,7 +522,6 @@ public class Menu {
 	 */	
 	public static boolean ganador(Jugador jugador1, Jugador jugador2) {
 		if(jugador1.contPersonajes == 3){
-			
 			System.out.println(ANSI_GREEN + "¡Felicidades " + jugador2.nombre + " has ganado el combate!" + ANSI_RESET);
 			return true;
 		}
