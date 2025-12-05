@@ -54,7 +54,7 @@ public class Chango extends Personaje{
                 objetivo.personajesSelecionados[indice].experiencia += 5;
             }
 			
-            mensaje += ANSI_GREEN+"[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
+            mensaje += ANSI_GREEN+"[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET;
 
             if (Math.random() < 0.05) { 
                 if(super.arma.getProbabilidadCritico() > 100){
@@ -67,7 +67,7 @@ public class Chango extends Personaje{
 
             this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]";
+			    mensaje += ANSI_GREEN + "[ ¡"+nombre+" has subido de nivel, se ha restaurado tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n"; 
 			}
         } else{
             mensaje += ANSI_RED + "[ Ataque fallido! ]";
@@ -95,10 +95,10 @@ public class Chango extends Personaje{
 
         if(super.arma.getProbabilidadCritico() >= 100){
             super.arma.setProbabilidadCritico(100);
-            mensaje += ANSI_YELLOW + "[ La probabilidad de critico de su arma ha llegado al maximo! ]\n";
+            mensaje += ANSI_YELLOW + "[ La probabilidad de critico de tu arma ha llegado al maximo! ]\n";
         } else {
             super.arma.setProbabilidadCritico(super.arma.getProbabilidadCritico() + 5);
-            mensaje += ANSI_GREEN+ "[ La probabilidad de critico de su arma ha aumentado en 5%! ]\n";
+            mensaje += ANSI_GREEN+ "[ La probabilidad de critico de tu arma ha aumentado en 5%! ]\n";
         }
 
         if(super.precision < 33){
@@ -122,11 +122,11 @@ public class Chango extends Personaje{
 		}
         
         super.danioTotal += dano;
-        mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+        mensaje += "[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
         super.experiencia += 5;
 		if (super.subeNivel()) {
-			mensaje += ANSI_GREEN + "[ ¡"+nombre+"ha subido de nivel,se restauro su vida y mana! Ahora es nivel " + this.nivel + "! ]\n";
+			mensaje += ANSI_GREEN + "[ ¡"+nombre+" has subido de nivel, se ha restaurado tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n"; 
 		}
         return mensaje + ANSI_RESET;
     }

@@ -54,7 +54,7 @@ public class Mago extends Personaje{
 				objetivo.personajesSelecionados[indice].experiencia += 5;
 			}
 
-            mensaje += ANSI_GREEN+"[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
+            mensaje += ANSI_GREEN+"[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n";
 
             if (Math.random() < 0.05) { 
                 objetivo.personajesSelecionados[indice].tieneEfecto = true;
@@ -65,7 +65,7 @@ public class Mago extends Personaje{
 
 			this.experiencia += 5;
 			if (this.subeNivel()) {
-				mensaje += ANSI_GREEN + "[ ¡Has subido de nivel, restauraste tu vida y mana! Ahora eres nivel " + this.nivel + "! ]";
+				mensaje += ANSI_GREEN + "[ ¡"+nombre+" has subido de nivel, se ha restaurado tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n"; 
 			}
         } else{
             mensaje += ANSI_RED + "[ Ataque fallido! ]";
@@ -104,7 +104,7 @@ public class Mago extends Personaje{
 			objetivo.personajesSelecionados[indice].experiencia += 5;
 		}
 
-	    mensaje += "[ "+nombre+" ha restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET; 
+	    mensaje += "[ "+nombre+" has restado " + dano + " de vida a " + objetivo.personajesSelecionados[indice].getNombre() + "! ]\n"+ANSI_RESET; 
 
 	    if (Math.random() < 0.5) {  
 	        objetivo.personajesSelecionados[indice].tieneEfecto = true;
@@ -115,7 +115,7 @@ public class Mago extends Personaje{
 
 		super.experiencia += 5;
 		if (super.subeNivel()) {
-			mensaje += ANSI_GREEN + "[ ¡"+nombre+"ha subido de nivel,se restauro su vida y mana! Ahora es nivel " + this.nivel + "! ]\n";
+			mensaje += ANSI_GREEN + "[ ¡"+nombre+" has subido de nivel, se ha restaurado tu vida y mana! Ahora eres nivel " + this.nivel + "! ]\n"; 
 		}
 		return mensaje + ANSI_RESET;
     }
